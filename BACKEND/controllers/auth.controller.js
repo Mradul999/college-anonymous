@@ -74,3 +74,24 @@ export const generateOTP = async (req, res) => {
     res.status(500).json({ message: "Failed to send OTP" });
   }
 };
+
+//verifying otp
+
+export const verifyOTP = async (req, res) => {
+  try {
+    const { email, otp } = req.body;
+    const otpDoc = await OTP.findOne({ email, otp });
+    if (!otpDoc) {
+      return res.status(404).json({ message: "Invalid OTP" });
+    }
+
+    res.status(200).json({
+      success: true,
+      message: "OTP successfully verified",
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: "Failed to verify OTP",
+    });
+  }
+};
