@@ -36,6 +36,8 @@ export default function VerifyOTP() {
           password,
         });
         if (signupResponse.status === 200) {
+            console.log(signupResponse)
+
           navigate("/sign-in");
         }
       }

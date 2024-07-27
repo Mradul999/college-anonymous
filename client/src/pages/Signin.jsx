@@ -3,6 +3,9 @@ import { NavLink } from "react-router-dom";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { ThreeDots } from "react-loader-spinner";
+import { signinSuccess } from "../redux/user.slice";
+
+import { useDispatch } from "react-redux";
 export default function Signin() {
   const [formData, setFormData] = useState(null);
   const [error, setError] = useState(null);
@@ -12,6 +15,8 @@ export default function Signin() {
   const changeHandler = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
   };
+
+  const dispatch=useDispatch();
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -31,6 +36,8 @@ export default function Signin() {
 
       if (response.status === 200) {
         setLoading(false);
+        
+        dispatch(signinSuccess(response.data.user))
 
         navigate("/");
       }
