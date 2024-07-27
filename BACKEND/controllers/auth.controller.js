@@ -86,9 +86,16 @@ export const generateOTP = async (req, res) => {
 export const verifyOTP = async (req, res) => {
   try {
     const { email, otp } = req.body;
-    const otpDoc = await OTP.findOne({ email, otp });
+
+    const otpDoc = await OTP.findOne({ email });
     if (!otpDoc) {
-      return res.status(404).json({ message: "Invalid OTP" });
+      return res.status(404).json({ message: "OTP not found" });
+    }
+
+    // console.log("otpDoc.otp=>", otpDoc.otp);
+    // console.log("otp=>", otp);
+    if (parseInt(otp) !== parseInt(otpDoc.otp)) {
+      return res.status(401).json({ message: "Invalid OTP" });
     }
 
     res.status(200).json({
@@ -96,6 +103,7 @@ export const verifyOTP = async (req, res) => {
       message: "OTP successfully verified",
     });
   } catch (error) {
+    console.log(error);
     res.status(500).json({
       message: "Failed to verify OTP",
     });
