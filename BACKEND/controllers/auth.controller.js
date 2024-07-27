@@ -1,6 +1,8 @@
 import User from "../models/model.user.js";
 import bcryptjs from "bcryptjs";
-import otpGenerator from "otp-generator"
+import otpGenerator from "otp-generator";
+import OTP from "../models/model.otp.js";
+import { sendMail } from "../utils/sendMail.js";
 
 //user signup
 export const signup = async (req, res) => {
@@ -34,12 +36,12 @@ export const signup = async (req, res) => {
   }
 };
 
-//generate otp
+//generate otp and send it to user's email
 
 export const generateOTP = async (req, res) => {
   const { email } = req.body;
 
-  if(!email.endsWith("@gla.ac.in")){
+  if (!email.endsWith("@gla.ac.in")) {
     return res.status(400).json({ message: "Enter a valid email" });
   }
 
@@ -49,14 +51,26 @@ export const generateOTP = async (req, res) => {
       message: "User already registered",
     });
   }
+  try {
+    const otp = otpGenerator.generate(6, {
+      upperCaseAlphabets: false,
+      lowerCaseAlphabets: false,
+      specialChars: false,
+    });
+    const newOtp = new OTP({
+      email,
+      otp,
+    });
+    await newOtp.save();
 
-
-  const otp=otpGenerator.generate(6,{
-    digits: true,
-    upperCase: false,
-    specialChars: false,
-    length: 6,
-    alphabets: false,
-  })
-  
+    const mailResponse = await sendMail(email, otp);
+    if (mailResponse.success) {
+      res.status(200).json({
+        message: "OTP sent successfully",
+      });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Failed to send OTP" });
+  }
 };
