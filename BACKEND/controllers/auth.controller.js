@@ -3,7 +3,9 @@ import bcryptjs from "bcryptjs";
 import otpGenerator from "otp-generator";
 import OTP from "../models/model.otp.js";
 import { sendMail } from "../utils/sendMail.js";
-
+import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
+dotenv.config();
 //user signup
 export const signup = async (req, res) => {
   const { name, email, password } = req.body;
@@ -30,6 +32,10 @@ export const signup = async (req, res) => {
       password: hashedPass,
     });
     await user.save();
+    res.status(200).json({
+      success: true,
+      message: "user signup successfully",
+    });
   } catch (error) {
     console.error(error);
     return res.json({ message: error.message });
@@ -92,6 +98,43 @@ export const verifyOTP = async (req, res) => {
   } catch (error) {
     res.status(500).json({
       message: "Failed to verify OTP",
+    });
+  }
+};
+
+//user signin
+
+export const signin = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(404).json({
+        message: "User not found",
+      });
+    }
+
+    const isMatch = bcryptjs.compareSync(password, user.password);
+    if (!isMatch) {
+      return res.status(401).json({
+        message: "Invalid password",
+      });
+    }
+
+    const token = jwt.sign({ id: user._id }, process.env.SECRET_KEY);
+    res
+      .status(200)
+      .cookie("access_token", token, {
+        httpOnly: true,
+      })
+      .json({
+        message: "user signin successfully",
+        user,
+      });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message,
     });
   }
 };

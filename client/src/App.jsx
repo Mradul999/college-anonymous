@@ -1,10 +1,15 @@
-import React from 'react'
-
+import React from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 export default function App() {
   return (
     <div>
-      <h1>helo world</h1>
+      <BrowserRouter>
+      <Routes>
+        <Route path="/signup"></Route>
+      </Routes>
+
       
+      </BrowserRouter>
     </div>
-  )
+  );
 }
