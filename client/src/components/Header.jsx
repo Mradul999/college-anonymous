@@ -32,7 +32,7 @@ export default function Header() {
 
   return (
     <div
-      className="w-screen flex justify-between items-center py-4 fixed z-10 px-3 bg shadow-sm shadow-indigo-700  text-white
+      className="w-screen flex justify-between items-center py-4 fixed z-10 px-6 bg shadow-sm shadow-indigo-700  text-white
   "
     >
       <NavLink to="/">

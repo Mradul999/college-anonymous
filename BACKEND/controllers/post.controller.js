@@ -2,7 +2,7 @@ import Post from "../models/model.posts.js";
 //create post
 export const createPost = async (req, res) => {
   try {
-    const { title, content, author } = req.body;
+    const { title, content, author, image } = req.body;
 
     if (!title || !content || !author) {
       return res.status(400).json({
@@ -19,6 +19,7 @@ export const createPost = async (req, res) => {
       title,
       content,
       author,
+      image,
     });
 
     await newPost.save();
@@ -47,7 +48,4 @@ export const getAllPosts = async (req, res) => {
   }
 };
 
-
 //get popular posts
-
-
