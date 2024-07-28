@@ -24,12 +24,12 @@ export default function SinglePost({ post }) {
       <div className="flex  gap-3 items-center  ">
         <div className="flex items-center justify-center bg-indigo-500 px-2 gap-1 py-1 rounded-full">
           <CiHeart className=" " />
-          <span className="text-sm">20</span>
+          <span className="text-xs">20</span>
         </div>
 
         <div className="flex items-center justify-center bg-indigo-500 px-2 py-1 gap-1  rounded-full">
           <FaRegCommentAlt className=" text-sm " />
-          <span className="text-sm">20</span>
+          <span className="text-xs">20</span>
         </div>
       </div>
     </div>
