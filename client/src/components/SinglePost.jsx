@@ -2,10 +2,19 @@ import React from "react";
 import moment from "moment";
 import { CiHeart } from "react-icons/ci";
 import { FaRegCommentAlt } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 export default function SinglePost({ post }) {
+  const navigate = useNavigate();
+
+  const postClickHandler = () => {
+    navigate(`/post/${post?.slug}`);
+  };
   return (
-    <div className="p-2   bg-indigo-600 text-gray-200     rounded-lg">
+    <div
+      onClick={postClickHandler}
+      className="p-2   bg-indigo-600 text-gray-200 cursor-pointer     rounded-lg"
+    >
       <div className="flex items-center  gap-4">
         <p>@{post.author}</p>
         <p className=" text-sm">{moment(post.createdAt).fromNow()}</p>

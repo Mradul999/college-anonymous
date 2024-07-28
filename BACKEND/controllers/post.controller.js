@@ -15,11 +15,17 @@ export const createPost = async (req, res) => {
         message: "Post with this title already exists",
       });
     }
+    const slug = req.body.title
+      .split(" ")
+      .join("-")
+      .toLowerCase()
+      .replace(/[^a-zA-Z0-9-]/g, "");
     const newPost = new Post({
       title,
       content,
       author,
       image,
+      slug,
     });
 
     await newPost.save();

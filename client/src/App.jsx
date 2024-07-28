@@ -7,6 +7,8 @@ import Signin from "./pages/Signin";
 import VerifyOTP from "./pages/VerifyOTP";
 import Home from "./pages/Home";
 import ProtectedRoute from "./components/ProtectedRoute";
+import CreatePost from "./pages/CreatePost";
+import PostPage from "./pages/PostPage";
 export default function App() {
   return (
     <div className=" bg">
@@ -17,7 +19,23 @@ export default function App() {
           <Route path="/sign-up" element={<Signup />}></Route>
           <Route path="/sign-in" element={<Signin />}></Route>
           <Route path="/verify-otp" element={<VerifyOTP />}></Route>
-          <Route path="/" element={<ProtectedRoute />}></Route>
+          <Route
+            path="/"
+            element={
+              <ProtectedRoute>
+                <Home />
+              </ProtectedRoute>
+            }
+          ></Route>
+          <Route
+            path="/create-post"
+            element={
+              <ProtectedRoute>
+                <CreatePost />
+              </ProtectedRoute>
+            }
+          ></Route>
+          <Route path="/post/:postSlug" element={<PostPage />}></Route>
         </Routes>
       </BrowserRouter>
     </div>
