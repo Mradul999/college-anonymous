@@ -20,14 +20,13 @@ export const signup = async (req, res) => {
     if (existingUser) {
       return res.status(400).json({ message: "User already exists" });
     }
-    const username =
-      name.replace(/\s+/g, "").toLowerCase() +
-      Math.floor(1000 + Math.random() * 9000);
+    const username = "anonymous" + Math.floor(1000 + Math.random() * 9000);
 
     const hashedPass = bcryptjs.hashSync(password, 10);
 
     const user = new User({
       username,
+      name,
       email,
       password: hashedPass,
     });
@@ -143,6 +142,22 @@ export const signin = async (req, res) => {
     res.status(500).json({
       success: false,
       message: error.message,
+    });
+  }
+};
+
+export const signout = async (req, res) => {
+  try {
+    res.clearCookie("access_token");
+
+    res.status(200).json({
+      success: true,
+      message: "User signed out successfully",
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Internal server error",
     });
   }
 };
