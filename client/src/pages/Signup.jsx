@@ -50,7 +50,7 @@ export default function Signup() {
     }
   };
   return (
-    <div className="w-screen min-h-screen flex flex-col items-center justify-center bg  px-2  ">
+    <div className="w-screen min-h-screen flex flex-col items-center justify-center   px-2  ">
       <div
         className={`max-w-[500px] rounded-md flex flex-col gap-10 py-6 px-2 sm:px-6 w-full shadow-md shadow-indigo-600  bg-indigo-900`}
       >
