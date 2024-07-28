@@ -1,4 +1,5 @@
 import Post from "../models/model.posts.js";
+//create post
 export const createPost = async (req, res) => {
   try {
     const { title, content, author } = req.body;
@@ -30,3 +31,23 @@ export const createPost = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+//getAllpost
+
+export const getAllPosts = async (req, res) => {
+  try {
+    const posts = await Post.find();
+    res.status(200).json({
+      message: "post fetched successfully",
+      posts,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: error.message });
+  }
+};
+
+
+//get popular posts
+
+
