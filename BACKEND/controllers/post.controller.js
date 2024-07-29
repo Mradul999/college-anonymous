@@ -11,7 +11,12 @@ export const createPost = async (req, res) => {
         message: "Title, content and author are required",
       });
     }
-
+    const post = await Post.findOne({ title });
+    if (post) {
+      return res.status(409).json({
+        message: "Post with this title already exists",
+      });
+    }
     const slug = req.body.formData.title
       .split(" ")
       .join("-")
@@ -51,14 +56,30 @@ export const getAllPosts = async (req, res) => {
   }
 };
 
-//like a post
-export const likePost=async(req,res)=>{
+//get popular posts
 
+export const likePost = async (req, res) => {
   try {
-    
-    
-  } catch (error) {
-    
-  }
+    // console.log("postId ,userId",req.params.postId,req.params.userId);
+    const post = await Post.findById(req.params.postId);
+    if (!post) {
+      return res.stauts(404).json({
+        message: "post not found",
+      });
+    }
 
-}
+    const index = post.likes.indexOf(req.params.userId);
+    if (index === -1) {
+      post.likes.push(req.params.userId);
+    } else {
+      post.likes.splice(index, 1);
+    }
+
+    await post.save();
+    res.status(200).json(post);
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
+    });
+  }
+};

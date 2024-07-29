@@ -88,6 +88,14 @@ export default function CreatePost() {
       }
     } catch (error) {
       setLoading(false);
+      if (error.response) {
+        if (error.response.status === 409) {
+          setError(
+            "Post already exist with this title please choose a different title"
+          );
+          return;
+        }
+      }
     }
   };
 
