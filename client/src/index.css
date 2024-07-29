@@ -5,7 +5,10 @@ body {
 }
 
 .bg{
-  background-color: #25253a
+  background-color: #0f0f0f
+}
+.card-bg{
+  background-color: #272727;
 }
 
 .scrollbar-hide {

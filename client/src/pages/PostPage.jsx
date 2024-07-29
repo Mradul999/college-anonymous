@@ -3,7 +3,8 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import moment from "moment";
 import { ThreeDots } from "react-loader-spinner";
-import { FaHeart } from "react-icons/fa";
+import { FaThumbsUp } from "react-icons/fa6";
+import { FaRegThumbsUp } from "react-icons/fa6";
 import { FaRegCommentAlt } from "react-icons/fa";
 import Comments from "../components/Comments";
 import { useSelector } from "react-redux";
@@ -68,7 +69,7 @@ export default function PostPage() {
         </div>
       ) : (
         <div className="w-full flex flex-col  rounded-lg py-4 px-4 mb-10  max-w-[900px] ">
-          <div className="bg-indigo-900 p-4 rounded-md">
+          <div className=" card-bg p-4 rounded-md">
             <div className="flex gap-3 mb-2 items-center">
               <span>{post?.author}</span>
               <span className="text-sm">
@@ -87,20 +88,23 @@ export default function PostPage() {
             <div className="flex  gap-3 items-center mb-4   ">
               <div
                 onClick={likeHandler}
-                className="flex items-center justify-center cursor-pointer bg-indigo-500 px-2 gap-1 py-1 rounded-full"
+                className="flex items-center justify-center cursor-pointer  hover:bg-gray-700 transition-all px-2 gap-1 py-1 rounded-full"
               >
-                <FaHeart
-                  className={`${
-                    liked && "text-indigo-700  "
-                  } text-md transition-all`}
-                />
+                {liked ? (
+                  <FaThumbsUp
+                    className={`
+               text-md transition-all`}
+                  />
+                ) : (
+                  <FaRegThumbsUp className={` text-md transition-all  `} />
+                )}
                 <span className="text-xs">{likesCount}</span>
               </div>
 
-              <div className="flex items-center justify-center cursor-pointer bg-indigo-500 px-2 py-1 gap-1  rounded-full">
+              {/* <div className="flex items-center justify-center cursor-pointer hover:bg-gray-700 px-2 py-1 gap-1  rounded-full">
                 <FaRegCommentAlt className=" text-sm " />
                 <span className="text-xs">20</span>
-              </div>
+              </div> */}
             </div>
             <div className="h-[1px] bg-indigo-700 w-full"></div>
           </div>

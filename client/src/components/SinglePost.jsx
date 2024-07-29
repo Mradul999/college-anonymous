@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import moment from "moment";
-import { FaHeart } from "react-icons/fa";
+
 import { FaRegCommentAlt } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import { FaThumbsUp } from "react-icons/fa6";
+import { FaRegThumbsUp } from "react-icons/fa6";
 
 export default function SinglePost({ post }) {
   const navigate = useNavigate();
@@ -15,7 +17,7 @@ export default function SinglePost({ post }) {
     navigate(`/post/${post?.slug}`);
   };
   useEffect(() => {
-    if(currentUser){
+    if (currentUser) {
       setLiked(post.likes.includes(currentUser._id));
     }
   }, [currentUser, post.likes]);
@@ -41,14 +43,14 @@ export default function SinglePost({ post }) {
   return (
     <div
       onClick={postClickHandler}
-      className="p-2   bg-indigo-600 text-gray-200 cursor-pointer     rounded-lg"
+      className="p-2   card-bg text-gray-200 cursor-pointer     rounded-lg"
     >
       <div className="flex items-center  gap-4">
         <p>@{post.author}</p>
         <p className=" text-sm">{moment(post.createdAt).fromNow()}</p>
       </div>
 
-      <h1 className="font-semibold mb-3 tracking-normal text-white text-lg">
+      <h1 className="font-semibold mb-3 tracking-normal text-gray-200  text-lg">
         {post.title}
       </h1>
       <div className="flex mb-3">
@@ -61,13 +63,21 @@ export default function SinglePost({ post }) {
       <div className="flex   gap-3 items-center  ">
         <div
           onClick={likeHandler}
-          className="flex items-center justify-center bg-indigo-500 px-2 gap-1 py-1 rounded-full"
+          className="flex items-center justify-center px-2 gap-1 py-1 rounded-full"
         >
-          <FaHeart className={`${liked&&"text-indigo-700  "} text-md transition-all`} />
-          <span className="text-xs">{likesCount}</span>
+          {liked ? (
+            <FaThumbsUp
+              className={`
+               text-md transition-all`}
+            />
+          ) : (
+            <FaRegThumbsUp className={` text-md transition-all  `} />
+          )}
+
+          <span className="text-xs pt-[1.3px]">{likesCount}</span>
         </div>
 
-        <div className="flex items-center justify-center bg-indigo-500 px-2 py-1 gap-1  rounded-full">
+        <div className="flex items-center justify-center  px-2 py-1 gap-1  rounded-full">
           <FaRegCommentAlt className=" text-md " />
           <span className="text-xs">20</span>
         </div>

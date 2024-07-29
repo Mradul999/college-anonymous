@@ -41,7 +41,7 @@ export const AllPosts = () => {
     <div className=" flex flex-col items-center gap-10 w-full h-screen   overflow-y-scroll scrollbar-hide     p-2  ">
       <button
         onClick={clickHandler}
-        className=" bg-indigo-700 text-start text-gray-200 font-semibold text-lg rounded-md px-2 py-5 w-full flex  items-center gap-1"
+        className=" card-bg text-start text-gray-200 font-semibold text-lg rounded-md px-2 py-5 w-full flex  items-center gap-1"
       >
         <MdAddCircleOutline className="text-2xl" />
         Create post...
