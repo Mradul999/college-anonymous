@@ -3,15 +3,18 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import moment from "moment";
 import { ThreeDots } from "react-loader-spinner";
-import { CiHeart } from "react-icons/ci";
+import { FaHeart } from "react-icons/fa";
 import { FaRegCommentAlt } from "react-icons/fa";
 import Comments from "../components/Comments";
+import { useSelector } from "react-redux";
 
 export default function PostPage() {
   const { postSlug } = useParams();
   const [loading, setLoading] = useState(false);
   const [post, setPost] = useState(null);
-  console.log(post);
+  const [likesCount, setLikesCount] = useState(0);
+  const [liked, setLiked] = useState(false);
+  const { currentUser } = useSelector((state) => state.user);
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -24,11 +27,34 @@ export default function PostPage() {
             (p) => p.slug === postSlug
           );
           setPost(foundPost);
+          setLiked(foundPost.likes.includes(currentUser._id));
+          setLikesCount(foundPost.likes.length);
         }
       } catch (error) {}
     };
     fetchPosts();
-  }, [postSlug]);
+  }, [postSlug, currentUser]);
+
+
+  const likeHandler = async (e) => {
+    try {
+      e.stopPropagation();
+      const response = await axios.put(
+        `/api/post/likepost/${post._id}/${currentUser._id}`
+      );
+      if (response.status === 200) {
+        console.log(response);
+        if (response.data.likes.includes(currentUser._id)) {
+          setLiked(true);
+          setLikesCount(likesCount + 1);
+        } else {
+          setLiked(false);
+          setLikesCount(likesCount - 1);
+        }
+      }
+    } catch (error) {}
+  };
+
   return (
     <div className="w-full min-h-screen  pt-[5rem] pb-2   flex justify-center  text-gray-300">
       {loading ? (
@@ -60,9 +86,12 @@ export default function PostPage() {
             )}
             <p className="mb-2">{post?.content}</p>
             <div className="flex  gap-3 items-center mb-4   ">
-              <div className="flex items-center justify-center cursor-pointer bg-indigo-500 px-2 gap-1 py-1 rounded-full">
-                <CiHeart className=" " />
-                <span className="text-xs">20</span>
+              <div
+                onClick={likeHandler}
+                className="flex items-center justify-center cursor-pointer bg-indigo-500 px-2 gap-1 py-1 rounded-full"
+              >
+                <FaHeart className={`${liked&&"text-indigo-700  "} text-md transition-all`} />
+                <span className="text-xs">{likesCount}</span>
               </div>
 
               <div className="flex items-center justify-center cursor-pointer bg-indigo-500 px-2 py-1 gap-1  rounded-full">
