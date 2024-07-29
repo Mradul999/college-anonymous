@@ -58,3 +58,18 @@ export const likeComment = async (req, res) => {
     });
   }
 };
+
+
+//delete comment
+export const deleteComment=async(req,res)=>{
+    try {
+
+
+        const deletedComment=await Comment.findByIdAndDelete(req.params.commentId);
+        res.status(200).json(deletedComment);
+
+        
+    } catch (error) {
+        
+    }
+}

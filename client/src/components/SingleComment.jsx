@@ -5,7 +5,7 @@ import { FaThumbsUp } from "react-icons/fa6";
 import { FaRegThumbsUp } from "react-icons/fa6";
 import { useSelector } from "react-redux";
 
-export default function SingleComment({ comment }) {
+export default function SingleComment({ comment,filterComments }) {
   const [user, setUser] = useState(null);
   const [liked, setLiked] = useState(false);
   const [likesCount, setLikesCount] = useState(comment.likes.length);
@@ -46,6 +46,19 @@ export default function SingleComment({ comment }) {
       console.log(error);
     }
   };
+
+  const deleteHandler = async () => {
+    try {
+      const response = await axios.delete(
+        `/api/comment/deletecomment/${comment._id}`
+      );
+      if (response.status === 200) {
+        filterComments(response.data._id);
+        
+      }
+    } catch (error) {
+    }
+  };
   return (
     <div className="w-full rounded-md mb-4  ">
       <div className="flex gap-2 items-center">
@@ -75,7 +88,10 @@ export default function SingleComment({ comment }) {
             <button className="hover:bg-gray-600 px-2 py-1 rounded-full transition-all">
               Edit
             </button>
-            <button className="hover:bg-gray-600 px-2 py-1 rounded-full transition-all">
+            <button
+              onClick={deleteHandler}
+              className="hover:bg-gray-600 px-2 py-1 rounded-full transition-all"
+            >
               Delete
             </button>
           </div>

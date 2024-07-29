@@ -49,6 +49,13 @@ export default function Comments({ post }) {
       }
     } catch (error) {}
   };
+
+  const filterComments = async (commentId) => {
+    const filteredComments = comments.filter(
+      (comment) => comment._id !== commentId
+    );
+    setcomments(filteredComments);
+  };
   return (
     <div className="w-full flex flex-col   mt-6">
       <form onSubmit={submitHandler} className="w-full flex flex-col ">
@@ -88,7 +95,11 @@ export default function Comments({ post }) {
       ) : (
         <div className="flex flex-col mt-2 gap-2">
           {comments?.map((comment) => (
-            <SingleComment comment={comment} key={comment._id} />
+            <SingleComment
+              comment={comment}
+              filterComments={filterComments}
+              key={comment._id}
+            />
           ))}
         </div>
       )}
