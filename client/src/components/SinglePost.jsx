@@ -10,6 +10,11 @@ export default function SinglePost({ post }) {
   const postClickHandler = () => {
     navigate(`/post/${post?.slug}`);
   };
+
+  const likeHandler=async()=>{
+    
+
+  }
   return (
     <div
       onClick={postClickHandler}
@@ -27,12 +32,12 @@ export default function SinglePost({ post }) {
         <p className="text-sm ">{post.content}</p>
       </div>
       {post.image && (
-        <img src={post?.image} className=" mb-3 rounded-md " alt="" />
+        <img src={post?.image} className=" mb-3 rounded-md w-[400px] " alt="" />
       )}
 
       <div className="flex  gap-3 items-center  ">
         <div className="flex items-center justify-center bg-indigo-500 px-2 gap-1 py-1 rounded-full">
-          <CiHeart className=" " />
+          <CiHeart onClick={likeHandler} className=" " />
           <span className="text-xs">20</span>
         </div>
 

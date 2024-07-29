@@ -42,29 +42,36 @@ export default function PostPage() {
           />
         </div>
       ) : (
-        <div className="w-full flex flex-col bg-indigo-900 rounded-lg py-4 px-4 mb-10  max-w-[900px] ">
-          <div className="flex gap-3 mb-2 items-center">
-            <span>{post?.author}</span>
-            <span className="text-sm">{moment(post?.createdAt).fromNow()}</span>
-          </div>
-
-          <h1 className="font-semibold text-2xl mb-5">{post?.title}</h1>
-          {post?.image && (
-            <img src={post?.image} className="mb-2 w-[500px] rounded-md "></img>
-          )}
-          <p className="mb-2">{post?.content}</p>
-          <div className="flex  gap-3 items-center mb-4   ">
-            <div className="flex items-center justify-center cursor-pointer bg-indigo-500 px-2 gap-1 py-1 rounded-full">
-              <CiHeart className=" " />
-              <span className="text-xs">20</span>
+        <div className="w-full flex flex-col  rounded-lg py-4 px-4 mb-10  max-w-[900px] ">
+          <div className="bg-indigo-900 p-4 rounded-md">
+            <div className="flex gap-3 mb-2 items-center">
+              <span>{post?.author}</span>
+              <span className="text-sm">
+                {moment(post?.createdAt).fromNow()}
+              </span>
             </div>
 
-            <div className="flex items-center justify-center cursor-pointer bg-indigo-500 px-2 py-1 gap-1  rounded-full">
-              <FaRegCommentAlt className=" text-sm " />
-              <span className="text-xs">20</span>
+            <h1 className="font-semibold text-2xl mb-5">{post?.title}</h1>
+            {post?.image && (
+              <img
+                src={post?.image}
+                className="mb-2 w-[600px] rounded-md "
+              ></img>
+            )}
+            <p className="mb-2">{post?.content}</p>
+            <div className="flex  gap-3 items-center mb-4   ">
+              <div className="flex items-center justify-center cursor-pointer bg-indigo-500 px-2 gap-1 py-1 rounded-full">
+                <CiHeart className=" " />
+                <span className="text-xs">20</span>
+              </div>
+
+              <div className="flex items-center justify-center cursor-pointer bg-indigo-500 px-2 py-1 gap-1  rounded-full">
+                <FaRegCommentAlt className=" text-sm " />
+                <span className="text-xs">20</span>
+              </div>
             </div>
+            <div className="h-[1px] bg-indigo-700 w-full"></div>
           </div>
-          <div className="h-[1px] bg-indigo-700 w-full"></div>
 
           <Comments />
         </div>

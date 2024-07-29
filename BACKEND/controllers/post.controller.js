@@ -2,20 +2,17 @@ import Post from "../models/model.posts.js";
 //create post
 export const createPost = async (req, res) => {
   try {
-    const { title, content, author, image } = req.body;
+    const { title, content, image } = req.body.formData;
+    const { author } = req.body;
+    console.log(req.body);
 
-    if (!title || !content || !author) {
+    if (!title || !content) {
       return res.status(400).json({
         message: "Title, content and author are required",
       });
     }
-    const post = await Post.findOne({ title });
-    if (post) {
-      return res.status(409).json({
-        message: "Post with this title already exists",
-      });
-    }
-    const slug = req.body.title
+
+    const slug = req.body.formData.title
       .split(" ")
       .join("-")
       .toLowerCase()
@@ -54,4 +51,14 @@ export const getAllPosts = async (req, res) => {
   }
 };
 
-//get popular posts
+//like a post
+export const likePost=async(req,res)=>{
+
+  try {
+    
+    
+  } catch (error) {
+    
+  }
+
+}

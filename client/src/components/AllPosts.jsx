@@ -1,22 +1,30 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { ThreeDots } from "react-loader-spinner";
 import SinglePost from "./SinglePost";
 import { MdAddCircleOutline } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 export const AllPosts = () => {
   const [allPosts, setAllPosts] = useState([]);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { currentUser } = useSelector((state) => state.user);
 
   useEffect(() => {
     const fetchPosts = async () => {
-      const response = await axios.get("/api/post/getallposts");
-      if (response.status === 200) {
-        const sortedPosts = response.data.posts.sort(
-          (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
-        );
-        setAllPosts(sortedPosts);
+      try {
+        setLoading(true);
+        const response = await axios.get("/api/post/getallposts");
+        if (response.status === 200) {
+          setLoading(false);
+          const sortedPosts = response.data.posts.sort(
+            (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+          );
+          setAllPosts(sortedPosts);
+        }
+      } catch (error) {
+        setLoading(false);
       }
     };
     fetchPosts();
@@ -39,9 +47,23 @@ export const AllPosts = () => {
         Create post...
       </button>
       <div className="flex flex-col w-full     gap-4">
-        {allPosts?.map((post) => (
-          <SinglePost post={post} key={post._id} />
-        ))}
+        {loading ? (
+          <div className="flex justify-center items-center">
+            <ThreeDots
+              height="40"
+              width="60"
+              wrapperClass
+              color="white"
+              ariaLabel="loading"
+            />
+          </div>
+        ) : (
+          <div className="flex flex-col w-full     gap-4" >
+            {allPosts?.map((post) => (
+              <SinglePost post={post} key={post._id} />
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );
