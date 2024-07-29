@@ -12,6 +12,8 @@ export default function SinglePost({ post }) {
   const navigate = useNavigate();
   const { currentUser } = useSelector((state) => state.user);
   const [likesCount, setLikesCount] = useState(post.likes.length);
+  const [commentCount, setCommentsCount] = useState(0);
+  console.log("commentCount",commentCount);
   const [liked, setLiked] = useState(false);
   const postClickHandler = () => {
     navigate(`/post/${post?.slug}`);
@@ -21,6 +23,17 @@ export default function SinglePost({ post }) {
       setLiked(post.likes.includes(currentUser._id));
     }
   }, [currentUser, post.likes]);
+
+  useEffect(() => {
+    const getComments = async () => {
+      const response = await axios.get(`/api/comment/getcomments/${post._id}`);
+      if (response.status === 200) {
+        console.log("response",response);
+        setCommentsCount(response.data?.length);
+      }
+    };
+    getComments();
+  },[]);
 
   const likeHandler = async (e) => {
     try {
@@ -79,7 +92,7 @@ export default function SinglePost({ post }) {
 
         <div className="flex items-center justify-center  px-2 py-1 gap-1  rounded-full">
           <FaRegCommentAlt className=" text-md " />
-          <span className="text-xs">20</span>
+          <span className="text-xs">{commentCount}</span>
         </div>
       </div>
     </div>

@@ -1,10 +1,11 @@
 import express from "express";
-import { createComment, getComments } from "../controllers/comment.controller.js";
+import { createComment, getComments, likeComment } from "../controllers/comment.controller.js";
 
 
 const router = express.Router();
 router.post("/createcomment",createComment)
 router.get("/getcomments/:postId",getComments);
+router.put("/likecomment/:commentId/:userId",likeComment);
 
 
 

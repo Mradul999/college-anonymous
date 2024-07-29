@@ -20,7 +20,7 @@ export default function Comments({ post }) {
         if (response.status === 200) {
           setLoading(false);
           const sortedComments = response.data.sort(
-            (a, b) => new Date(b.updatedAt) - new Date(a.updatedAt)
+            (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
           );
           setcomments(sortedComments);
         }
@@ -45,7 +45,7 @@ export default function Comments({ post }) {
       });
       if (response.status === 200) {
         setComment("");
-        setcomments([ response.data,...comments]);
+        setcomments([response.data, ...comments]);
       }
     } catch (error) {}
   };
@@ -67,7 +67,9 @@ export default function Comments({ post }) {
         </div>
         <button
           className={`   text-white py-1 px-2 rounded-full text-xs ${
-            !comment ? "pointer-events-none text-gray-700 bg-gray-400":" pointer-events-auto bg-indigo-700"
+            !comment
+              ? "pointer-events-none text-gray-700 bg-gray-400"
+              : " pointer-events-auto bg-indigo-700"
           } hover:bg-indigo-500 transition-all self-end mt-2 font-medium `}
         >
           Comment

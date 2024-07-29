@@ -56,7 +56,7 @@ export const getAllPosts = async (req, res) => {
   }
 };
 
-//get popular posts
+//like post
 
 export const likePost = async (req, res) => {
   try {

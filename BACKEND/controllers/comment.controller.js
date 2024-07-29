@@ -22,15 +22,39 @@ export const createComment = async (req, res) => {
   }
 };
 
+export const getComments = async (req, res) => {
+  try {
+    const comments = await Comment.find({ postId: req.params.postId });
+    res.status(200).json(comments);
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
+    });
+  }
+};
 
-export const getComments=async(req,res)=>{
-    try {
-        const comments = await Comment.find({postId:req.params.postId});
-        res.status(200).json(comments);
-    } catch (error) {
-        res.status(500).json({
-            message:error.message,
-        });
+export const likeComment = async (req, res) => {
+  try {
+    // console.log("postId ,userId",req.params.postId,req.params.userId);
+    const comment = await Comment.findById(req.params.commentId);
+    if (!comment) {
+      return res.stauts(404).json({
+        message: "comment not found",
+      });
     }
- 
-}
+
+    const index = comment.likes.indexOf(req.params.userId);
+    if (index === -1) {
+      comment.likes.push(req.params.userId);
+    } else {
+      comment.likes.splice(index, 1);
+    }
+
+    await comment.save();
+    res.status(200).json(comment);
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
+    });
+  }
+};
