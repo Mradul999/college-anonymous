@@ -35,7 +35,6 @@ export default function PostPage() {
     fetchPosts();
   }, [postSlug, currentUser]);
 
-
   const likeHandler = async (e) => {
     try {
       e.stopPropagation();
@@ -90,7 +89,11 @@ export default function PostPage() {
                 onClick={likeHandler}
                 className="flex items-center justify-center cursor-pointer bg-indigo-500 px-2 gap-1 py-1 rounded-full"
               >
-                <FaHeart className={`${liked&&"text-indigo-700  "} text-md transition-all`} />
+                <FaHeart
+                  className={`${
+                    liked && "text-indigo-700  "
+                  } text-md transition-all`}
+                />
                 <span className="text-xs">{likesCount}</span>
               </div>
 
@@ -102,7 +105,7 @@ export default function PostPage() {
             <div className="h-[1px] bg-indigo-700 w-full"></div>
           </div>
 
-          <Comments />
+          <Comments post={post} />
         </div>
       )}
     </div>

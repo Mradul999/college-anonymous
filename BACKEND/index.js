@@ -3,6 +3,8 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import authRoute from "./routes/auth.js";
 import postRoute from "./routes/post.js"
+import commentRoute from "./routes/comment.js"
+import userRoute from "./routes/user.js"
 
 const app = express();
 app.use(express.json());
@@ -18,3 +20,5 @@ app.listen(process.env.PORT || 4000, () => {
 
 app.use("/api/auth", authRoute);
 app.use("/api/post",postRoute);
+app.use("/api/comment",commentRoute);
+app.use("/api/user",userRoute);
