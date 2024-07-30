@@ -59,17 +59,31 @@ export const likeComment = async (req, res) => {
   }
 };
 
-
 //delete comment
-export const deleteComment=async(req,res)=>{
-    try {
+export const deleteComment = async (req, res) => {
+  try {
+    const deletedComment = await Comment.findByIdAndDelete(
+      req.params.commentId
+    );
+    res.status(200).json(deletedComment);
+  } catch (error) {}
+};
 
-
-        const deletedComment=await Comment.findByIdAndDelete(req.params.commentId);
-        res.status(200).json(deletedComment);
-
-        
-    } catch (error) {
-        
+//edit comment
+export const editComment = async (req, res) => {
+  try {
+    const comment = await Comment.findById(req.params.commentId);
+    if (!comment) {
+      return res.status(404).json({
+        message: "comment not found",
+      });
     }
-}
+    comment.content = req.body.content;
+    await comment.save();
+    res.status(200).json(comment);
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
+    });
+  }
+};

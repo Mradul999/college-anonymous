@@ -5,7 +5,7 @@ body {
 }
 
 .bg{
-  background-color: #0f0f0f
+  background-color: #181616
 }
 .card-bg{
   background-color: #272727;
@@ -19,6 +19,25 @@ body {
 .scrollbar-hide::-webkit-scrollbar {
   display: none; /* Chrome, Safari, Opera */
 }
+.loader {
+  width: 30px;
+  height: 30px;
+  border: 2px solid #FFF;
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+  }
+
+  @keyframes rotation {
+  0% {
+      transform: rotate(0deg);
+  }
+  100% {
+      transform: rotate(360deg);
+  }
+  } 
 
 
 

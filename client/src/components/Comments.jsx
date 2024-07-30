@@ -56,6 +56,11 @@ export default function Comments({ post }) {
     );
     setcomments(filteredComments);
   };
+
+  const onEdit = async (comment, content) => {
+    comments.map((c) => (c._id === comment._id ? { ...c, content } : c));
+  };
+
   return (
     <div className="w-full flex flex-col   mt-6">
       <form onSubmit={submitHandler} className="w-full flex flex-col ">
@@ -97,6 +102,7 @@ export default function Comments({ post }) {
           {comments?.map((comment) => (
             <SingleComment
               comment={comment}
+              onEdit={onEdit}
               filterComments={filterComments}
               key={comment._id}
             />
