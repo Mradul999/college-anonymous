@@ -3,7 +3,8 @@ import Post from "../models/model.posts.js";
 export const createPost = async (req, res) => {
   try {
     const { title, content, image } = req.body.formData;
-    const { author } = req.body;
+    const { author, userId } = req.body;
+
     console.log(req.body);
 
     if (!title || !content) {
@@ -28,6 +29,7 @@ export const createPost = async (req, res) => {
       author,
       image,
       slug,
+      userId,
     });
 
     await newPost.save();
@@ -77,6 +79,24 @@ export const likePost = async (req, res) => {
 
     await post.save();
     res.status(200).json(post);
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
+    });
+  }
+};
+
+export const deletePost = async (req, res) => {
+  try {
+    const post = await Post.findById(req.params.postId);
+    if (!post) {
+      return res.status(404).json({
+        message: "post does not exist",
+      });
+    }
+    const deletedPost = await Post.findByIdAndDelete(req.params.postId);
+
+    res.status(200).json(deletedPost);
   } catch (error) {
     res.status(500).json({
       message: error.message,

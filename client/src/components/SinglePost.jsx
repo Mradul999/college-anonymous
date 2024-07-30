@@ -6,18 +6,21 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { FaThumbsUp } from "react-icons/fa6";
+import Modal from "./postModal";
 import { FaRegThumbsUp } from "react-icons/fa6";
 
-export default function SinglePost({ post }) {
+export default function SinglePost({ post,onDelete }) {
   const navigate = useNavigate();
   const { currentUser } = useSelector((state) => state.user);
   const [likesCount, setLikesCount] = useState(post.likes.length);
   const [commentCount, setCommentsCount] = useState(0);
-  console.log("commentCount",commentCount);
+  const [modal, setModal] = useState(false);
+
   const [liked, setLiked] = useState(false);
   const postClickHandler = () => {
     navigate(`/post/${post?.slug}`);
   };
+
   useEffect(() => {
     if (currentUser) {
       setLiked(post.likes.includes(currentUser._id));
@@ -32,7 +35,7 @@ export default function SinglePost({ post }) {
       }
     };
     getComments();
-  },[]);
+  }, []);
 
   const likeHandler = async (e) => {
     try {
@@ -52,11 +55,28 @@ export default function SinglePost({ post }) {
       }
     } catch (error) {}
   };
+  const deleteHandler = async () => {
+    try {
+      const response = await axios.delete(`/api/post/deletepost/${post._id}`);
+      if (response.status === 200) {
+        setModal(false);
+        onDelete(response.data._id)
+
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const showModal = (e) => {
+    e.stopPropagation();
+    setModal(true);
+  };
   return (
     <div
       onClick={postClickHandler}
       className="p-2   card-bg text-gray-200 cursor-pointer     rounded-lg"
     >
+      {modal && <Modal deleteHandler={deleteHandler} />}
       <div className="flex items-center  gap-4">
         <p>@{post.author}</p>
         <p className=" text-sm">{moment(post.createdAt).fromNow()}</p>
@@ -71,29 +91,39 @@ export default function SinglePost({ post }) {
       <div className="flex mb-3">
         <p className="text-sm ">{post.content}</p>
       </div>
-      
 
-      <div className="flex   gap-3 items-center  ">
-        <div
-          onClick={likeHandler}
-          className="flex items-center justify-center px-2 gap-1 py-1 hover:bg-gray-600 transition-all rounded-full"
-        >
-          {liked ? (
-            <FaThumbsUp
-              className={`
+      <div className="flex   justify-between  items-center  ">
+        <div className="flex items-center gap-3">
+          <div
+            onClick={likeHandler}
+            className="flex items-center justify-center px-2 gap-1 py-1 hover:bg-gray-600 transition-all rounded-full"
+          >
+            {liked ? (
+              <FaThumbsUp
+                className={`
                text-md transition-all`}
-            />
-          ) : (
-            <FaRegThumbsUp className={` text-md transition-all  `} />
-          )}
+              />
+            ) : (
+              <FaRegThumbsUp className={` text-md transition-all  `} />
+            )}
 
-          <span className="text-xs pt-[1.3px]">{likesCount}</span>
+            <span className="text-xs pt-[1.3px]">{likesCount}</span>
+          </div>
+
+          <div className="flex items-center justify-center hover:bg-gray-600 transition-all   px-2 py-1 gap-1  rounded-full">
+            <FaRegCommentAlt className=" text-md  " />
+            <span className="text-xs">{commentCount}</span>
+          </div>
         </div>
 
-        <div className="flex items-center justify-center hover:bg-gray-600 transition-all   px-2 py-1 gap-1  rounded-full">
-          <FaRegCommentAlt className=" text-md  " />
-          <span className="text-xs">{commentCount}</span>
-        </div>
+        {currentUser._id === post.userId && (
+          <button
+            onClick={showModal}
+            className="bg-indigo-700 rounded-md px-2 py-1 text-sm text-gray-300"
+          >
+            Delete
+          </button>
+        )}
       </div>
     </div>
   );

@@ -29,6 +29,10 @@ export default function Header() {
         console.log(error);
     }
   };
+  const myPostHandler=()=>{
+    navigate("/posts/userposts");
+    setDropdown(false);
+  }
 
   return (
     <div
@@ -62,6 +66,9 @@ export default function Header() {
           }  flex-col`}
         >
           <h1 className="text-sm">@{currentUser?.username}</h1>
+          <div className="h-[0.7px] w-[95%] bg-gray-300 rounded-full mx-auto"></div>
+          
+          <p onClick={myPostHandler} className="text-sm font-medium hover:scale-95 pl-1 transition-all cursor-pointer">My Posts</p>
           <div className="h-[0.7px] w-[95%] bg-gray-300 rounded-full mx-auto"></div>
           <button
             onClick={signoutHandler}

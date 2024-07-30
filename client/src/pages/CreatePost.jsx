@@ -82,6 +82,7 @@ export default function CreatePost() {
       const response = await axios.post("/api/post/createpost", {
         formData,
         author: currentUser.username,
+        userId:currentUser._id
       });
       if (response.status === 200) {
         navigate(`/`);

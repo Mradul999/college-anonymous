@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-
-import SinglePost from "./SinglePost";
-import { MdAddCircleOutline } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-export const AllPosts = () => {
+import SinglePost from "../components/SinglePost";
+
+export default function UserPost() {
   const [allPosts, setAllPosts] = useState([]);
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
   const { currentUser } = useSelector((state) => state.user);
 
   useEffect(() => {
@@ -18,50 +16,41 @@ export const AllPosts = () => {
         const response = await axios.get("/api/post/getallposts");
         if (response.status === 200) {
           setLoading(false);
-          const sortedPosts = response.data.posts.sort(
+          const filteredPosts = response.data.posts.filter(
+            (post) => post.userId === currentUser._id
+          );
+          const sortedPosts = filteredPosts.sort(
             (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
           );
+
           setAllPosts(sortedPosts);
         }
       } catch (error) {
         setLoading(false);
       }
     };
-    fetchPosts();
-  }, []);
-
-  const clickHandler = () => {
-    if (!currentUser) {
-      navigate("/sign-in");
+    if (currentUser) {
+      fetchPosts();
     }
-    navigate("/create-post");
-  };
+  }, [currentUser]);
 
   const onDelete = async (postId) => {
     const updatedPosts = allPosts.filter((post) => post._id !== postId);
     setAllPosts(updatedPosts);
   };
-
   return (
-    <div className=" flex flex-col items-center gap-10 w-full h-screen   overflow-y-scroll scrollbar-hide     p-2  ">
-      <button
-        onClick={clickHandler}
-        className=" card-bg text-start text-gray-200 font-semibold text-lg rounded-md px-2 py-5 w-full flex  items-center gap-1"
-      >
-        <MdAddCircleOutline className="text-2xl" />
-        Create post...
-      </button>
-      <div className="flex flex-col w-full     gap-4">
+    <div className="w-full flex justify-center min-h-screen">
+      <div className="w-full max-w-[900px] flex  pt-20 pb-3 ">
         {loading ? (
           <div className="flex justify-center items-center ">
             <span class="loader"></span>
           </div>
         ) : (
-          <div className="flex flex-col w-full     gap-3">
-            {allPosts.length === 0 && (
-              <p className="text-center text-gray-200">No post available</p>
-            )}
-            {allPosts?.map((post) => (
+          <div className="flex flex-col w-full gap-3">
+            <h1 className="text-2xl text-gray-300 font-medium text-center">
+              All posts
+            </h1>
+            {allPosts.map((post) => (
               <SinglePost post={post} onDelete={onDelete} key={post._id} />
             ))}
           </div>
@@ -69,4 +58,4 @@ export const AllPosts = () => {
       </div>
     </div>
   );
-};
+}

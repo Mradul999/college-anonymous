@@ -9,6 +9,7 @@ import Home from "./pages/Home";
 import ProtectedRoute from "./components/ProtectedRoute";
 import CreatePost from "./pages/CreatePost";
 import PostPage from "./pages/PostPage";
+import UserPost from "./pages/UserPost";
 export default function App() {
   return (
     <div className=" bg">
@@ -35,7 +36,22 @@ export default function App() {
               </ProtectedRoute>
             }
           ></Route>
-          <Route path="/post/:postSlug" element={<PostPage />}></Route>
+          <Route
+            path="/post/:postSlug"
+            element={
+              <ProtectedRoute>
+                <PostPage />
+              </ProtectedRoute>
+            }
+          ></Route>
+          <Route
+            path="/posts/userposts"
+            element={
+              <ProtectedRoute>
+                <UserPost />
+              </ProtectedRoute>
+            }
+          ></Route>
         </Routes>
       </BrowserRouter>
     </div>
