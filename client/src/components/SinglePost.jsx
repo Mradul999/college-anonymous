@@ -28,7 +28,6 @@ export default function SinglePost({ post }) {
     const getComments = async () => {
       const response = await axios.get(`/api/comment/getcomments/${post._id}`);
       if (response.status === 200) {
-        console.log("response",response);
         setCommentsCount(response.data?.length);
       }
     };
@@ -66,17 +65,18 @@ export default function SinglePost({ post }) {
       <h1 className="font-semibold mb-3 tracking-normal text-gray-200  text-lg">
         {post.title}
       </h1>
+      {post.image && (
+        <img src={post?.image} className=" mb-3 rounded-md w-[300px] " alt="" />
+      )}
       <div className="flex mb-3">
         <p className="text-sm ">{post.content}</p>
       </div>
-      {post.image && (
-        <img src={post?.image} className=" mb-3 rounded-md w-[400px] " alt="" />
-      )}
+      
 
       <div className="flex   gap-3 items-center  ">
         <div
           onClick={likeHandler}
-          className="flex items-center justify-center px-2 gap-1 py-1 rounded-full"
+          className="flex items-center justify-center px-2 gap-1 py-1 hover:bg-gray-600 transition-all rounded-full"
         >
           {liked ? (
             <FaThumbsUp
@@ -90,8 +90,8 @@ export default function SinglePost({ post }) {
           <span className="text-xs pt-[1.3px]">{likesCount}</span>
         </div>
 
-        <div className="flex items-center justify-center  px-2 py-1 gap-1  rounded-full">
-          <FaRegCommentAlt className=" text-md " />
+        <div className="flex items-center justify-center hover:bg-gray-600 transition-all   px-2 py-1 gap-1  rounded-full">
+          <FaRegCommentAlt className=" text-md  " />
           <span className="text-xs">{commentCount}</span>
         </div>
       </div>

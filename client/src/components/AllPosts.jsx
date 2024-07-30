@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { ThreeDots } from "react-loader-spinner";
+
 import SinglePost from "./SinglePost";
 import { MdAddCircleOutline } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
@@ -48,17 +48,14 @@ export const AllPosts = () => {
       </button>
       <div className="flex flex-col w-full     gap-4">
         {loading ? (
-          <div className="flex justify-center items-center">
-            <ThreeDots
-              height="40"
-              width="60"
-              wrapperClass
-              color="white"
-              ariaLabel="loading"
-            />
+          <div className="flex justify-center items-center ">
+            <span class="loader"></span>
           </div>
         ) : (
-          <div className="flex flex-col w-full     gap-3" >
+          <div className="flex flex-col w-full     gap-3">
+            {allPosts.length === 0 && (
+              <p className="text-center text-gray-200">No post available</p>
+            )}
             {allPosts?.map((post) => (
               <SinglePost post={post} key={post._id} />
             ))}

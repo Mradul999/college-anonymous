@@ -32,7 +32,7 @@ export default function Header() {
 
   return (
     <div
-      className="w-screen flex justify-between items-center py-4 fixed z-10 px-6 bg shadow-sm shadow-indigo-700  text-white
+      className="w-screen flex justify-between items-center py-4 fixed z-10 px-7   bg shadow-sm shadow-indigo-700  text-white
   "
     >
       <NavLink to="/">
@@ -41,12 +41,13 @@ export default function Header() {
 
       <div className="flex  items-center relative gap-3">
         {currentUser ? (
-          <img
-            onClick={profileClickHandler}
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTqafzhnwwYzuOTjTlaYMeQ7hxQLy_Wq8dnQg&s"
-            className="rounded-full size-8 cursor-pointer"
-            alt="profile"
-          ></img>
+          // <img
+          //   onClick={profileClickHandler}
+          //   src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTqafzhnwwYzuOTjTlaYMeQ7hxQLy_Wq8dnQg&s"
+          //   className="rounded-full size-8 cursor-pointer"
+          //   alt="profile"
+          // ></img>
+          <h2 onClick={profileClickHandler} className="text-sm cursor-pointer text-indigo-600 font-semibold">{currentUser.username}</h2>
         ) : (
           <NavLink to="/sign-in">
             <button className="px-2 py-2 bg-indigo-600 text-sm rounded-md font-medium hover:bg-indigo-700 transition-all hover:scale-95">

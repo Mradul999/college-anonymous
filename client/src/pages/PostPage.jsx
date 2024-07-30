@@ -59,14 +59,8 @@ export default function PostPage() {
     <div className="w-full min-h-screen  pt-[5rem] pb-2   flex justify-center  text-gray-300">
       {loading ? (
         <div className="flex justify-center items-center">
-          <ThreeDots
-            height="40"
-            width="60"
-            wrapperClass
-            color="white"
-            ariaLabel="loading"
-          />
-        </div>
+        <span class="loader"></span>
+      </div>
       ) : (
         <div className="w-full flex flex-col  rounded-lg py-4 px-4 mb-10  max-w-[900px] ">
           <div className=" card-bg p-4 rounded-md">

@@ -158,7 +158,8 @@ export default function CreatePost() {
             placeholder="Write your post..."
           />
           {error && <p className="text-red-600 text-sm">{error}</p>}
-          <button className="bg-indigo-700 py-2 px-2  hover:bg-indigo-800  transition-all  text-white font-medium rounded-md">
+
+          <button className={`bg-indigo-700 py-2 px-2  hover:bg-indigo-800  transition-all ${imgUplaoding &&" pointer-events-none cursor-not-allowed"}  text-white font-medium rounded-md`}>
             {loading ? (
               <div className="flex justify-center items-center">
                 <ThreeDots

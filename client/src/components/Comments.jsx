@@ -99,6 +99,7 @@ export default function Comments({ post }) {
         </div>
       ) : (
         <div className="flex flex-col mt-2 gap-2">
+          {comments.length===0 && <p className="text-center">No comments yet</p>}
           {comments?.map((comment) => (
             <SingleComment
               comment={comment}
