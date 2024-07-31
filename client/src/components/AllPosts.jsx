@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import Modal from "./SigninModal";
 
 import SinglePost from "./SinglePost";
 import { MdAddCircleOutline } from "react-icons/md";
@@ -9,6 +10,7 @@ export const AllPosts = () => {
   const [allPosts, setAllPosts] = useState([]);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const [modal, setModal] = useState(false);
   const { currentUser } = useSelector((state) => state.user);
 
   useEffect(() => {
@@ -32,7 +34,8 @@ export const AllPosts = () => {
 
   const clickHandler = () => {
     if (!currentUser) {
-      navigate("/sign-in");
+      setModal(true);
+      return;
     }
     navigate("/create-post");
   };
@@ -44,6 +47,7 @@ export const AllPosts = () => {
 
   return (
     <div className=" flex flex-col items-center gap-10 w-full h-screen   overflow-y-scroll scrollbar-hide     p-2  ">
+      {modal && <Modal />}
       <button
         onClick={clickHandler}
         className=" card-bg text-start text-gray-200 font-semibold text-lg rounded-md px-2 py-5 w-full flex  items-center gap-1"

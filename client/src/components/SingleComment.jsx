@@ -4,6 +4,8 @@ import React, { useEffect, useState } from "react";
 import { FaThumbsUp } from "react-icons/fa6";
 import { FaRegThumbsUp } from "react-icons/fa6";
 import { useSelector } from "react-redux";
+import SigninModal from "./SigninModal";
+import { useNavigate } from "react-router-dom";
 
 import Modal from "./Modal";
 
@@ -15,9 +17,12 @@ export default function SingleComment({ comment, filterComments, onEdit }) {
   const [likesCount, setLikesCount] = useState(comment.likes.length);
   const { currentUser } = useSelector((state) => state.user);
   const [editArea, showEditArea] = useState(false);
+  const navigate=useNavigate();
   const [editedComment, setEditedComment] = useState(comment.content);
 
-  console.log("editedcomment", editedComment);
+  const [signinModal, setSigninModal] = useState(false);
+
+  // console.log("editedcomment", editedComment);
 
   useEffect(() => {
     const getUser = async () => {
@@ -38,6 +43,12 @@ export default function SingleComment({ comment, filterComments, onEdit }) {
   const likeHandler = async () => {
     // console.log("comment._id,currentUser._id", comment._id, currentUser._id);
     try {
+      if (!currentUser) {
+        setSigninModal(true);
+        return;
+        
+        
+      }
       const response = await axios.put(
         `/api/comment/likecomment/${comment._id}/${currentUser._id}`
       );
@@ -89,6 +100,7 @@ export default function SingleComment({ comment, filterComments, onEdit }) {
   };
   return (
     <div>
+      {signinModal && <SigninModal/>}
       {loading ? (
         <div className="flex justify-center items-center mt-6">
           <span class="loader"></span>
@@ -149,7 +161,7 @@ export default function SingleComment({ comment, filterComments, onEdit }) {
               <span className="text-xs">{likesCount}</span>
             </div>
 
-            {currentUser._id === comment.userId && (
+            {currentUser?._id === comment.userId && (
               <div className="flex  items-center text-sm pl-2">
                 <button
                   onClick={() => showEditArea(true)}

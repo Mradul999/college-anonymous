@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import SingleComment from "./SingleComment";
 import { ThreeDots } from "react-loader-spinner";
+import { NavLink } from "react-router-dom";
 
 export default function Comments({ post }) {
   const { currentUser } = useSelector((state) => state.user);
@@ -37,6 +38,7 @@ export default function Comments({ post }) {
     if (!comment) {
       return;
     }
+   
     try {
       const response = await axios.post("/api/comment/createcomment", {
         content: comment,
@@ -63,10 +65,11 @@ export default function Comments({ post }) {
 
   return (
     <div className="w-full flex flex-col   mt-6">
-      <form onSubmit={submitHandler} className="w-full flex flex-col ">
+      {!currentUser && <p className="text-center font-medium text-indigo-700 border-b border-gray-600  pb-4"> <NavLink to="/sign-in">Signin</NavLink> <span className="text-gray-300"> to comment</span> </p>}
+      <form onSubmit={submitHandler} className={`w-full flex flex-col ${!currentUser &&"hidden"} `}>
         <div className="flex  gap-3 items-center">
           <span className="text-white font-semibold text-sm">
-            {currentUser.username}
+            {currentUser?.username}
           </span>
           <textarea
             value={comment}

@@ -47,9 +47,16 @@ export default function UserPost() {
           </div>
         ) : (
           <div className="flex flex-col w-full gap-3">
-            <h1 className="text-2xl text-gray-300 font-medium text-center">
-              All posts
-            </h1>
+            {allPosts.length === 0 ? (
+              <p className="text-white text-center font-semibold ">
+                No post created Yet
+              </p>
+            ) : (
+              <h1 className="text-2xl text-gray-300 font-medium text-center">
+                All posts
+              </h1>
+            )}
+
             {allPosts.map((post) => (
               <SinglePost post={post} onDelete={onDelete} key={post._id} />
             ))}

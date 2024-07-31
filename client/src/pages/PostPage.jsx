@@ -8,6 +8,7 @@ import { FaRegThumbsUp } from "react-icons/fa6";
 import { FaRegCommentAlt } from "react-icons/fa";
 import Comments from "../components/Comments";
 import { useSelector } from "react-redux";
+import SigninModal from "../components/SigninModal";
 
 export default function PostPage() {
   const { postSlug } = useParams();
@@ -16,6 +17,7 @@ export default function PostPage() {
   const [likesCount, setLikesCount] = useState(0);
   const [liked, setLiked] = useState(false);
   const { currentUser } = useSelector((state) => state.user);
+  const[signinModal,setSigninModal]=useState(false);
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -28,16 +30,24 @@ export default function PostPage() {
             (p) => p.slug === postSlug
           );
           setPost(foundPost);
-          setLiked(foundPost.likes.includes(currentUser._id));
           setLikesCount(foundPost.likes.length);
+         
+          setLiked(foundPost.likes.includes(currentUser._id));
+       
+          
         }
       } catch (error) {}
     };
     fetchPosts();
-  }, [postSlug, currentUser]);
+  }, [postSlug]);
 
   const likeHandler = async (e) => {
     try {
+      if(!currentUser){
+        setSigninModal(true);
+        return;
+      }
+
       e.stopPropagation();
       const response = await axios.put(
         `/api/post/likepost/${post._id}/${currentUser._id}`
@@ -57,6 +67,7 @@ export default function PostPage() {
 
   return (
     <div className="w-full min-h-screen  pt-[5rem] pb-2   flex justify-center  text-gray-300">
+      {signinModal && <SigninModal/>}
       {loading ? (
         <div className="flex justify-center items-center">
         <span class="loader"></span>

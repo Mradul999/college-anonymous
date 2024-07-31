@@ -20,14 +20,7 @@ export default function App() {
           <Route path="/sign-up" element={<Signup />}></Route>
           <Route path="/sign-in" element={<Signin />}></Route>
           <Route path="/verify-otp" element={<VerifyOTP />}></Route>
-          <Route
-            path="/"
-            element={
-              <ProtectedRoute>
-                <Home />
-              </ProtectedRoute>
-            }
-          ></Route>
+          <Route path="/" element={<Home />}></Route>
           <Route
             path="/create-post"
             element={
@@ -36,14 +29,7 @@ export default function App() {
               </ProtectedRoute>
             }
           ></Route>
-          <Route
-            path="/post/:postSlug"
-            element={
-              <ProtectedRoute>
-                <PostPage />
-              </ProtectedRoute>
-            }
-          ></Route>
+          <Route path="/post/:postSlug" element={<PostPage />}></Route>
           <Route
             path="/posts/userposts"
             element={

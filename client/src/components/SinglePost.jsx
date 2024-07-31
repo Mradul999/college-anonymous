@@ -8,13 +8,15 @@ import { useSelector } from "react-redux";
 import { FaThumbsUp } from "react-icons/fa6";
 import Modal from "./postModal";
 import { FaRegThumbsUp } from "react-icons/fa6";
+import SigninModal from "./SigninModal";
 
-export default function SinglePost({ post,onDelete }) {
+export default function SinglePost({ post, onDelete }) {
   const navigate = useNavigate();
   const { currentUser } = useSelector((state) => state.user);
   const [likesCount, setLikesCount] = useState(post.likes.length);
   const [commentCount, setCommentsCount] = useState(0);
   const [modal, setModal] = useState(false);
+  const [signinModal, setSigninModal] = useState(false);
 
   const [liked, setLiked] = useState(false);
   const postClickHandler = () => {
@@ -39,6 +41,11 @@ export default function SinglePost({ post,onDelete }) {
 
   const likeHandler = async (e) => {
     try {
+      if (!currentUser) {
+        e.stopPropagation();
+        setSigninModal(true);
+        return;
+      }
       e.stopPropagation();
       const response = await axios.put(
         `/api/post/likepost/${post._id}/${currentUser._id}`
@@ -60,8 +67,7 @@ export default function SinglePost({ post,onDelete }) {
       const response = await axios.delete(`/api/post/deletepost/${post._id}`);
       if (response.status === 200) {
         setModal(false);
-        onDelete(response.data._id)
-
+        onDelete(response.data._id);
       }
     } catch (error) {
       console.log(error);
@@ -74,8 +80,9 @@ export default function SinglePost({ post,onDelete }) {
   return (
     <div
       onClick={postClickHandler}
-      className="p-2   card-bg text-gray-200 cursor-pointer     rounded-lg"
+      className="p-2   card-bg text-gray-200 cursor-pointer      rounded-lg"
     >
+      {signinModal && <SigninModal></SigninModal>}
       {modal && <Modal deleteHandler={deleteHandler} />}
       <div className="flex items-center  gap-4">
         <p>@{post.author}</p>
@@ -89,7 +96,7 @@ export default function SinglePost({ post,onDelete }) {
         <img src={post?.image} className=" mb-3 rounded-md w-[300px] " alt="" />
       )}
       <div className="flex mb-3">
-        <p className="text-sm ">{post.content}</p>
+        <p className="text-sm line-clamp-1 ">{post.content}</p>
       </div>
 
       <div className="flex   justify-between  items-center  ">
@@ -116,7 +123,7 @@ export default function SinglePost({ post,onDelete }) {
           </div>
         </div>
 
-        {currentUser._id === post.userId && (
+        {currentUser?._id === post.userId && (
           <button
             onClick={showModal}
             className="bg-indigo-700 rounded-md px-2 py-1 text-sm text-gray-300"
