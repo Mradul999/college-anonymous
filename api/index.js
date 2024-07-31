@@ -20,6 +20,9 @@ app.use("/api/auth", authRoute);
 app.use("/api/post", postRoute);
 app.use("/api/comment", commentRoute);
 app.use("/api/user", userRoute);
+app.use('/',(req,res)=>{
+  res.send("server is running")
+})
 app.listen(process.env.PORT || 4000, () => {
   console.log(`Server running on port ${process.env.PORT}`);
 });
