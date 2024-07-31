@@ -101,8 +101,8 @@ export default function CreatePost() {
   };
 
   return (
-    <div className="w-full min-h-screen pt-20 flex justify-center  overflow-x-hidden">
-      <div className="max-w-[700px] mt-2 mb-10  items-center w-full flex  gap-10 flex-col">
+    <div className="w-full min-h-screen  pt-20 flex justify-center  overflow-x-hidden">
+      <div className="max-w-[700px] px-2  mt-2 mb-10  items-center w-full flex  gap-10 flex-col">
         <h1 className="text-2xl text-gray-300 font-semibold">Create Post</h1>
         <form onSubmit={submitHandler} className="w-full flex flex-col gap-3 ">
           <input
@@ -112,7 +112,7 @@ export default function CreatePost() {
             className="rounded-md w-full  py-2 px-2 bg-gray-200 focus:outline none border-[2.5px] border-indigo-600 focus:border-indigo-800 text-gray-700  "
             placeholder="Title"
           />
-          <div className="flex justify-between gap-2">
+          <div className="flex md:flex-row flex-col justify-between gap-2">
             <input
               onChange={fileChangeHandler}
               type="file"

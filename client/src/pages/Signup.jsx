@@ -52,10 +52,10 @@ export default function Signup() {
   return (
     <div className="w-screen min-h-screen flex flex-col items-center justify-center   px-2  ">
       <div
-        className={`max-w-[500px] rounded-md flex flex-col gap-10 py-6 px-2 sm:px-6 w-full card-shadow shadow-md shadow-gray-700  bg-opacity-40   bg-gray-700`}
+        className={`max-w-[500px] rounded-md flex flex-col gap-10 py-6 px-2 sm:px-6 w-full card-shadow border-2 border-gray-600  bg-opacity-40   bg-gray-700`}
       >
         <h1 className="text-center text-white text-2xl sm:text-3xl font-semibold">
-          Sign up
+          Sign up 
         </h1>
         <form onSubmit={submitHandler} className="flex flex-col  gap-4  ">
           <input
@@ -75,7 +75,7 @@ export default function Signup() {
           <input
             onChange={changeHandler}
             id="password"
-            type="text"
+            type="password"
             className="rounded-md bg-black bg-opacity-10 py-2 px-2 text-white  focus:outline-none border-[2px] focus:border-green-600 border-indigo-600"
             placeholder="Enter Password"
           />

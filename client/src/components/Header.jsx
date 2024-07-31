@@ -36,7 +36,7 @@ export default function Header() {
 
   return (
     <div
-      className="w-screen flex justify-between items-center py-4 fixed z-10 px-7   bg shadow-sm shadow-indigo-700  text-white
+      className="w-screen flex justify-between items-center py-4 fixed z-10 sm:px-7 px-2   bg shadow-sm shadow-indigo-700  text-white
   "
     >
       <NavLink to="/">

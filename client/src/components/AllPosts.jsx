@@ -50,16 +50,18 @@ export const AllPosts = () => {
   };
 
   return (
-    <div className=" flex flex-col items-center gap-10 w-full h-screen   overflow-y-scroll scrollbar-hide     p-2  ">
+    <div className=" flex flex-col items-center gap-6 w-full h-screen   overflow-y-scroll scrollbar-hide     p-2  ">
       {modal && <Modal onClose={closeModal} />}
       <button
         onClick={clickHandler}
-        className=" card-bg text-start text-gray-200 font-semibold text-lg rounded-md px-2 py-5 w-full flex  items-center gap-1"
+        className=" card-bg text-start text-gray-300 font-semibold text-lg rounded-md px-2 py-5 w-full flex  items-center gap-1"
       >
         <MdAddCircleOutline className="text-2xl" />
         Create post...
       </button>
+      
       <div className="flex flex-col w-full     gap-4">
+      <h1 className="text-gray-300 font-semibold text-lg">Latest Posts</h1>
         {loading ? (
           <div className="flex justify-center items-center ">
             <span class="loader"></span>

@@ -89,26 +89,26 @@ export default function SinglePost({ post, onDelete }) {
     >
       {signinModal && <SigninModal onClose={closeModal}></SigninModal>}
       {modal && <Modal onClose={closeModal} deleteHandler={deleteHandler} />}
-      <div className="flex items-center  gap-4">
-        <p>@{post.author}</p>
-        <p className=" text-sm">{moment(post.createdAt).fromNow()}</p>
+      <div className="flex items-center gap-10  md:gap-4  ">
+        <p className="md:text-base text-sm font-medium">@{post.author}</p>
+        <p className=" text-sm w-full">{moment(post.createdAt).fromNow()}</p>
       </div>
 
       <h1 className="font-semibold mb-3 tracking-normal text-gray-200  text-lg">
         {post.title}
       </h1>
       {post.image && (
-        <img src={post?.image} className=" mb-3 rounded-md w-[300px] " alt="" />
+        <img src={post?.image} className=" mb-3 rounded-md w-[200px] md:w-[300px] " alt="" />
       )}
       <div className="flex mb-3">
-        <p className="text-sm line-clamp-1 ">{post.content}</p>
+        <p className="text-sm text-gray-300 line-clamp-1 ">{post.content}</p>
       </div>
 
       <div className="flex   justify-between  items-center  ">
-        <div className="flex items-center gap-3">
+        <div className="flex items-center ">
           <div
             onClick={likeHandler}
-            className="flex items-center justify-center px-2 gap-1 py-1 hover:bg-gray-600 transition-all rounded-full"
+            className="flex items-center justify-center px-2 gap-1 py-1 md:hover:bg-gray-600 transition-all rounded-full"
           >
             {liked ? (
               <FaThumbsUp

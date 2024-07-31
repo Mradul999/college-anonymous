@@ -52,7 +52,7 @@ export default function UserPost() {
                 No post created Yet
               </p>
             ) : (
-              <h1 className="text-2xl text-gray-300 font-medium text-center">
+              <h1 className="md:text-2xl text-xl text-gray-300 font-medium text-center">
                 All posts
               </h1>
             )}

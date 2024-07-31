@@ -67,8 +67,8 @@ export default function Comments({ post }) {
     <div className="w-full flex flex-col   mt-6">
       {!currentUser && <p className="text-center font-medium text-indigo-700 border-b border-gray-600  pb-4"> <NavLink to="/sign-in">Signin</NavLink> <span className="text-gray-300"> to comment</span> </p>}
       <form onSubmit={submitHandler} className={`w-full flex flex-col ${!currentUser &&"hidden"} `}>
-        <div className="flex  gap-3 items-center">
-          <span className="text-white font-semibold text-sm">
+        <div className="flex md:flex-row flex-col  gap-2 md:gap-3 items-center">
+          <span className="text-white self-start font-semibold text-sm">
             {currentUser?.username}
           </span>
           <textarea
@@ -111,6 +111,7 @@ export default function Comments({ post }) {
               key={comment._id}
             />
           ))}
+          
         </div>
       )}
     </div>

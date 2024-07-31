@@ -183,7 +183,9 @@ export default function SingleComment({ comment, filterComments, onEdit }) {
               </div>
             )}
           </div>
+          <div className="h-[1px] bg-indigo-700  w-full"></div>
         </div>
+        
       )}
     </div>
   );

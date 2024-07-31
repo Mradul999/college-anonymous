@@ -76,8 +76,8 @@ export default function PostPage() {
           <span class="loader"></span>
         </div>
       ) : (
-        <div className="w-full flex flex-col  rounded-lg py-4 px-4 mb-10  max-w-[900px] ">
-          <div className=" card-bg p-4 rounded-md">
+        <div className="w-full flex flex-col  rounded-lg py-2 px-2 mb-10  max-w-[900px] ">
+          <div className=" card-bg p-2 rounded-md">
             <div className="flex gap-3 mb-2 items-center">
               <span>{post?.author}</span>
               <span className="text-sm">
@@ -89,11 +89,12 @@ export default function PostPage() {
             {post?.image && (
               <img
                 src={post?.image}
-                className="mb-2 w-[600px] rounded-md "
+                className="mb-2 w-full md:w-[600px] rounded-md "
               ></img>
             )}
-            <p className="mb-2">{post?.content}</p>
-            <div className="flex  gap-3 items-center mb-4   ">
+            <p className="mb-2 md:text-base text-sm">{post?.content}</p>
+            <div className="h-[1px] bg-indigo-700 my-2 w-full"></div>
+            <div className="flex  gap-3 items-center mb-1   ">
               <div
                 onClick={likeHandler}
                 className="flex items-center justify-center cursor-pointer  hover:bg-gray-700 transition-all px-2 gap-1 py-1 rounded-full"
@@ -114,7 +115,7 @@ export default function PostPage() {
                 <span className="text-xs">20</span>
               </div> */}
             </div>
-            <div className="h-[1px] bg-indigo-700 w-full"></div>
+            
           </div>
 
           <Comments post={post} />

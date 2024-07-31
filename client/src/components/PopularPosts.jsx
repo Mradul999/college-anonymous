@@ -31,9 +31,9 @@ export const PopularPosts = () => {
   }, []);
 
   return (
-    <div className=" flex flex-col items-center gap-5 w-[40%]        p-2  ">
+    <div className=" flex flex-col items-center gap-5 md:w-[40%]        p-2  ">
       <div className="flex flex-col w-full gap-1  card-bg rounded-md  p-2">
-        <h1 className=" text-gray-100 text-xl text-start font-semibold ">
+        <h1 className=" text-gray-300 text-xl text-start font-semibold ">
           Popular Posts
         </h1>
         {loading ? (
@@ -48,7 +48,7 @@ export const PopularPosts = () => {
                
                 <div className="flex flex-col mt-3 ">
                   <div className="flex gap-2 items-center">
-                    <h1 className="text-gray-200 font-medium text-sm">{post.author}</h1>
+                    <h1 className="text-gray-300 font-medium text-sm">{post.author}</h1>
                     <p className="text-sm text-gray-400">
                       {moment(post.createdAt).fromNow()}
                     </p>
@@ -56,7 +56,7 @@ export const PopularPosts = () => {
                       {post.likes.length} <span>{post.likes.length>1?"likes":"like"}</span>
                     </span>
                   </div>
-                  <NavLink to={`/post/${post?.slug}`}><h1 className="text-gray-200 font-semibold underline">{post.title}</h1></NavLink>
+                  <NavLink to={`/post/${post?.slug}`}><h1 className="text-gray-300 font-semibold underline">{post.title}</h1></NavLink>
                   
 
                  
