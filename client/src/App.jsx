@@ -10,6 +10,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import CreatePost from "./pages/CreatePost";
 import PostPage from "./pages/PostPage";
 import UserPost from "./pages/UserPost";
+import About from "./pages/About";
 export default function App() {
   return (
     <div className=" bg">
@@ -30,6 +31,7 @@ export default function App() {
             }
           ></Route>
           <Route path="/post/:postSlug" element={<PostPage />}></Route>
+          <Route path="/about" element={<About />}></Route>
           <Route
             path="/posts/userposts"
             element={

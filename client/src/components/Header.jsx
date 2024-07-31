@@ -44,6 +44,8 @@ export default function Header() {
       </NavLink>
 
       <div className="flex  items-center relative gap-3">
+        <NavLink to="/about"><button className="text-gray-300 font-medium text-sm">About</button></NavLink>
+        
         {currentUser ? (
           // <img
           //   onClick={profileClickHandler}
