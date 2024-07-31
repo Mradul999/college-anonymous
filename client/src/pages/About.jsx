@@ -8,7 +8,12 @@ export default function About() {
           About{" "}
         </h1>
         <p className="text-gray-300 text-lg  max-w-[800px] w-full mx-auto text-center">
-          Welcome to Silent Campus. I am Mradul and i  build this app.Post anything with anonymous identity.Only GLA Students can access this app using their college mail id.You can share your suggestions by submitting the feedback form.
+          Welcome to Silent Campus! I’m Mradul, the creator of this website. Silent
+          Campus allows you to post anonymously. This website
+          is exclusively for GLA University students, and access is granted
+          using your college email ID. We value your input and would love to
+          hear your suggestions. Please use the feedback form to share your
+          thoughts.
         </p>
       </div>
     </div>

@@ -45,6 +45,7 @@ export default function Header() {
 
       <div className="flex  items-center relative gap-3">
         <NavLink to="/about"><button className="text-gray-300 font-medium text-sm">About</button></NavLink>
+        <NavLink to="/contact"><button className="text-gray-300 font-medium text-sm">Feedback</button></NavLink>
         
         {currentUser ? (
           // <img

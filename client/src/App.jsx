@@ -11,6 +11,7 @@ import CreatePost from "./pages/CreatePost";
 import PostPage from "./pages/PostPage";
 import UserPost from "./pages/UserPost";
 import About from "./pages/About";
+import Contact from "./pages/Contact";
 export default function App() {
   return (
     <div className=" bg">
@@ -32,6 +33,7 @@ export default function App() {
           ></Route>
           <Route path="/post/:postSlug" element={<PostPage />}></Route>
           <Route path="/about" element={<About />}></Route>
+          <Route path="/contact" element={<Contact />}></Route>
           <Route
             path="/posts/userposts"
             element={

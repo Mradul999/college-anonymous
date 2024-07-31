@@ -6,6 +6,7 @@ import authRoute from "./routes/auth.js";
 import postRoute from "./routes/post.js";
 import commentRoute from "./routes/comment.js";
 import userRoute from "./routes/user.js";
+import feedbackRoute from "./routes/feedback.js";
 
 const app = express();
 
@@ -20,9 +21,8 @@ app.use("/api/auth", authRoute);
 app.use("/api/post", postRoute);
 app.use("/api/comment", commentRoute);
 app.use("/api/user", userRoute);
-app.use('/',(req,res)=>{
-  res.send("server is running")
-})
+app.use("/api/feedback", feedbackRoute);
+
 app.listen(process.env.PORT || 4000, () => {
   console.log(`Server running on port ${process.env.PORT}`);
 });
