@@ -1,19 +1,14 @@
 import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
-import cors from "cors";
+
 import authRoute from "./routes/auth.js";
 import postRoute from "./routes/post.js";
 import commentRoute from "./routes/comment.js";
 import userRoute from "./routes/user.js";
 
 const app = express();
-app.use(
-  cors({
-    origin: "*",
-    credentials: true,
-  })
-);
+
 app.use(express.json());
 dotenv.config();
 mongoose
