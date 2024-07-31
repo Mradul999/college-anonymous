@@ -10,7 +10,7 @@ import userRoute from "./routes/user.js";
 const app = express();
 app.use(
   cors({
-    origin: "https://silent-campus.vercel.app",
+    origin: "*",
     credentials: true,
   })
 );
