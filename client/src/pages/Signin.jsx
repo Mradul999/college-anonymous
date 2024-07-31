@@ -57,7 +57,7 @@ export default function Signin() {
   return (
     <div className="w-screen min-h-screen flex flex-col items-center justify-center bg  px-2  ">
       <div
-        className={`max-w-[500px] rounded-md flex flex-col gap-10 py-6 px-2 sm:px-6 w-full shadow-md shadow-indigo-600  bg-indigo-900`}
+        className={`max-w-[500px] rounded-md flex flex-col gap-10 py-6 px-2 sm:px-6 w-full bg-opacity-40 shadow-md shadow-gray-700  bg-gray-700`}
       >
         <h1 className="text-center text-white text-2xl sm:text-3xl font-semibold">
           Sign in
@@ -69,7 +69,7 @@ export default function Signin() {
             id="email"
             type="text"
             className="rounded-md bg-black bg-opacity-10 py-2 px-2 text-white  focus:outline-none border-[2px] focus:border-green-600 border-indigo-600"
-            placeholder="Enter Email"
+            placeholder="Enter GLA mail ID"
           />
           <input
             onChange={changeHandler}

@@ -44,10 +44,14 @@ export const AllPosts = () => {
     const updatedPosts = allPosts.filter((post) => post._id !== postId);
     setAllPosts(updatedPosts);
   };
+  const closeModal = () => {
+    setModal(false);
+ 
+  };
 
   return (
     <div className=" flex flex-col items-center gap-10 w-full h-screen   overflow-y-scroll scrollbar-hide     p-2  ">
-      {modal && <Modal />}
+      {modal && <Modal onClose={closeModal} />}
       <button
         onClick={clickHandler}
         className=" card-bg text-start text-gray-200 font-semibold text-lg rounded-md px-2 py-5 w-full flex  items-center gap-1"
