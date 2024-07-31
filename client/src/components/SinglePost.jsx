@@ -77,13 +77,18 @@ export default function SinglePost({ post, onDelete }) {
     e.stopPropagation();
     setModal(true);
   };
+
+  const closeModal = () => {
+    setSigninModal(false);
+    setModal(false);
+  };
   return (
     <div
       onClick={postClickHandler}
       className="p-2   card-bg text-gray-200 cursor-pointer      rounded-lg"
     >
-      {signinModal && <SigninModal></SigninModal>}
-      {modal && <Modal deleteHandler={deleteHandler} />}
+      {signinModal && <SigninModal onClose={closeModal}></SigninModal>}
+      {modal && <Modal onClose={closeModal} deleteHandler={deleteHandler} />}
       <div className="flex items-center  gap-4">
         <p>@{post.author}</p>
         <p className=" text-sm">{moment(post.createdAt).fromNow()}</p>
@@ -126,7 +131,7 @@ export default function SinglePost({ post, onDelete }) {
         {currentUser?._id === post.userId && (
           <button
             onClick={showModal}
-            className="bg-indigo-700 rounded-md px-2 py-1 text-sm text-gray-300"
+            className="bg-indigo-700 rounded-md px-2 py-1 text-sm text-gray-300 font-semibold hover:bg-indigo-800 transition-all  "
           >
             Delete
           </button>

@@ -10,7 +10,7 @@ import {
 } from "@headlessui/react";
 import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
 
-export default function SigninModal({ deleteHandler }) {
+export default function SigninModal({ deleteHandler,onClose }) {
   const navigate=useNavigate();
   const [open, setOpen] = useState(true);
   const signinButtonHandler = () => {
@@ -19,8 +19,13 @@ export default function SigninModal({ deleteHandler }) {
     
   };
 
+  const closeModalHandler = () => {
+    setOpen(false);
+    onClose();
+  };
+
   return (
-    <Dialog open={open} onClose={setOpen} className="relative z-10">
+    <Dialog open={open} onClose={closeModalHandler} className="relative z-10">
       <DialogBackdrop
         transition
         className="fixed inset-0 bg-black bg-opacity-60 transition-opacity data-[closed]:opacity-0 data-[enter]:duration-300 data-[leave]:duration-200 data-[enter]:ease-out data-[leave]:ease-in"
@@ -66,7 +71,7 @@ export default function SigninModal({ deleteHandler }) {
               <button
                 type="button"
                 data-autofocus
-                onClick={() => setOpen(false)}
+                onClick={closeModalHandler}
                 className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
               >
                 Cancel

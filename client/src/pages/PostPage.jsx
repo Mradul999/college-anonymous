@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import moment from "moment";
-import { ThreeDots } from "react-loader-spinner";
+
 import { FaThumbsUp } from "react-icons/fa6";
 import { FaRegThumbsUp } from "react-icons/fa6";
-import { FaRegCommentAlt } from "react-icons/fa";
+
 import Comments from "../components/Comments";
 import { useSelector } from "react-redux";
 import SigninModal from "../components/SigninModal";
@@ -17,7 +17,7 @@ export default function PostPage() {
   const [likesCount, setLikesCount] = useState(0);
   const [liked, setLiked] = useState(false);
   const { currentUser } = useSelector((state) => state.user);
-  const[signinModal,setSigninModal]=useState(false);
+  const [signinModal, setSigninModal] = useState(false);
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -31,10 +31,8 @@ export default function PostPage() {
           );
           setPost(foundPost);
           setLikesCount(foundPost.likes.length);
-         
+
           setLiked(foundPost.likes.includes(currentUser._id));
-       
-          
         }
       } catch (error) {}
     };
@@ -42,8 +40,9 @@ export default function PostPage() {
   }, [postSlug]);
 
   const likeHandler = async (e) => {
+
     try {
-      if(!currentUser){
+      if (!currentUser) {
         setSigninModal(true);
         return;
       }
@@ -65,13 +64,17 @@ export default function PostPage() {
     } catch (error) {}
   };
 
+  const closeModal = () => {
+    setSigninModal(false);
+  };
+
   return (
     <div className="w-full min-h-screen  pt-[5rem] pb-2   flex justify-center  text-gray-300">
-      {signinModal && <SigninModal/>}
+      {signinModal && <SigninModal onClose={closeModal} />}
       {loading ? (
         <div className="flex justify-center items-center">
-        <span class="loader"></span>
-      </div>
+          <span class="loader"></span>
+        </div>
       ) : (
         <div className="w-full flex flex-col  rounded-lg py-4 px-4 mb-10  max-w-[900px] ">
           <div className=" card-bg p-4 rounded-md">

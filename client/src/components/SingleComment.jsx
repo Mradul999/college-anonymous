@@ -98,16 +98,21 @@ export default function SingleComment({ comment, filterComments, onEdit }) {
       console.log(error);
     }
   };
+
+  const closeModal = () => {
+    setSigninModal(false);
+    setModal(false);
+  };
   return (
     <div>
-      {signinModal && <SigninModal/>}
+      {signinModal && <SigninModal onClose={closeModal}/>}
       {loading ? (
         <div className="flex justify-center items-center mt-6">
           <span class="loader"></span>
         </div>
       ) : (
         <div className="w-full rounded-md mb-4 flex flex-col  ">
-          {modal && <Modal deleteHandler={deleteHandler} />}
+          {modal && <Modal onClose={closeModal} deleteHandler={deleteHandler} />}
           <div className="flex gap-2 items-center">
             <h1 className="text-gray-200 font-medium">@{user?.username}</h1>
             <span className="text-sm text-gray-400">
