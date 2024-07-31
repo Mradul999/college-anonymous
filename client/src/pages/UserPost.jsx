@@ -8,6 +8,7 @@ export default function UserPost() {
   const [allPosts, setAllPosts] = useState([]);
   const [loading, setLoading] = useState(false);
   const { currentUser } = useSelector((state) => state.user);
+  
 
   useEffect(() => {
     const fetchPosts = async () => {
