@@ -27,7 +27,7 @@ export default function VerifyOTP() {
     try {
       setLoading(true);
       const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/auth/verifyotp`, { email, otp });
-      console.log(response);
+      // console.log(response);
       if (response.status === 200) {
         setLoading(false);
         const signupResponse = await axios.post("/api/auth/signup", {
@@ -36,7 +36,7 @@ export default function VerifyOTP() {
           password,
         });
         if (signupResponse.status === 200) {
-            console.log(signupResponse)
+            // console.log(signupResponse)
 
           navigate("/sign-in");
         }

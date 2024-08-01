@@ -10,7 +10,8 @@ export default function Suggestion() {
       <ul className="text-gray-400 text-sm space-y-2 font-medium mt-2">
         <li>Review of any online course </li>
         <li>Some incident happened today in college</li>
-        <li>About club</li>
+        <li>About any club</li>
+        
       </ul>
     </div>
   );

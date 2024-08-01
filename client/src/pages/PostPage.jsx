@@ -55,7 +55,7 @@ export default function PostPage() {
         }`
       );
       if (response.status === 200) {
-        console.log(response);
+        // console.log(response);
         if (response.data.likes.includes(currentUser._id)) {
           setLiked(true);
           setLikesCount(likesCount + 1);

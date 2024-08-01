@@ -34,7 +34,7 @@ export default function Contact() {
         setSuccessMessage("Message sent successfully");
       }
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   };
 

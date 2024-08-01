@@ -7,7 +7,7 @@ export default function About() {
         <h1 className="text-gray-300 text-2xl font-medium  text-center">
           About{" "}
         </h1>
-        <p className="text-gray-300 text-lg  max-w-[800px] w-full mx-auto text-center">
+        <p className="text-gray-300 text-base md:text-lg  max-w-[800px] w-full px-2 mx-auto text-center ">
           Welcome to Anonymous! I’m Mradul, the creator of this website. Silent
           Campus allows you to post anonymously. This website
           is exclusively for GLA University students, and access is granted

@@ -41,7 +41,7 @@ export default function Header() {
   "
     >
       <NavLink to="/">
-        <h1 className="text-xl font-semibold ">Anonymous</h1>
+        <h1 className="text-xl font-semibold flex items-center gap-1 "> <span className="text-2xl bg-gray-700 rounded-full px-[0.5rem]">Λ</span>nonymous</h1>
       </NavLink>
 
       <div className="flex  items-center relative gap-3">
@@ -51,11 +51,11 @@ export default function Header() {
         {currentUser ? (
           // <img
           //   onClick={profileClickHandler}
-          //   src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTqafzhnwwYzuOTjTlaYMeQ7hxQLy_Wq8dnQg&s"
+          //   src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS2K1RhGUfKPoqfQRBcOKh85yJyf-5XILTo3Q&s"
           //   className="rounded-full size-8 cursor-pointer"
           //   alt="profile"
           // ></img>
-          <h2 onClick={profileClickHandler} className="text-sm cursor-pointer text-indigo-600 font-semibold">{currentUser.username}</h2>
+          <h2 onClick={profileClickHandler} className={`text-2xl bg-gray-700  px-[0.5rem] rounded-full cursor-pointer ${dropdown &&"bg-gray-600"} transition-all text-indigo-600 font-semibold`}>Λ</h2>
         ) : (
           <NavLink to="/sign-in">
             <button className="px-2 py-2 bg-indigo-600 text-sm rounded-md font-medium hover:bg-indigo-700 transition-all hover:scale-95">
@@ -65,7 +65,7 @@ export default function Header() {
         )}
 
         <div
-          className={`absolute top-12 right-0 flex bg-indigo-900 rounded-md p-2   gap-2 transition-all duration-100 origin-top   ${
+          className={`absolute top-14 right-0 flex bg-indigo-900 rounded-md p-2   gap-2 transition-all duration-100 origin-top   ${
             dropdown ? "scale-y-100" : "scale-y-0"
           }  flex-col`}
         >

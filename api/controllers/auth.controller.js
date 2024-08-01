@@ -5,7 +5,7 @@ import OTP from "../models/model.otp.js";
 import { sendMail } from "../utils/sendMail.js";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
-dotenv.config();
+dotenv.config()
 //user signup
 export const signup = async (req, res) => {
   const { name, email, password } = req.body;

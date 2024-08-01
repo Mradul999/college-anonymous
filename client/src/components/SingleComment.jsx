@@ -62,7 +62,7 @@ export default function SingleComment({ comment, filterComments, onEdit }) {
         }
       }
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   };
 
@@ -95,7 +95,7 @@ export default function SingleComment({ comment, filterComments, onEdit }) {
       }
     } catch (error) {
       setLoading(false);
-      console.log(error);
+      // console.log(error);
     }
   };
 

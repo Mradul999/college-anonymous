@@ -70,7 +70,7 @@ export default function SinglePost({ post, onDelete }) {
         onDelete(response.data._id);
       }
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   };
   const showModal = (e) => {

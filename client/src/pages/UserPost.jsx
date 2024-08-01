@@ -43,8 +43,8 @@ export default function UserPost() {
     <div className="w-full flex justify-center min-h-screen">
       <div className="w-full max-w-[900px] flex  pt-20 pb-3 ">
         {loading ? (
-          <div className="flex justify-center items-center ">
-            <span class="loader"></span>
+          <div className="flex w-full justify-center items-center ">
+            <span class="loader "></span>
           </div>
         ) : (
           <div className="flex flex-col w-full gap-3">
