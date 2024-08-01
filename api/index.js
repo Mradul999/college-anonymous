@@ -10,7 +10,12 @@ import userRoute from "./routes/user.js";
 import feedbackRoute from "./routes/feedback.js";
 
 const app = express();
-app.use(cors());
+app.use(
+	cors({
+		origin:"https://silent-campus-backend.vercel.app",
+		credentials:true,
+	})
+)
 
 app.use(express.json());
 dotenv.config();
