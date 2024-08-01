@@ -25,7 +25,7 @@ export default function Signup() {
       return;
     }
     try {
-      const response = await axios.post("/api/auth/generateotp", {
+      const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/auth/generateotp`, {
         email: formData.email,
       });
 

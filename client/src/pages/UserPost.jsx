@@ -14,7 +14,7 @@ export default function UserPost() {
     const fetchPosts = async () => {
       try {
         setLoading(true);
-        const response = await axios.get("/api/post/getallposts");
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/post/getallposts`);
         if (response.status === 200) {
           setLoading(false);
           const filteredPosts = response.data.posts.filter(

@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import SingleComment from "./SingleComment";
 import { ThreeDots } from "react-loader-spinner";
 import { NavLink } from "react-router-dom";
+const API_URL = import.meta.env.VITE_API_URL;
 
 export default function Comments({ post }) {
   const { currentUser } = useSelector((state) => state.user);
@@ -16,7 +17,7 @@ export default function Comments({ post }) {
       try {
         setLoading(true);
         const response = await axios.get(
-          `/api/comment/getcomments/${post._id}`
+          `${API_URL}/api/comment/getcomments/${post._id}`
         );
         if (response.status === 200) {
           setLoading(false);

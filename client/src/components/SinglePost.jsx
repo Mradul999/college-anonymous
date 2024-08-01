@@ -64,7 +64,7 @@ export default function SinglePost({ post, onDelete }) {
   };
   const deleteHandler = async () => {
     try {
-      const response = await axios.delete(`/api/post/deletepost/${post._id}`);
+      const response = await axios.delete(`${import.meta.env.VITE_API_URL}/api/post/deletepost/${post._id}`);
       if (response.status === 200) {
         setModal(false);
         onDelete(response.data._id);

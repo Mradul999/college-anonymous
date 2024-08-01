@@ -86,7 +86,7 @@ export default function SingleComment({ comment, filterComments, onEdit }) {
     try {
       setLoading(true);
       const response = await axios.put(
-        `/api/comment/editcomment/${comment._id}`,
+        `${import.meta.env.VITE_API_URL}/api/comment/editcomment/${comment._id}`,
         { content: editedComment }
       );
       if (response.status === 200) {

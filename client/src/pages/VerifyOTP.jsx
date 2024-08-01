@@ -26,7 +26,7 @@ export default function VerifyOTP() {
 
     try {
       setLoading(true);
-      const response = await axios.post("/api/auth/verifyotp", { email, otp });
+      const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/auth/verifyotp`, { email, otp });
       console.log(response);
       if (response.status === 200) {
         setLoading(false);

@@ -79,7 +79,7 @@ export default function CreatePost() {
     try {
       setLoading(true);
 
-      const response = await axios.post("/api/post/createpost", {
+      const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/post/createpost`, {
         formData,
         author: currentUser.username,
         userId:currentUser._id

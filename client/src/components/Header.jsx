@@ -5,6 +5,7 @@ import { NavLink } from "react-router-dom";
 import { signoutSuccess } from "../redux/user.slice";
 import { useDispatch } from "react-redux";
 import axios from "axios";
+const API_URL = import.meta.env.VITE_API_URL;
 export default function Header() {
   const { currentUser } = useSelector((state) => state.user);
   const [dropdown, setDropdown] = useState(false);
@@ -18,7 +19,7 @@ export default function Header() {
 
   const signoutHandler = async () => {
     try {
-      const signoutResponse = await axios.post("/api/auth/signout");
+      const signoutResponse = await axios.post(`${API_URL}/api/auth/signout`);
       console.log(signoutResponse)
       if (signoutResponse.status === 200) {
         dispatch(signoutSuccess());

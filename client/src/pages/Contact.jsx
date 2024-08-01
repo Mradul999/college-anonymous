@@ -19,7 +19,7 @@ export default function Contact() {
     setSuccessMessage("");
     try {
       const response = await axios.post(
-        "/api/feedback/createfeedback",
+        `${import.meta.env.VITE_API_URL}/api/feedback/createfeedback`,
         formData
       );
       if (response.status === 200) {

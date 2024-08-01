@@ -49,7 +49,7 @@ export default function PostPage() {
 
       e.stopPropagation();
       const response = await axios.put(
-        `/api/post/likepost/${post._id}/${currentUser._id}`
+        `${import.meta.env.VITE_API_URL}/api/post/likepost/${post._id}/${currentUser._id}`
       );
       if (response.status === 200) {
         console.log(response);

@@ -29,7 +29,7 @@ export default function Signin() {
       return;
     }
     try {
-      const response = await axios.post("/api/auth/signin", {
+      const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/auth/signin`, {
         email: formData.email,
         password:formData.password
       });
