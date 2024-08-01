@@ -10,9 +10,14 @@ import userRoute from "./routes/user.js";
 import feedbackRoute from "./routes/feedback.js";
 
 const app = express();
+const allowedOrigins = [
+  "https://anonymous-ecru.vercel.app", 
+  "http://localhost:5173" 
+];
+
 app.use(
   cors({
-    origin: "https://silent-campus-backend.vercel.app",
+    origin: allowedOrigins,
     credentials: true,
   })
 );
