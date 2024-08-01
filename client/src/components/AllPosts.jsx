@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Modal from "./SigninModal";
+const API_URL = import.meta.env.VITE_API_URL;
 
 import SinglePost from "./SinglePost";
 import { MdAddCircleOutline } from "react-icons/md";
@@ -17,7 +18,7 @@ export const AllPosts = () => {
     const fetchPosts = async () => {
       try {
         setLoading(true);
-        const response = await axios.get("/api/post/getallposts");
+        const response = await axios.get(`${API_URL}/api/post/getallposts`);
         if (response.status === 200) {
           setLoading(false);
           const sortedPosts = response.data.posts.sort(
@@ -47,7 +48,6 @@ export const AllPosts = () => {
   };
   const closeModal = () => {
     setModal(false);
- 
   };
 
   return (
@@ -60,9 +60,9 @@ export const AllPosts = () => {
         <MdAddCircleOutline className="text-2xl" />
         Create post...
       </button>
-      
+
       <div className="flex flex-col w-full     gap-4">
-      <h1 className="text-gray-300 font-semibold text-lg">Latest Posts</h1>
+        <h1 className="text-gray-300 font-semibold text-lg">Latest Posts</h1>
         {loading ? (
           <div className="flex justify-center items-center ">
             <span class="loader"></span>
