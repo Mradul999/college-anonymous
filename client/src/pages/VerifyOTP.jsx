@@ -15,7 +15,7 @@ export default function VerifyOTP() {
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    
+
     if (!otp) {
       setError("OTP is required");
       return;
@@ -26,17 +26,23 @@ export default function VerifyOTP() {
 
     try {
       setLoading(true);
-      const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/auth/verifyotp`, { email, otp });
+      const response = await axios.post(
+        `${import.meta.env.VITE_API_URL}/api/auth/verifyotp`,
+        { email, otp }
+      );
       // console.log(response);
       if (response.status === 200) {
         setLoading(false);
-        const signupResponse = await axios.post("/api/auth/signup", {
-          email,
-          name,
-          password,
-        });
+        const signupResponse = await axios.post(
+          `${import.meta.env.VITE_API_URL}/api/auth/signup`,
+          {
+            email,
+            name,
+            password,
+          }
+        );
         if (signupResponse.status === 200) {
-            // console.log(signupResponse)
+          // console.log(signupResponse)
 
           navigate("/sign-in");
         }
