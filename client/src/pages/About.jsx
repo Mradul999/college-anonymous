@@ -8,8 +8,8 @@ export default function About() {
           About{" "}
         </h1>
         <p className="text-gray-300 text-base md:text-lg  max-w-[800px] w-full px-2 mx-auto text-center ">
-          Welcome to Anonymous! I’m Mradul, the creator of this website. Silent
-          Campus allows you to post anonymously. This website
+          Welcome to Anonymous! I’m Mradul, the creator of this website. Anonymous
+           allows you to post anonymously. This website
           is exclusively for GLA University students, and access is granted
           using your college email ID. We value your input and would love to
           hear your suggestions. Please use the feedback form to share your
