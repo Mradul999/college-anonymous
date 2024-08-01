@@ -11,11 +11,11 @@ import feedbackRoute from "./routes/feedback.js";
 
 const app = express();
 app.use(
-	cors({
-		origin:"https://silent-campus-backend.vercel.app",
-		credentials:true,
-	})
-)
+  cors({
+    origin: "https://silent-campus-backend.vercel.app",
+    credentials: true,
+  })
+);
 
 app.use(express.json());
 dotenv.config();
