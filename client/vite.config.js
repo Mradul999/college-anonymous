@@ -9,7 +9,7 @@ export default defineConfig({
     proxy: {
       "/api": {
         target: "https://silent-campus-backend.vercel.app",
-
+        changeOrigin: true,
         secure: false,
       },
     },
