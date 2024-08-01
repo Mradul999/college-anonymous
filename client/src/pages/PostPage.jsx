@@ -23,7 +23,7 @@ export default function PostPage() {
     const fetchPosts = async () => {
       try {
         setLoading(true);
-        const response = await axios.get("/api/post/getallposts");
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/post/getallposts`);
         if (response.status === 200) {
           setLoading(false);
           const foundPost = response.data.posts.find(
@@ -40,7 +40,6 @@ export default function PostPage() {
   }, [postSlug]);
 
   const likeHandler = async (e) => {
-
     try {
       if (!currentUser) {
         setSigninModal(true);
@@ -49,7 +48,9 @@ export default function PostPage() {
 
       e.stopPropagation();
       const response = await axios.put(
-        `${import.meta.env.VITE_API_URL}/api/post/likepost/${post._id}/${currentUser._id}`
+        `${import.meta.env.VITE_API_URL}/api/post/likepost/${post._id}/${
+          currentUser._id
+        }`
       );
       if (response.status === 200) {
         console.log(response);
@@ -115,7 +116,6 @@ export default function PostPage() {
                 <span className="text-xs">20</span>
               </div> */}
             </div>
-            
           </div>
 
           <Comments post={post} />
