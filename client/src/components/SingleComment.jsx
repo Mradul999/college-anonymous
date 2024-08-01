@@ -27,7 +27,7 @@ export default function SingleComment({ comment, filterComments, onEdit }) {
   useEffect(() => {
     const getUser = async () => {
       try {
-        const response = await axios.get(`/api/user/getuser/${comment.userId}`);
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/user/getuser/${comment.userId}`);
         setUser(response.data);
       } catch (error) {}
     };
@@ -50,7 +50,7 @@ export default function SingleComment({ comment, filterComments, onEdit }) {
         
       }
       const response = await axios.put(
-        `/api/comment/likecomment/${comment._id}/${currentUser._id}`
+        `${import.meta.env.VITE_API_URL}/api/comment/likecomment/${comment._id}/${currentUser._id}`
       );
       if (response.status === 200) {
         if (response.data.likes.includes(currentUser._id)) {
@@ -69,7 +69,7 @@ export default function SingleComment({ comment, filterComments, onEdit }) {
   const deleteHandler = async () => {
     try {
       const response = await axios.delete(
-        `/api/comment/deletecomment/${comment._id}`
+        `${import.meta.env.VITE_API_URL}/api/comment/deletecomment/${comment._id}`
       );
       if (response.status === 200) {
         filterComments(response.data._id);

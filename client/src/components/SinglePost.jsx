@@ -48,7 +48,7 @@ export default function SinglePost({ post, onDelete }) {
       }
       e.stopPropagation();
       const response = await axios.put(
-        `/api/post/likepost/${post._id}/${currentUser._id}`
+        `${import.meta.env.VITE_API_URL}/api/post/likepost/${post._id}/${currentUser._id}`
       );
       if (response.status === 200) {
         if (response.data.likes.includes(currentUser._id)) {
