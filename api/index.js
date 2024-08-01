@@ -1,7 +1,7 @@
 import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
-import cors from "cors"
+import cors from "cors";
 
 import authRoute from "./routes/auth.js";
 import postRoute from "./routes/post.js";
@@ -10,7 +10,7 @@ import userRoute from "./routes/user.js";
 import feedbackRoute from "./routes/feedback.js";
 
 const app = express();
-
+app.use(cors());
 
 app.use(express.json());
 dotenv.config();
