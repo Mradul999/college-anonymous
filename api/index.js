@@ -11,7 +11,7 @@ import feedbackRoute from "./routes/feedback.js";
 
 const app = express();
 const allowedOrigins = [
-  "https://anonymous-ecru.vercel.app", 
+  "https://college-anonymous.vercel.app/", 
   "http://localhost:5173" 
 ];
 
