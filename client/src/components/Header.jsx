@@ -20,14 +20,14 @@ export default function Header() {
   const signoutHandler = async () => {
     try {
       const signoutResponse = await axios.post(`${API_URL}/api/auth/signout`);
-      console.log(signoutResponse)
+   
       if (signoutResponse.status === 200) {
         dispatch(signoutSuccess());
         setDropdown(false)
         navigate("/sign-in");
       }
     } catch (error) {
-        console.log(error);
+        
     }
   };
   const myPostHandler=()=>{

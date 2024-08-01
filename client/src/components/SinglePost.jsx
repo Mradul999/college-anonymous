@@ -51,7 +51,7 @@ export default function SinglePost({ post, onDelete }) {
         `/api/post/likepost/${post._id}/${currentUser._id}`
       );
       if (response.status === 200) {
-        console.log(response);
+
         if (response.data.likes.includes(currentUser._id)) {
           setLiked(true);
           setLikesCount(likesCount + 1);

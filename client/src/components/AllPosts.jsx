@@ -28,7 +28,7 @@ export const AllPosts = () => {
         }
       } catch (error) {
         setLoading(false);
-        console.log(error);
+      
       }
     };
     fetchPosts();

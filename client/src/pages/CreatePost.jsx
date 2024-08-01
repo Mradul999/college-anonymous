@@ -14,7 +14,7 @@ import { useNavigate } from "react-router-dom";
 export default function CreatePost() {
   const [image, setImage] = useState(null);
   const [formData, setFormData] = useState({});
-  console.log("formData", formData);
+
 
   const [loading, setLoading] = useState(false);
   const [imgUplaoding, setImgUploading] = useState(false);

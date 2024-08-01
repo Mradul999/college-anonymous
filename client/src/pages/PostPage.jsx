@@ -23,7 +23,9 @@ export default function PostPage() {
     const fetchPosts = async () => {
       try {
         setLoading(true);
-        const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/post/getallposts`);
+        const response = await axios.get(
+          `${import.meta.env.VITE_API_URL}/api/post/getallposts`
+        );
         if (response.status === 200) {
           setLoading(false);
           const foundPost = response.data.posts.find(
