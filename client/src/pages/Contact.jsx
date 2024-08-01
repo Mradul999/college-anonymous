@@ -40,7 +40,7 @@ export default function Contact() {
 
   return (
     <div className="w-full ">
-      <div className="max-w-[500px] mx-auto flex flex-col gap-5   min-h-screen pt-24 w-full">
+      <div className="max-w-[500px] mx-auto px-2 flex flex-col gap-5   min-h-screen pt-24  w-full">
         <h1 className="text-gray-300 text-2xl font-medium  text-center">
           Contact me{" "}
         </h1>
