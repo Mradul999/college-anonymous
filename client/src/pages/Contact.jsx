@@ -41,7 +41,7 @@ export default function Contact() {
   return (
     <div className="w-full ">
       <div className="max-w-[500px] mx-auto px-2 flex flex-col gap-5   min-h-screen pt-24  w-full">
-        <h1 className="text-gray-300 text-2xl font-medium  text-center">
+        <h1 className="dark:text-gray-300 text-textColor text-2xl font-medium  text-center">
           Contact me{" "}
         </h1>
         <form onSubmit={submitHandler} className="flex flex-col  gap-4  ">
@@ -51,7 +51,7 @@ export default function Contact() {
             onChange={changeHandler}
             id="name"
             type="text"
-            className="rounded-md bg-black bg-opacity-10 py-2 px-2 text-white  focus:outline-none border-[2px] focus:border-green-600 border-indigo-600"
+            className="rounded-md  py-2 px-2 dark:text-gray-300 text-textColor  border-indigo-600 border focus:outline-none focus:border-indigo-900   dark:bg-cardBg-dark bg-gray-200"
             placeholder="Enter name"
           />
           <input
@@ -60,7 +60,7 @@ export default function Contact() {
             onChange={changeHandler}
             id="email"
             type="email"
-            className="rounded-md bg-black bg-opacity-10 py-2 px-2 text-white  focus:outline-none border-[2px] focus:border-green-600 border-indigo-600"
+            className="rounded-md   py-2 px-2 dark:text-gray-300 text-textColor  border-indigo-600 border focus:outline-none focus:border-indigo-900   dark:bg-cardBg-dark bg-gray-200"
             placeholder="Enter Mail"
           />
           <textarea
@@ -70,11 +70,11 @@ export default function Contact() {
             rows={6}
             id="message"
             type="text"
-            className="rounded-md bg-black bg-opacity-10 py-2 px-2 text-white  focus:outline-none border-[2px] focus:border-green-600 border-indigo-600"
+            className="rounded-md   py-2 px-2 dark:text-gray-300 text-textColor  border-indigo-600 border focus:outline-none focus:border-indigo-900   dark:bg-cardBg-dark bg-gray-200"
             placeholder="Enter your message"
           />
           {successMessage && (
-            <p className="bg-green-600 rounded-md  py-2 text-white text-center font-medium">
+            <p className="bg-green-600 rounded-md  py-2 text-gray-200 text-center font-medium">
               {successMessage}
             </p>
           )}

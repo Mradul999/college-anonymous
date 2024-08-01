@@ -103,13 +103,13 @@ export default function CreatePost() {
   return (
     <div className="w-full min-h-screen  pt-20 flex justify-center  overflow-x-hidden">
       <div className="max-w-[700px] px-2  mt-2 mb-10  items-center w-full flex  gap-10 flex-col">
-        <h1 className="text-2xl text-gray-300 font-semibold">Create Post</h1>
+        <h1 className="text-2xl dark:text-gray-300 text-textColor font-semibold">Create Post</h1>
         <form onSubmit={submitHandler} className="w-full flex flex-col gap-3 ">
           <input
             onChange={changeHandler}
             type="type"
             id="title"
-            className="rounded-md w-full  py-2 px-2 bg-gray-200 focus:outline none border-[2.5px] border-indigo-600 focus:border-indigo-800 text-gray-700  "
+            className="rounded-md w-full  py-2 px-2 dark:bg-cardBg-dark bg-gray-200 border focus:outline-none focus:border-indigo-900   border-indigo-600   dark:text-gray-300 text-textColor  "
             placeholder="Title"
           />
           <div className="flex md:flex-row flex-col justify-between gap-2">
@@ -117,7 +117,7 @@ export default function CreatePost() {
               onChange={fileChangeHandler}
               type="file"
               accept="image/*"
-              className="rounded-md py-2 px-2  grow bg-gray-200 focus:outline none border-[2.5px] border-indigo-600 focus:border-indigo-800 text-gray-700  "
+              className="rounded-md py-2 px-2  grow   border dark:bg-cardBg-dark bg-gray-200 border-indigo-600 focus:outline-none focus:border-indigo-900  dark:text-gray-300 text-textColor  "
             />
             <button
               onClick={uploadImageHandler}
@@ -154,7 +154,7 @@ export default function CreatePost() {
           <textarea
             onChange={changeHandler}
             id="content"
-            className="rounded-md w-full  py-2 px-2 bg-gray-200 focus:outline none border-[2.5px] border-indigo-600 focus:border-indigo-800 text-gray-700  "
+            className="rounded-md w-full border-indigo-600 border focus:outline-none focus:border-indigo-900   dark:bg-cardBg-dark bg-gray-200 dark:text-gray-300 text-textColor py-2 px-2   "
             rows={10}
             placeholder="Write your post..."
           />
@@ -164,8 +164,8 @@ export default function CreatePost() {
             {loading ? (
               <div className="flex justify-center items-center">
                 <ThreeDots
-                  height="30"
-                  width="50"
+                  height="25"
+                  width="40"
                   wrapperClass
                   color="white"
                   ariaLabel="loading"

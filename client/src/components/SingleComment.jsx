@@ -114,8 +114,8 @@ export default function SingleComment({ comment, filterComments, onEdit }) {
         <div className="w-full rounded-md mb-4 flex flex-col  ">
           {modal && <Modal onClose={closeModal} deleteHandler={deleteHandler} />}
           <div className="flex gap-2 items-center">
-            <h1 className="text-gray-200 font-medium">@{user?.username}</h1>
-            <span className="text-sm text-gray-400">
+            <h1 className="dark:text-gray-300 text-textColor font-medium">@{user?.username}</h1>
+            <span className="text-sm dark:text-gray-300 text-textColor">
               {moment(comment?.createdAt).fromNow()}
             </span>
           </div>
@@ -124,22 +124,22 @@ export default function SingleComment({ comment, filterComments, onEdit }) {
               onChange={(e) => setEditedComment(e.target.value)}
               rows={1}
               value={editedComment}
-              className="w-full   mt-2 focus:outline-none placeholder:text-sm bg-transparent border-b border-gray-500 placeholder:text-white  focus:border-b-white  focus:border-b-2  text-white text-sm"
+              className="w-full   mt-2 focus:outline-none placeholder:text-sm bg-transparent border-b border-gray-500 placeholder:dark:text-gray-300 placeholder:text-textColor  dark:focus:border-b-white focus:border-b-gray-600  focus:border-b-2  dark:text-gray-300 text-textColor text-sm"
             ></textarea>
           ) : (
-            <p className="text-sm mt-1 text-gray-200 ">{editedComment}</p>
+            <p className="text-sm mt-1 dark:text-gray-300 text-textColor ">{editedComment}</p>
           )}
           {editArea && (
             <div className="flex gap-2 items-center self-end">
               <button
                 onClick={() => showEditArea(false)}
-                className={`   text-white py-1 px-2 rounded-full text-xs  hover:bg-indigo-600 transition-all self-end mt-2 font-medium `}
+                className={`   dark:text-gray-300 text-textColor py-1 px-2 rounded-full text-xs  hover:bg-indigo-600 transition-all self-end mt-2 font-medium `}
               >
                 cancel
               </button>
               <button
                 onClick={saveHandler}
-                className={`   text-white py-1 px-2 rounded-full text-xs ${
+                className={`   dark:text-gray-300 text-white py-1 px-2 rounded-full text-xs ${
                   !comment
                     ? "pointer-events-none text-gray-700 bg-gray-400"
                     : " pointer-events-auto bg-indigo-700"
@@ -153,7 +153,7 @@ export default function SingleComment({ comment, filterComments, onEdit }) {
           <div className={`flex gap-2 items-center ${editArea && "hidden"}   `}>
             <div
               onClick={likeHandler}
-              className="flex items-center justify-center cursor-pointer  hover:bg-gray-700 transition-all px-2 gap-1 py-1 rounded-full"
+              className="flex items-center justify-center cursor-pointer  dark:hover:bg-gray-600 hover:bg-gray-400 transition-all px-2 gap-1 py-1 rounded-full"
             >
               {liked ? (
                 <FaThumbsUp
@@ -170,20 +170,20 @@ export default function SingleComment({ comment, filterComments, onEdit }) {
               <div className="flex  items-center text-sm pl-2">
                 <button
                   onClick={() => showEditArea(true)}
-                  className="hover:bg-gray-600 px-2 py-1 rounded-full transition-all"
+                  className="dark:hover:bg-gray-600 hover:bg-gray-400 px-2 py-1 font-medium rounded-full transition-all"
                 >
                   Edit
                 </button>
                 <button
                   onClick={showModal}
-                  className="hover:bg-gray-600 px-2 py-1 rounded-full transition-all"
+                  className="dark:hover:bg-gray-600 hover:bg-gray-400 px-2 py-1 font-medium rounded-full transition-all"
                 >
                   Delete
                 </button>
               </div>
             )}
           </div>
-          <div className="h-[1px] bg-indigo-700  w-full"></div>
+          
         </div>
         
       )}

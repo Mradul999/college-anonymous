@@ -6,8 +6,15 @@ export default {
     extend: {
       colors: {
         background: {
-          DEFAULT: "#ffffff",
-          dark: "#25253a",
+          DEFAULT: "#F5F5F5",
+          dark: "#181616",
+        },
+        cardBg: {
+          DEFAULT: "#F9F9F9",
+          dark: "#272727",
+        },
+        textColor: {
+          DEFAULT: "#4A4A4A",
         },
       },
     },

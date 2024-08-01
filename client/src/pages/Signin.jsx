@@ -55,11 +55,11 @@ export default function Signin() {
     }
   };
   return (
-    <div className="w-screen min-h-screen flex flex-col items-center justify-center bg  px-2  ">
+    <div className="w-screen min-h-screen flex flex-col items-center justify-center   px-2  ">
       <div
-        className={`max-w-[500px] rounded-md flex flex-col gap-10 py-6 px-2 sm:px-6 w-full bg-opacity-40 border-2 border-gray-600 bg-gray-700`}
+        className={`max-w-[500px] rounded-md flex flex-col gap-10 py-6 px-2 sm:px-6 w-full bg-opacity-20 dark:bg-opacity-30 border-2 border-indigo-600  dark:border-gray-600 bg-indigo-300 dark:bg-gray-700`}
       >
-        <h1 className="text-center text-white text-2xl sm:text-3xl font-semibold">
+        <h1 className="text-center dark:text-gray-300 text-textColor text-2xl sm:text-3xl font-semibold">
           Sign in
         </h1>
         <form onSubmit={submitHandler} className="flex flex-col  gap-4  ">
@@ -68,14 +68,14 @@ export default function Signin() {
             onChange={changeHandler}
             id="email"
             type="text"
-            className="rounded-md bg-black bg-opacity-10 py-2 px-2 text-white  focus:outline-none border-[2px] focus:border-green-600 border-indigo-600"
+            className="rounded-md bg-gray-200 bg-opacity-55 py-2 px-2 dark:text-gray-300 text-textColor dark:placeholder:text-gray-300 placeholder:text-gray-600  focus:outline-none border focus:border-green-600 border-indigo-600"
             placeholder="Enter GLA mail ID"
           />
           <input
             onChange={changeHandler}
             id="password"
             type="password"
-            className="rounded-md bg-black bg-opacity-10 py-2 px-2 text-white  focus:outline-none border-[2px] focus:border-green-600 border-indigo-600"
+            className="rounded-md bg-gray-200 dark:placeholder:text-gray-300 placeholder:text-gray-600 bg-opacity-55 py-2 px-2 dark:text-gray-300 text-textColor  focus:outline-none border focus:border-green-600 border-indigo-600"
             placeholder="Enter Password"
           />
           {error && <span className=" text-red-600 text-sm">*{error}</span>}
@@ -92,7 +92,7 @@ export default function Signin() {
               "Sign in"
             )}
           </button>
-          <p className="text-gray-200">
+          <p className="dark:text-gray-300 text-textColor">
             Don't have a account?{" "}
             <NavLink to="/sign-up">
               {" "}

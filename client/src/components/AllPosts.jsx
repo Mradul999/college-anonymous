@@ -55,14 +55,14 @@ export const AllPosts = () => {
       {modal && <Modal onClose={closeModal} />}
       <button
         onClick={clickHandler}
-        className=" card-bg text-start text-gray-300 font-semibold text-lg rounded-md px-2 py-5 w-full flex  items-center gap-1"
+        className=" dark:bg-cardBg-dark bg-gray-200 border border-gray-300 dark:border-gray-700 text-start dark:text-gray-200 text-textColor font-semibold text-lg rounded-md px-2 py-5 w-full flex  items-center gap-1"
       >
-        <MdAddCircleOutline className="text-2xl" />
+        <MdAddCircleOutline className="text-3xl text-indigo-600" />
         Create post...
       </button>
 
       <div className="flex flex-col w-full     gap-4">
-        <h1 className="text-gray-300 font-semibold text-lg">Latest Posts</h1>
+        <h1 className="dark:text-gray-200 text-textColor font-semibold text-lg">Latest Posts</h1>
         {loading ? (
           <div className="flex justify-center items-center ">
             <span class="loader"></span>
@@ -70,7 +70,7 @@ export const AllPosts = () => {
         ) : (
           <div className="flex flex-col w-full     gap-3">
             {allPosts.length === 0 && (
-              <p className="text-center text-gray-200">No post available</p>
+              <p className="text-center dark:text-gray-200 text-textColor">No post available</p>
             )}
             {allPosts?.map((post) => (
               <SinglePost post={post} onDelete={onDelete} key={post._id} />

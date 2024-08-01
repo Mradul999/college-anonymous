@@ -14,7 +14,7 @@ import About from "./pages/About";
 import Contact from "./pages/Contact";
 export default function App() {
   return (
-    <div className=" bg">
+    <div className=" dark:bg-background-dark bg-background">
       <BrowserRouter>
         <Header />
 

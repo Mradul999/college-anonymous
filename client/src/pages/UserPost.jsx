@@ -49,11 +49,11 @@ export default function UserPost() {
         ) : (
           <div className="flex flex-col w-full gap-3">
             {allPosts.length === 0 ? (
-              <p className="text-white text-center font-semibold ">
+              <p className="dark:text-gray-300 text-textColor text-center font-semibold ">
                 No post created Yet
               </p>
             ) : (
-              <h1 className="md:text-2xl text-xl text-gray-300 font-medium text-center">
+              <h1 className="md:text-2xl text-xl dark:text-gray-300 text-textColor font-medium text-center">
                 All posts
               </h1>
             )}

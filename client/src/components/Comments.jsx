@@ -69,7 +69,7 @@ export default function Comments({ post }) {
       {!currentUser && <p className="text-center font-medium text-indigo-700 border-b border-gray-600  pb-4"> <NavLink to="/sign-in">Signin</NavLink> <span className="text-gray-300"> to comment</span> </p>}
       <form onSubmit={submitHandler} className={`w-full flex flex-col ${!currentUser &&"hidden"} `}>
         <div className="flex md:flex-row flex-col  gap-2 md:gap-3 items-center">
-          <span className="text-white self-start font-semibold text-sm">
+          <span className="dark:text-gray-300 text-textColor self-start font-semibold text-sm">
             {currentUser?.username}
           </span>
           <textarea
@@ -78,13 +78,13 @@ export default function Comments({ post }) {
             rows={1}
             type="text"
             placeholder="Add Comment"
-            className="w-full focus:outline-none placeholder:text-sm bg-transparent border-b border-gray-500 placeholder:text-white  focus:border-b-white  focus:border-b-2  text-white text-sm"
+            className="w-full focus:outline-none placeholder:text-sm bg-transparent border-b border-gray-500 placeholder:dark:text-gray-300 placeholder:text-textColor  dark:focus:border-b-white focus:border-b-gray-600  focus:border-b-2  dark:text-gray-300 text-textColor text-sm"
           />
         </div>
         <button
           className={`   text-white py-1 px-2 rounded-full text-xs ${
             !comment
-              ? "pointer-events-none text-gray-700 bg-gray-400"
+              ? "pointer-events-none dark:text-gray-300 text-textColor bg-gray-400"
               : " pointer-events-auto bg-indigo-700"
           } hover:bg-indigo-500 transition-all self-end mt-2 font-medium `}
         >

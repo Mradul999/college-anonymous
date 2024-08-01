@@ -51,7 +51,6 @@ export default function SinglePost({ post, onDelete }) {
         `/api/post/likepost/${post._id}/${currentUser._id}`
       );
       if (response.status === 200) {
-
         if (response.data.likes.includes(currentUser._id)) {
           setLiked(true);
           setLikesCount(likesCount + 1);
@@ -64,7 +63,9 @@ export default function SinglePost({ post, onDelete }) {
   };
   const deleteHandler = async () => {
     try {
-      const response = await axios.delete(`${import.meta.env.VITE_API_URL}/api/post/deletepost/${post._id}`);
+      const response = await axios.delete(
+        `${import.meta.env.VITE_API_URL}/api/post/deletepost/${post._id}`
+      );
       if (response.status === 200) {
         setModal(false);
         onDelete(response.data._id);
@@ -85,7 +86,7 @@ export default function SinglePost({ post, onDelete }) {
   return (
     <div
       onClick={postClickHandler}
-      className="p-2   card-bg text-gray-200 cursor-pointer      rounded-lg"
+      className="p-2   dark:bg-cardBg-dark bg-gray-200 dark:text-gray-200 text-textColor cursor-pointer border border-gray-300 dark:border-gray-700      rounded-lg"
     >
       {signinModal && <SigninModal onClose={closeModal}></SigninModal>}
       {modal && <Modal onClose={closeModal} deleteHandler={deleteHandler} />}
@@ -94,21 +95,27 @@ export default function SinglePost({ post, onDelete }) {
         <p className=" text-sm w-full">{moment(post.createdAt).fromNow()}</p>
       </div>
 
-      <h1 className="font-semibold mb-3 tracking-normal text-gray-200  text-lg">
+      <h1 className="font-semibold mb-3 tracking-normal dark:text-gray-300 text-textColor  text-lg">
         {post.title}
       </h1>
       {post.image && (
-        <img src={post?.image} className=" mb-3 rounded-md w-[200px] md:w-[300px] " alt="" />
+        <img
+          src={post?.image}
+          className=" mb-3 rounded-md w-[200px] md:w-[300px] border dark:border-gray-600  "
+          alt=""
+        />
       )}
       <div className="flex mb-3">
-        <p className="text-sm text-gray-300 line-clamp-1 ">{post.content}</p>
+        <p className="text-sm dark:text-gray-300 text-textColor line-clamp-1 ">
+          {post.content}
+        </p>
       </div>
 
       <div className="flex   justify-between  items-center  ">
         <div className="flex items-center ">
           <div
             onClick={likeHandler}
-            className="flex items-center justify-center px-2 gap-1 py-1 md:hover:bg-gray-600 transition-all rounded-full"
+            className="flex items-center justify-center px-2 gap-1 py-1 md:dark:hover:bg-gray-600 md:hover:bg-gray-400 transition-all rounded-full"
           >
             {liked ? (
               <FaThumbsUp
@@ -122,7 +129,7 @@ export default function SinglePost({ post, onDelete }) {
             <span className="text-xs pt-[1.3px]">{likesCount}</span>
           </div>
 
-          <div className="flex items-center justify-center hover:bg-gray-600 transition-all   px-2 py-1 gap-1  rounded-full">
+          <div className="flex items-center justify-center md:dark:hover:bg-gray-600 md:hover:bg-gray-400 transition-all   px-2 py-1 gap-1  rounded-full">
             <FaRegCommentAlt className=" text-md  " />
             <span className="text-xs">{commentCount}</span>
           </div>
@@ -131,7 +138,7 @@ export default function SinglePost({ post, onDelete }) {
         {currentUser?._id === post.userId && (
           <button
             onClick={showModal}
-            className="bg-indigo-700 rounded-md px-2 py-1 text-sm text-gray-300 font-semibold hover:bg-indigo-800 transition-all  "
+            className="bg-indigo-700 rounded-md px-2 py-1 text-sm text-white font-semibold hover:bg-indigo-800 transition-all  "
           >
             Delete
           </button>
