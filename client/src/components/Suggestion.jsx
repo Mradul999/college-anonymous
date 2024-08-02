@@ -2,7 +2,7 @@ import React from "react";
 
 export default function Suggestion() {
   return (
-    <div className="w-full rounded-md bg-gray-200  dark:bg-cardBg-dark h-[55%] border border-gray-300 dark:border-gray-700 p-2">
+    <div className="w-full rounded-md bg-gray-200  dark:bg-cardBg-dark  border border-gray-300 dark:border-gray-700 p-2">
       <h1 className="dark:text-gray-200 text-textColor font-medium">
         {" "}
         Here are some suggestions for your new Post
