@@ -31,7 +31,7 @@ export default function SinglePost({ post, onDelete }) {
 
   useEffect(() => {
     const getComments = async () => {
-      const response = await axios.get(`/api/comment/getcomments/${post._id}`);
+      const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/comment/getcomments/${post._id}`);
       if (response.status === 200) {
         setCommentsCount(response.data?.length);
       }
