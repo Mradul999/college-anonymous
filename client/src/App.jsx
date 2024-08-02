@@ -15,7 +15,7 @@ import Contact from "./pages/Contact";
 import Footer from "./components/Footer";
 export default function App() {
   return (
-    <div className=" dark:bg-background-dark overflow-hidden  bg-background">
+    <div className=" dark:bg-background-dark overflow-hidden     bg-background">
       <BrowserRouter>
         <Header />
 

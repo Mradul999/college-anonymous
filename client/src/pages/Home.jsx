@@ -6,7 +6,7 @@ import Suggestion from "../components/Suggestion";
 export default function Home() {
   return (
     <div className="  ">
-      <div className="w-full  flex md:flex-row flex-col min-h-screen       pt-20">
+      <div className="w-full  flex md:flex-row flex-col min-h-screen        pt-20">
         <PopularPosts />
         <AllPosts />
     

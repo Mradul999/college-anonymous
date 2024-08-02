@@ -19,6 +19,11 @@ body {
   -ms-overflow-style: none; /* IE 10+ */
 }
 
+.scrollbar::-webkit-scrollbar {
+  width: 12px; /* Customize scrollbar width */
+}
+
+
 .scrollbar-hide::-webkit-scrollbar {
   display: none; /* Chrome, Safari, Opera */
 }
