@@ -41,7 +41,7 @@ export default function UserPost() {
   };
   return (
     <div className="w-full flex justify-center min-h-screen">
-      <div className="w-full max-w-[900px] flex  pt-20 pb-3 ">
+      <div className="w-full max-w-[900px] flex   pt-20 pb-24 ">
         {loading ? (
           <div className="flex w-full justify-center items-center ">
             <span class="loader "></span>

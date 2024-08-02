@@ -65,7 +65,7 @@ export default function Comments({ post }) {
   };
 
   return (
-    <div className="w-full flex flex-col   mt-6">
+    <div className="w-full flex flex-col mb-20   mt-6">
       {!currentUser && <p className="text-center font-medium text-indigo-700 border-b border-gray-600  pb-4"> <NavLink to="/sign-in">Signin</NavLink> <span className="text-gray-300"> to comment</span> </p>}
       <form onSubmit={submitHandler} className={`w-full flex flex-col ${!currentUser &&"hidden"} `}>
         <div className="flex md:flex-row flex-col  gap-2 md:gap-3 items-center">

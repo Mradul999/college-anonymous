@@ -86,7 +86,7 @@ export default function SinglePost({ post, onDelete }) {
   return (
     <div
       onClick={postClickHandler}
-      className="p-2   dark:bg-cardBg-dark bg-gray-200 dark:text-gray-200 text-textColor cursor-pointer border border-gray-300 dark:border-gray-700      rounded-lg"
+      className="p-2   dark:bg-cardBg-dark  bg-gray-200 dark:text-gray-200 text-textColor cursor-pointer border border-gray-300 dark:border-gray-700      rounded-lg"
     >
       {signinModal && <SigninModal onClose={closeModal}></SigninModal>}
       {modal && <Modal onClose={closeModal} deleteHandler={deleteHandler} />}

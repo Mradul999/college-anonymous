@@ -101,7 +101,7 @@ export default function CreatePost() {
   };
 
   return (
-    <div className="w-full min-h-screen  pt-20 flex justify-center  overflow-x-hidden">
+    <div className="w-full min-h-screen  pt-20 pb-20 flex justify-center  overflow-x-hidden">
       <div className="max-w-[700px] px-2  mt-2 mb-10  items-center w-full flex  gap-10 flex-col">
         <h1 className="text-2xl dark:text-gray-300 text-textColor font-semibold">Create Post</h1>
         <form onSubmit={submitHandler} className="w-full flex flex-col gap-3 ">

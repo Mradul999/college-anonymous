@@ -67,10 +67,10 @@ export default function Header() {
 
       <div className="flex  items-center relative gap-3">
         <NavLink to="/about">
-          <button className="dark:text-gray-200 text-textColor font-medium dark:hover:text-indigo-700 hover:text-indigo-500 transition-all text-sm">About</button>
+          <button className="dark:text-gray-200 text-textColor font-medium dark:hover:text-indigo-700 hover:text-indigo-500 transition-all text-xs sm:text-sm">About</button>
         </NavLink>
         <NavLink to="/contact">
-          <button className="dark:text-gray-200 text-textColor dark:hover:text-indigo-700 hover:text-indigo-500 font-medium text-sm">
+          <button className="dark:text-gray-200 text-textColor dark:hover:text-indigo-700 hover:text-indigo-500 font-medium text-xs sm:text-sm">
             Feedback
           </button>
         </NavLink>

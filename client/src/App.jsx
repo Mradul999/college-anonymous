@@ -12,9 +12,10 @@ import PostPage from "./pages/PostPage";
 import UserPost from "./pages/UserPost";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
+import Footer from "./components/Footer";
 export default function App() {
   return (
-    <div className=" dark:bg-background-dark bg-background">
+    <div className=" dark:bg-background-dark overflow-hidden  bg-background">
       <BrowserRouter>
         <Header />
 
@@ -43,6 +44,7 @@ export default function App() {
             }
           ></Route>
         </Routes>
+        <Footer/>
       </BrowserRouter>
     </div>
   );
