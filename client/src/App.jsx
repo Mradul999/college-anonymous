@@ -13,6 +13,7 @@ import UserPost from "./pages/UserPost";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Footer from "./components/Footer";
+import { Forgotpassword } from "./pages/Forgotpassword";
 export default function App() {
   return (
     <div className=" dark:bg-background-dark overflow-hidden     bg-background">
@@ -43,6 +44,7 @@ export default function App() {
               </ProtectedRoute>
             }
           ></Route>
+          <Route path="/forgot-password" element={<Forgotpassword/>}/>
         </Routes>
         <Footer/>
       </BrowserRouter>

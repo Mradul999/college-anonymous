@@ -16,28 +16,31 @@ export default function Signin() {
     setFormData({ ...formData, [e.target.id]: e.target.value });
   };
 
-  const dispatch=useDispatch();
+  const dispatch = useDispatch();
 
   const submitHandler = async (e) => {
     e.preventDefault();
     setLoading(true);
     setError(null);
 
-    if ( !formData?.password || !formData?.email) {
+    if (!formData?.password || !formData?.email) {
       setError("All fields are required");
       setLoading(false);
       return;
     }
     try {
-      const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/auth/signin`, {
-        email: formData.email,
-        password:formData.password
-      });
+      const response = await axios.post(
+        `${import.meta.env.VITE_API_URL}/api/auth/signin`,
+        {
+          email: formData.email,
+          password: formData.password,
+        }
+      );
 
       if (response.status === 200) {
         setLoading(false);
-        
-        dispatch(signinSuccess(response.data.user))
+
+        dispatch(signinSuccess(response.data.user));
 
         navigate("/");
       }
@@ -63,7 +66,6 @@ export default function Signin() {
           Sign in
         </h1>
         <form onSubmit={submitHandler} className="flex flex-col   gap-4  ">
-         
           <input
             onChange={changeHandler}
             id="email"
@@ -92,13 +94,21 @@ export default function Signin() {
               "Sign in"
             )}
           </button>
-          <p className="dark:text-gray-300 text-textColor">
-            Don't have a account?{" "}
-            <NavLink to="/sign-up">
-              {" "}
-              <span className=" font-semibold cursor-pointer">Sign up</span>
-            </NavLink>{" "}
-          </p>
+          <div className="flex justify-between">
+            <p className="dark:text-gray-300 text-textColor">
+              Don't have a account?{" "}
+              <NavLink to="/sign-up">
+                {" "}
+                <span className=" font-semibold cursor-pointer">Sign up</span>
+              </NavLink>{" "}
+            </p>
+            <NavLink to="/forgot-password">
+              <span className="dark:text-gray-300 text-textColor text-sm font-semibold">
+                {" "}
+                Can't Sign in?
+              </span>
+            </NavLink>
+          </div>
         </form>
       </div>
     </div>
