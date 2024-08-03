@@ -94,7 +94,7 @@ export default function Signin() {
               "Sign in"
             )}
           </button>
-          <div className="flex justify-between">
+          <div className="flex md:flex-row flex-col justify-between">
             <p className="dark:text-gray-300 text-textColor">
               Don't have a account?{" "}
               <NavLink to="/sign-up">
