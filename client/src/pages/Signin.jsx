@@ -60,7 +60,7 @@ export default function Signin() {
   return (
     <div className="w-screen min-h-screen flex flex-col items-center justify-center    px-2  ">
       <div
-        className={`max-w-[500px] rounded-md  flex flex-col gap-10 py-6 px-2 sm:px-6 w-full bg-opacity-20 dark:bg-opacity-30 border-2 border-indigo-600  dark:border-gray-600 bg-indigo-300 dark:bg-gray-700`}
+        className={`max-w-[500px] rounded-md  flex flex-col gap-10 py-6 px-2 sm:px-6 w-full 0  dark:border-gray-600 dark:bg-gray-700 bg-indigo-300 bg-opacity-30   dark:bg-opacity-30  `}
       >
         <h1 className="text-center dark:text-gray-300 text-textColor text-2xl sm:text-3xl font-semibold">
           Sign in

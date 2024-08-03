@@ -3,9 +3,15 @@ import { FaGithub } from "react-icons/fa";
 import { FaInstagram } from "react-icons/fa";
 import { FaLinkedin } from "react-icons/fa";
 
+import { useLocation } from "react-router-dom";
+
 const Footer = () => {
   return (
-    <div className=" -mt-20 h-[5rem]   border-t border-indigo-800 dark:bg-gray-600 dark:bg-opacity-30 flex items-center flex-col gap-2  justify-center px-2  bg-indigo-800     ">
+    <div
+      className={` -mt-20 h-[5rem] ${
+        location.pathname.startsWith("/reset-password") && "hidden"
+      }   border-t border-indigo-800 dark:bg-gray-600 dark:bg-opacity-30 flex items-center flex-col gap-2  justify-center px-2  bg-indigo-800     `}
+    >
       <h1 className="text-gray-200 text-center text-sm font-medium">
         Created by Mradul
       </h1>

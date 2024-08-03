@@ -9,4 +9,5 @@ router.get("/getuser/:userId",getUser)
 
 
 
+
 export default router;

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { signoutSuccess } from "../redux/user.slice";
@@ -9,6 +9,9 @@ import axios from "axios";
 const API_URL = import.meta.env.VITE_API_URL;
 import { CiSun } from "react-icons/ci";
 import { FaMoon } from "react-icons/fa6";
+// console.log(location.pathname);
+
+
 export default function Header() {
   const { currentUser } = useSelector((state) => state.user);
   const { theme } = useSelector((state) => state.theme);
@@ -56,8 +59,8 @@ export default function Header() {
 
   return (
     <div
-      className="w-screen flex justify-between items-center py-4  fixed z-10 sm:px-7 px-2 dark:bg-background-dark bg-gray-200    bg shadow-sm shadow-indigo-700 dark:text-gray-200 text-textColor
-  "
+      className={`w-screen ${location.pathname.startsWith("/reset-password") &&"hidden"} flex justify-between items-center py-4  fixed z-10 sm:px-7 px-2 dark:bg-background-dark bg-gray-200    bg shadow-sm shadow-indigo-700 dark:text-gray-200 text-textColor
+  `}
     >
       <NavLink to="/">
         <h1 onClick={()=>setActiveTab("")} className="text-xl font-semibold flex items-center gap-1 ">

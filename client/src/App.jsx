@@ -14,6 +14,7 @@ import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Footer from "./components/Footer";
 import { Forgotpassword } from "./pages/Forgotpassword";
+import ResetPassword from "./pages/ResetPassword";
 export default function App() {
   return (
     <div className=" dark:bg-background-dark overflow-hidden     bg-background">
@@ -45,6 +46,7 @@ export default function App() {
             }
           ></Route>
           <Route path="/forgot-password" element={<Forgotpassword/>}/>
+          <Route path="/reset-password/:token" element={<ResetPassword/>}/>
         </Routes>
         <Footer/>
       </BrowserRouter>

@@ -5,7 +5,7 @@ import OTP from "../models/model.otp.js";
 import { sendMail } from "../utils/sendMail.js";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
-dotenv.config()
+dotenv.config();
 //user signup
 export const signup = async (req, res) => {
   const { name, email, password } = req.body;
@@ -68,7 +68,7 @@ export const generateOTP = async (req, res) => {
     });
     await newOtp.save();
 
-    const mailResponse = await sendMail(email, otp);
+    const mailResponse = await sendMail(email, "otp", otp);
     if (mailResponse.success) {
       res.status(200).json({
         message: "OTP sent successfully",
@@ -158,6 +158,65 @@ export const signout = async (req, res) => {
     res.status(500).json({
       success: false,
       message: "Internal server error",
+    });
+  }
+};
+
+//sending change password link via mail
+export const forgotpassword = async (req, res) => {
+  try {
+    const { email } = req.body;
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(404).json({
+        message: "Sorry,Your account was not found",
+      });
+    }
+    const token = jwt.sign({ id: user._id }, process.env.SECRET_KEY, {
+      expiresIn: "10m",
+    });
+    const resetUrl = `http://localhost:5173/reset-password/${token}`;
+    await sendMail(email, "resetPassword", resetUrl);
+    res.status(200).json({
+      message: "Reset password link sent to your registered email",
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
+    });
+  }
+};
+
+//reset password
+export const resetPassword = async (req, res) => {
+  try {
+    const { token, password } = req.body;
+
+    const decode = jwt.verify(token, process.env.SECRET_KEY);
+
+    const user = await User.findById(decode.id);
+    if (!user) {
+      return res.status(404).json({
+        message: "user not found",
+      });
+    }
+    const isMatch = bcryptjs.compareSync(password, user.password);
+    if (isMatch) {
+      return res.status(401).json({
+        message: " You can not set old password as your new Password!",
+      });
+    }
+    const hashedPassword = bcryptjs.hashSync(password, 10);
+
+    user.password = hashedPassword;
+    await user.save();
+    res.status(200).json({
+      message: "password changed successfully",
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({
+      message: error.message,
     });
   }
 };
