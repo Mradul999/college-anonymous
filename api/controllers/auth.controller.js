@@ -175,7 +175,7 @@ export const forgotpassword = async (req, res) => {
     const token = jwt.sign({ id: user._id }, process.env.SECRET_KEY, {
       expiresIn: "10m",
     });
-    const resetUrl = `http://localhost:5173/reset-password/${token}`;
+    const resetUrl = `https://college-anonymous.vercel.app/reset-password/${token}`;
     await sendMail(email, "resetPassword", resetUrl);
     res.status(200).json({
       message: "Reset password link sent to your registered email",
