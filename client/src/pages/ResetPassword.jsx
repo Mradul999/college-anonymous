@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import { IoEyeOutline } from "react-icons/io5";
 import { FaRegEyeSlash } from "react-icons/fa";
+import { ThreeDots } from "react-loader-spinner";
 const ResetPassword = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
