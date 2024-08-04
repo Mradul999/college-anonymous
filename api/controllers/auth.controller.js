@@ -193,11 +193,7 @@ export const resetPassword = async (req, res) => {
     const { token, password } = req.body;
 
     const decode = jwt.verify(token, process.env.SECRET_KEY);
-    if (!decode) {
-      return res.status(400).json({
-        message: "Reset password link expired ,generate a new link",
-      });
-    }
+   
 
     const user = await User.findById(decode.id);
     if (!user) {
@@ -220,8 +216,8 @@ export const resetPassword = async (req, res) => {
     });
   } catch (error) {
     console.log(error);
-    res.status(500).json({
-      message: "Internal server error",
+    res.status(400).json({
+      message: "Token expire",
     });
   }
 };
