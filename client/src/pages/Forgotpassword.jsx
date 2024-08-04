@@ -5,23 +5,19 @@ import { NavLink, useNavigate } from "react-router-dom";
 
 export const Forgotpassword = () => {
   const [email, setEmail] = useState("");
-//   console.log(email)
+  //   console.log(email)
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const [success, setSuccess] = useState(false);
-  
 
   const submitHandler = async (e) => {
     e.preventDefault();
 
     try {
-        setLoading(true);
+      setLoading(true);
       setError("");
-      const response = await axios.post(
-        `${import.meta.env.VITE_API_URL}/api/auth/forgotpassword`,
-        { email }
-      );
+      const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/auth/forgotpassword`, { email });
       if (response.status === 200) {
         setSuccess(true);
         setLoading(false);
@@ -40,7 +36,9 @@ export const Forgotpassword = () => {
 
   return (
     <div className="w-full min-h-screen flex justify-center items-center dark:text-gray-200 text-textColor ">
-      <div className={`flex flex-col gap-4 mx-2   dark:bg-gray-700 bg-indigo-300 bg-opacity-30   dark:bg-opacity-30 rounded-md  max-w-[400px] sm:py-8 py-6 px-3 sm:px-8 w-full  `}>
+      <div
+        className={`flex flex-col gap-4 mx-2   dark:bg-gray-700 bg-indigo-300 bg-opacity-30   dark:bg-opacity-30 rounded-md  max-w-[400px] sm:py-8 py-6 px-3 sm:px-8 w-full  `}
+      >
         <span className="text-2xl font-semibold mb-6 bg-indigo-800  dark:text-gray-300 size-10 flex justify-center items-center  self-center text-gray-200 rounded-full px-[0.5rem]">
           Λ
         </span>
@@ -63,31 +61,40 @@ export const Forgotpassword = () => {
             />
             {error && <p className="text-red-600 text-xs">{error}</p>}
 
-            <button className={`text-sm ${loading&& "pointer-events-none"} hover:scale-95 transition-all font-medium bg-indigo-700 py-2 rounded-md text-gray-200 flex justify-center items-center  `}>
+            <button
+              className={`text-sm ${
+                loading && "pointer-events-none"
+              } hover:scale-95 transition-all font-medium bg-indigo-700 py-2 rounded-md text-gray-200 flex justify-center items-center  `}
+            >
               {loading ? (
                 <ThreeDots
-                height="25"
-                width="45"
-                wrapperClass
-                color="white"
-                ariaLabel="loading"
-              />
+                  height="25"
+                  width="45"
+                  wrapperClass
+                  color="white"
+                  ariaLabel="loading"
+                />
               ) : (
                 "Send Email"
               )}
             </button>
           </form>
         )}
-        <NavLink to='/sign-in'><button
-          className={`text-sm hover:scale-95 w-full  transition-all ${
-            success ? "block" : "hidden"
-          } font-medium bg-indigo-700 py-2  rounded-md text-gray-200 `}
-        >
-          Sign in
-        </button></NavLink>
-        
+        <NavLink to="/sign-in">
+          <button
+            className={`text-sm hover:scale-95 w-full  transition-all ${
+              success ? "block" : "hidden"
+            } font-medium bg-indigo-700 py-2  rounded-md text-gray-200 `}
+          >
+            Sign in
+          </button>
+        </NavLink>
 
-        <span className={`text-center font-medium  ${success && "hidden"} text-sm sm:text-xs`}>
+        <span
+          className={`text-center font-medium  ${
+            success && "hidden"
+          } text-sm sm:text-xs`}
+        >
           Remember Your password?{" "}
           <NavLink to="/sign-in">
             {" "}
