@@ -1,5 +1,6 @@
 import axios from "axios";
 import react, { useState } from "react";
+import { ThreeDots } from "react-loader-spinner";
 import { NavLink, useNavigate } from "react-router-dom";
 
 export const Forgotpassword = () => {
@@ -62,11 +63,15 @@ export const Forgotpassword = () => {
             />
             {error && <p className="text-red-600 text-xs">{error}</p>}
 
-            <button className={`text-sm ${loading&& "pointer-events-none"} hover:scale-95 transition-all font-medium bg-indigo-700 py-2 rounded-md text-gray-200  `}>
+            <button className={`text-sm ${loading&& "pointer-events-none"} hover:scale-95 transition-all font-medium bg-indigo-700 py-2 rounded-md text-gray-200 flex justify-center items-center  `}>
               {loading ? (
-                <div className="flex justify-center items-center ">
-                  <span class="loader-small"></span>
-                </div>
+                <ThreeDots
+                height="25"
+                width="45"
+                wrapperClass
+                color="white"
+                ariaLabel="loading"
+              />
               ) : (
                 "Send Email"
               )}

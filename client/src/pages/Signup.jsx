@@ -3,12 +3,19 @@ import { NavLink } from "react-router-dom";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { ThreeDots } from "react-loader-spinner";
+import { IoEyeOutline } from "react-icons/io5";
+import { FaRegEyeSlash } from "react-icons/fa";
 export default function Signup() {
   const [formData, setFormData] = useState(null);
 
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
+
+  const toggleShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
 
   const changeHandler = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
@@ -65,28 +72,42 @@ export default function Signup() {
             onChange={changeHandler}
             id="name"
             type="text"
-            className="rounded-md bg-gray-200 bg-opacity-55 dark:placeholder:text-gray-300 placeholder:text-gray-600 py-2 px-2 dark:text-gray-300 text-textColor focus:outline-none border focus:border-green-600 border-indigo-600"
+            className="rounded-md bg-transparent dark:placeholder:text-gray-300 placeholder:text-gray-600 py-2 px-2 dark:text-gray-300 text-textColor border-2 border-gray-600 focus:outline-none focus:border-indigo-700"
             placeholder="Enter Full Name"
           />
           <input
             onChange={changeHandler}
             id="email"
             type="text"
-            className="rounded-md bg-gray-200 dark:placeholder:text-gray-300 placeholder:text-gray-600 bg-opacity-55 py-2 px-2 dark:text-gray-300 text-textColor  focus:outline-none border focus:border-green-600 border-indigo-600"
+            className="rounded-md  dark:placeholder:text-gray-300 placeholder:text-gray-600 bg-transparent py-2 px-2 dark:text-gray-300 text-textColor  border-2 border-gray-600 focus:outline-none focus:border-indigo-700"
             placeholder="Enter GLA mail ID"
           />
-          <input
-            onChange={changeHandler}
-            id="password"
-            type="password"
-            className="rounded-md dark:placeholder:text-gray-300 placeholder:text-gray-600 bg-gray-200 bg-opacity-55 py-2 px-2 dark:text-gray-300 text-textColor  focus:outline-none border focus:border-green-600 border-indigo-600"
-            placeholder="Enter Password"
-          />
+          <div className="relative">
+            <input
+              onChange={changeHandler}
+              id="password"
+              type={`${showPassword ? "text" : "password"}`}
+              className="rounded-md w-full dark:placeholder:text-gray-300 placeholder:text-gray-600 bg-transparent py-2 px-2 dark:text-gray-300 text-textColor  border-2 border-gray-600 focus:outline-none focus:border-indigo-700"
+              placeholder="Enter Password"
+            />
+            {showPassword ? (
+              <IoEyeOutline
+                onClick={toggleShowPassword}
+                className="absolute top-3 text-lg right-2  text-gray-500 "
+              />
+            ) : (
+              <FaRegEyeSlash
+                onClick={toggleShowPassword}
+                className="absolute top-3 text-lg right-2 text-gray-500 "
+              />
+            )}
+          </div>
+
           {error && <span className=" text-red-600 text-sm">*{error}</span>}
           <button className=" bg-indigo-600 rounded-md  text-gray-200 py-2 hover:scale-95 transition-all hover:bg-indigo-700 flex justify-center    font-medium">
             {loading ? (
               <ThreeDots
-                height="40"
+                height="30"
                 width="60"
                 wrapperClass
                 color="white"

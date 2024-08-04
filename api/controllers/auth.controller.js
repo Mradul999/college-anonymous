@@ -175,7 +175,7 @@ export const forgotpassword = async (req, res) => {
     const token = jwt.sign({ id: user._id }, process.env.SECRET_KEY, {
       expiresIn: "10m",
     });
-    const resetUrl = `http://localhost:5173/reset-password/${token}`;
+    const resetUrl = `https://college-anonymous.vercel.app/reset-password/${token}`;
     await sendMail(email, "resetPassword", resetUrl);
     res.status(200).json({
       message: "Reset password link sent to your registered email",
@@ -193,6 +193,11 @@ export const resetPassword = async (req, res) => {
     const { token, password } = req.body;
 
     const decode = jwt.verify(token, process.env.SECRET_KEY);
+    if (!decode) {
+      return res.status(400).json({
+        message: "Reset password link expired ,generate a new link",
+      });
+    }
 
     const user = await User.findById(decode.id);
     if (!user) {
@@ -215,8 +220,8 @@ export const resetPassword = async (req, res) => {
     });
   } catch (error) {
     console.log(error);
-    res.status(400).json({
-      message: error.message,
+    res.status(500).json({
+      message: "Internal server error",
     });
   }
 };
