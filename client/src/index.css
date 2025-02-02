@@ -27,6 +27,8 @@ body {
 .scrollbar-hide::-webkit-scrollbar {
   display: none; /* Chrome, Safari, Opera */
 }
+
+
 .loader {
   width: 30px;
   height: 30px;

@@ -10,6 +10,7 @@ import userRoute from "./routes/user.js";
 import feedbackRoute from "./routes/feedback.js";
 
 const app = express();
+
 const allowedOrigins = [
   "https://college-anonymous.vercel.app", 
   "http://localhost:5173" 
