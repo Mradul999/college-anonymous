@@ -1,6 +1,7 @@
 .env
 node_modules
 content-moderation-452920-e744069d4084.json
+text-moderation-453217-8d14dc1c9604.json
 
 # Logs
 logs

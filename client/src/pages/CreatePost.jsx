@@ -79,7 +79,7 @@ export default function CreatePost() {
       setLoading(true);
 
       const response = await axios.post(
-        `${import.meta.env.VITE_API_URL}/api/post/createpost`,
+        `http://localhost:3000/api/post/createpost`,
         {
           formData,
           author: currentUser.username,
@@ -99,6 +99,14 @@ export default function CreatePost() {
           return;
         } else if (error.response.status == 400) {
           setError("Inappropriate content detected.Can not post this");
+          return;
+        } else if (error.response.status == 401) {
+          setError("Title contains too many offensive words");
+          return;
+        } else if (error.response.status == 402) {
+          setError("post content contains too many offensive words");
+        } else {
+          setError("Something went wrong");
           return;
         }
       }

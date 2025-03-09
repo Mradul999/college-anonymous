@@ -1,6 +1,7 @@
 import Post from "../models/model.posts.js";
 
 import moderateImage from "../config/moderation.js";
+import analyzeText from "../config/analyzeText.js";
 
 //create post
 export const createPost = async (req, res) => {
@@ -36,6 +37,34 @@ export const createPost = async (req, res) => {
         message: "Image moderation failed",
       });
     }
+    //for title
+
+    const titleModerationResult = await analyzeText(title);
+
+    if (titleModerationResult === null) {
+      return res.status(500).json({ message: "Failed to analyze text" });
+    }
+
+    if (titleModerationResult > 0.7) {
+      return res
+        .status(401)
+        .json({ message: "Title contains too many offensive words" });
+    }
+
+    //for description
+
+    const contentModerationResult = await analyzeText(content);
+
+    if (contentModerationResult === null) {
+      return res.status(500).json({ message: "Failed to analyze text" });
+    }
+
+    if (contentModerationResult > 0.7) {
+      return res
+        .status(402)
+        .json({ message: "content contains too many offensive words" });
+    }
+
     const newPost = new Post({
       title,
       content,
