@@ -1,4 +1,7 @@
 import Post from "../models/model.posts.js";
+
+import moderateImage from "../config/moderation.js";
+
 //create post
 export const createPost = async (req, res) => {
   try {
@@ -23,6 +26,16 @@ export const createPost = async (req, res) => {
       .join("-")
       .toLowerCase()
       .replace(/[^a-zA-Z0-9-]/g, "");
+
+    const moderationResult = await moderateImage(image);
+
+    console.log(moderationResult);
+
+    if (!moderationResult.allowed) {
+      return res.status(400).json({
+        message: "Image moderation failed",
+      });
+    }
     const newPost = new Post({
       title,
       content,

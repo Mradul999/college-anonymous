@@ -15,7 +15,6 @@ export default function CreatePost() {
   const [image, setImage] = useState(null);
   const [formData, setFormData] = useState({});
 
-
   const [loading, setLoading] = useState(false);
   const [imgUplaoding, setImgUploading] = useState(false);
   const [waiting, setWaiting] = useState(null);
@@ -79,11 +78,14 @@ export default function CreatePost() {
     try {
       setLoading(true);
 
-      const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/post/createpost`, {
-        formData,
-        author: currentUser.username,
-        userId:currentUser._id
-      });
+      const response = await axios.post(
+        `http://localhost:3000/api/post/createpost`,
+        {
+          formData,
+          author: currentUser.username,
+          userId: currentUser._id,
+        }
+      );
       if (response.status === 200) {
         navigate(`/`);
       }
@@ -95,6 +97,9 @@ export default function CreatePost() {
             "Post already exist with this title please choose a different title"
           );
           return;
+        } else if (error.response.status == 400) {
+          setError("Inappropriate content detected.Can not post this");
+          return;
         }
       }
     }
@@ -103,7 +108,9 @@ export default function CreatePost() {
   return (
     <div className="w-full min-h-screen  pt-20 pb-20 flex justify-center  overflow-x-hidden">
       <div className="max-w-[700px] px-2  mt-2 mb-10  items-center w-full flex  gap-10 flex-col">
-        <h1 className="text-2xl dark:text-gray-300 text-textColor font-semibold">Create Post</h1>
+        <h1 className="text-2xl dark:text-gray-300 text-textColor font-semibold">
+          Create Post
+        </h1>
         <form onSubmit={submitHandler} className="w-full flex flex-col gap-3 ">
           <input
             onChange={changeHandler}
@@ -160,7 +167,11 @@ export default function CreatePost() {
           />
           {error && <p className="text-red-600 text-sm">{error}</p>}
 
-          <button className={`bg-indigo-700 py-2 px-2  hover:bg-indigo-800  transition-all ${imgUplaoding &&" pointer-events-none cursor-not-allowed"}  text-white font-medium rounded-md`}>
+          <button
+            className={`bg-indigo-700 py-2 px-2  hover:bg-indigo-800  transition-all ${
+              imgUplaoding && " pointer-events-none cursor-not-allowed"
+            }  text-white font-medium rounded-md`}
+          >
             {loading ? (
               <div className="flex justify-center items-center">
                 <ThreeDots
