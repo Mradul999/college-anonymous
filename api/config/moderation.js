@@ -1,15 +1,26 @@
-import vision from "@google-cloud/vision";
+import axios from "axios";
 import dotenv from "dotenv";
 dotenv.config();
 
-const client = new vision.ImageAnnotatorClient({
-  keyFilename: process.env.GOOGLE_APPLICATION_CREDENTIALS,
-});
+const apiKey = process.env.GOOGLE_CLOUD_VISION_API_KEY; // Ensure this is set in .env
 
 async function moderateImage(imageURL) {
   try {
-    const [result] = await client.safeSearchDetection(imageURL);
-    const detections = result.safeSearchAnnotation;
+    const request = {
+      requests: [
+        {
+          image: { source: { imageUri: imageURL } },
+          features: [{ type: "SAFE_SEARCH_DETECTION" }],
+        },
+      ],
+    };
+
+    const response = await axios.post(
+      `https://vision.googleapis.com/v1/images:annotate?key=${apiKey}`,
+      request
+    );
+
+    const detections = response.data.responses[0].safeSearchAnnotation;
 
     if (
       detections.adult === "LIKELY" ||
@@ -23,13 +34,9 @@ async function moderateImage(imageURL) {
     }
     return { allowed: true };
   } catch (error) {
-    console.error("Error analyzing image:", error);
+    console.error("Error analyzing image:", error.response?.data || error.message);
     return { allowed: false, reason: "Error processing image." };
   }
 }
 
 export default moderateImage;
-
-
-
-
