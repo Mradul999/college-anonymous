@@ -39,13 +39,16 @@ export default function Comments({ post }) {
     if (!comment) {
       return;
     }
-   
+
     try {
-      const response = await axios.post("/api/comment/createcomment", {
-        content: comment,
-        userId: currentUser._id,
-        postId: post._id,
-      });
+      const response = await axios.post(
+        `${API_URL}/api/comment/createcomment`,
+        {
+          content: comment,
+          userId: currentUser._id,
+          postId: post._id,
+        }
+      );
       if (response.status === 200) {
         setComment("");
         setcomments([response.data, ...comments]);
@@ -66,8 +69,17 @@ export default function Comments({ post }) {
 
   return (
     <div className="w-full flex flex-col mb-20   mt-6">
-      {!currentUser && <p className="text-center font-medium text-indigo-700 border-b border-gray-600  pb-4"> <NavLink to="/sign-in">Signin</NavLink> <span className="text-gray-300"> to comment</span> </p>}
-      <form onSubmit={submitHandler} className={`w-full flex flex-col ${!currentUser &&"hidden"} `}>
+      {!currentUser && (
+        <p className="text-center font-medium text-indigo-700 border-b border-gray-600  pb-4">
+          {" "}
+          <NavLink to="/sign-in">Signin</NavLink>{" "}
+          <span className="text-gray-300"> to comment</span>{" "}
+        </p>
+      )}
+      <form
+        onSubmit={submitHandler}
+        className={`w-full flex flex-col ${!currentUser && "hidden"} `}
+      >
         <div className="flex md:flex-row flex-col  gap-2 md:gap-3 items-center">
           <span className="dark:text-gray-300 text-textColor self-start font-semibold text-sm">
             {currentUser?.username}
@@ -103,7 +115,9 @@ export default function Comments({ post }) {
         </div>
       ) : (
         <div className="flex flex-col mt-2 gap-2">
-          {comments.length===0 && <p className="text-center">No comments yet</p>}
+          {comments.length === 0 && (
+            <p className="text-center">No comments yet</p>
+          )}
           {comments?.map((comment) => (
             <SingleComment
               comment={comment}
@@ -112,7 +126,6 @@ export default function Comments({ post }) {
               key={comment._id}
             />
           ))}
-          
         </div>
       )}
     </div>
