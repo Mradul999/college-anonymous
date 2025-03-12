@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { ThreeDots } from "react-loader-spinner";
 export default function VerifyOTP() {
   const [otp, setOtp] = useState(null);
+  const [timeLeft, setTimeLeft] = useState(300);
 
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -12,6 +13,13 @@ export default function VerifyOTP() {
   const changeHandler = (e) => {
     setOtp(e.target.value);
   };
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTimeLeft((prev) => prev - 1);
+    }, 1000);
+    return () => clearInterval(timer);
+  }, [timeLeft]);
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -74,6 +82,7 @@ export default function VerifyOTP() {
             className="rounded-md bg-black bg-opacity-10 py-2 px-2 text-white  focus:outline-none border-[2px] focus:border-green-600 border-indigo-600"
             placeholder="Enter OTP"
           />
+          <span className="text-white  text-sm">OTP will  expire in {timeLeft} seconds</span>
 
           {error && <span className=" text-red-600 text-sm">*{error}</span>}
           <button className=" bg-indigo-600 rounded-md  text-gray-200 py-2 hover:scale-95 transition-all hover:bg-indigo-700 flex justify-center    font-medium">
