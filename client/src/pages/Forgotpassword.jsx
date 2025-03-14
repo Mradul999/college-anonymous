@@ -17,7 +17,10 @@ export const Forgotpassword = () => {
     try {
       setLoading(true);
       setError("");
-      const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/auth/forgotpassword`, { email });
+      const response = await axios.post(
+        `${import.meta.env.VITE_API_URL}/api/auth/forgotpassword`,
+        { email }
+      );
       if (response.status === 200) {
         setSuccess(true);
         setLoading(false);
