@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Modal from "./SigninModal";
-const API_URL = import.meta.env.VITE_API_URL;
-
-import SinglePost from "./SinglePost";
 import { MdAddCircleOutline } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import SinglePost from "./SinglePost";
+import { ThreeDots } from "react-loader-spinner";
+
+const API_URL = import.meta.env.VITE_API_URL;
+
 export const AllPosts = () => {
   const [allPosts, setAllPosts] = useState([]);
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
   const [modal, setModal] = useState(false);
+  const navigate = useNavigate();
   const { currentUser } = useSelector((state) => state.user);
 
   useEffect(() => {
@@ -45,44 +47,58 @@ export const AllPosts = () => {
     const updatedPosts = allPosts.filter((post) => post._id !== postId);
     setAllPosts(updatedPosts);
   };
+
   const closeModal = () => {
     setModal(false);
   };
 
   return (
-    <div className=" flex flex-col items-center gap-6 w-full h-screen      p-2  ">
-      <div className="overflow-y-scroll scrollbar-hide w-full h-[87.5%] ">
-        {modal && <Modal onClose={closeModal} />}
-        <button
-          onClick={clickHandler}
-          className=" dark:bg-cardBg-dark bg-gray-200 border border-gray-300 dark:border-gray-700 text-start dark:text-gray-200 text-textColor font-semibold text-lg rounded-md px-2 py-5 w-full flex  items-center gap-1"
-        >
-          <MdAddCircleOutline className="text-3xl text-indigo-600" />
+    <div className="w-full h-screen flex flex-col px-4 ">
+      {/* Create Post Button */}
+      <button
+        onClick={clickHandler}
+        className="w-full bg-white dark:bg-cardBg-dark border border-gray-200 dark:border-gray-700 rounded-lg p-4 flex items-center gap-3 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors mb-4"
+      >
+        <MdAddCircleOutline className="text-3xl text-indigo-600" />
+        <span className="text-lg font-semibold text-gray-900 dark:text-gray-100">
           Create post...
-        </button>
+        </span>
+      </button>
 
-        <div className="flex flex-col w-full     gap-4">
-          <h1 className="dark:text-gray-200 text-textColor font-semibold mt-1 text-lg">
-            Latest Posts
-          </h1>
-          {loading ? (
-            <div className="flex justify-center items-center ">
-              <span class="loader"></span>
-            </div>
-          ) : (
-            <div className="flex flex-col w-full     gap-3">
-              {allPosts.length === 0 && (
-                <p className="text-center dark:text-gray-200 text-textColor">
-                  No post available
-                </p>
-              )}
-              {allPosts?.map((post) => (
+      {/* Latest Posts Section */}
+      <div className="w-full  overflow-y-auto scrollbar-hide">
+        <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4">
+          Latest Posts
+        </h1>
+
+        {loading ? (
+          <div className="flex justify-center items-center py-8">
+            <ThreeDots
+              height="30"
+              width="30"
+              radius="9"
+              color="#4fa94d"
+              ariaLabel="three-dots-loading"
+              visible={true}
+            />
+          </div>
+        ) : (
+          <div className="space-y-4">
+            {allPosts.length === 0 ? (
+              <p className="text-center text-gray-500 dark:text-gray-400 py-4">
+                No posts available
+              </p>
+            ) : (
+              allPosts.map((post) => (
                 <SinglePost post={post} onDelete={onDelete} key={post._id} />
-              ))}
-            </div>
-          )}
-        </div>
+              ))
+            )}
+          </div>
+        )}
       </div>
+
+      {/* Signin Modal */}
+      {modal && <Modal onClose={closeModal} />}
     </div>
   );
 };

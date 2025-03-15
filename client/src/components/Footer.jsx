@@ -8,7 +8,7 @@ import { useLocation } from "react-router-dom";
 const Footer = () => {
   return (
     <div
-      className={` -mt-20 h-[5rem] ${
+      className={` mt-3 h-[5rem] ${
         location.pathname.startsWith("/reset-password") && "hidden"
       }   border-t border-indigo-800 dark:bg-gray-600 dark:bg-opacity-30 flex items-center flex-col gap-2  justify-center px-2  bg-indigo-800     `}
     >
