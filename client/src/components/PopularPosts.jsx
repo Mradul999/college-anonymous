@@ -33,7 +33,7 @@ export const PopularPosts = () => {
   }, []);
 
   return (
-    <div className="w-full md:w-[40%] flex flex-col gap-6">
+    <div className="w-full md:w-[40%] flex flex-col gap-6 p-2">
       {/* Popular Posts Section */}
       <div className="bg-white dark:bg-cardBg-dark rounded-lg shadow-md border border-gray-200 dark:border-gray-700 p-4">
         {/* Header */}

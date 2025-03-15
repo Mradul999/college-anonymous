@@ -53,7 +53,7 @@ export const AllPosts = () => {
   };
 
   return (
-    <div className="w-full h-screen flex flex-col px-4 ">
+    <div className="w-full h-screen flex flex-col  p-2 ">
       {/* Create Post Button */}
       <button
         onClick={clickHandler}
