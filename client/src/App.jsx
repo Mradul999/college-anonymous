@@ -17,6 +17,7 @@ import Footer from "./components/Footer";
 import ResetPassword from "./pages/ResetPassword";
 import PublicChat from "./components/PublicChat";
 import ForgotPassword from "./pages/Forgotpassword";
+import ComingSoon from "./pages/ComingSoon";
 
 export default function App() {
   return (
@@ -50,14 +51,14 @@ export default function App() {
           />
           <Route path="/forgot-password" element={<ForgotPassword />}></Route>
           <Route path="/reset-password/:token" element={<ResetPassword />} />
-          {/* <Route
+          <Route
             path="/chat"
             element={
               <ProtectedRoute>
-                <PublicChat />
+                <ComingSoon />
               </ProtectedRoute>
             }
-          /> */}
+          />
         </Routes>
 
         <Footer />
