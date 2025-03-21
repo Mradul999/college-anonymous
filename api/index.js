@@ -17,9 +17,12 @@ const server = createServer(app);
 const io = new Server(server, {
   cors: {
     origin: ["https://college-anonymous.vercel.app", "http://localhost:5173"],
+    methods: ["GET", "POST"],
     credentials: true,
+    allowedHeaders: ["Access-Control-Allow-Origin"],
   },
 });
+
 
 // Store active chat rooms
 let rooms = {};
