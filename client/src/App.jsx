@@ -13,19 +13,22 @@ import UserPost from "./pages/UserPost";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Footer from "./components/Footer";
-import { Forgotpassword } from "./pages/Forgotpassword";
+
 import ResetPassword from "./pages/ResetPassword";
+import PublicChat from "./components/PublicChat";
+import ForgotPassword from "./pages/Forgotpassword";
+
 export default function App() {
   return (
-    <div className=" dark:bg-background-dark overflow-hidden     bg-background">
+    <div className="dark:bg-background-dark overflow-hidden bg-background">
       <BrowserRouter>
         <Header />
 
         <Routes>
-          <Route path="/sign-up" element={<Signup />}></Route>
-          <Route path="/sign-in" element={<Signin />}></Route>
-          <Route path="/verify-otp" element={<VerifyOTP />}></Route>
-          <Route path="/" element={<Home />}></Route>
+          <Route path="/sign-up" element={<Signup />} />
+          <Route path="/sign-in" element={<Signin />} />
+          <Route path="/verify-otp" element={<VerifyOTP />} />
+          <Route path="/" element={<Home />} />
           <Route
             path="/create-post"
             element={
@@ -33,10 +36,10 @@ export default function App() {
                 <CreatePost />
               </ProtectedRoute>
             }
-          ></Route>
-          <Route path="/post/:postSlug" element={<PostPage />}></Route>
-          <Route path="/about" element={<About />}></Route>
-          <Route path="/contact" element={<Contact />}></Route>
+          />
+          <Route path="/post/:postSlug" element={<PostPage />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
           <Route
             path="/posts/userposts"
             element={
@@ -44,11 +47,20 @@ export default function App() {
                 <UserPost />
               </ProtectedRoute>
             }
-          ></Route>
-          <Route path="/forgot-password" element={<Forgotpassword/>}/>
-          <Route path="/reset-password/:token" element={<ResetPassword/>}/>
+          />
+          <Route path="/forgot-password" element={<ForgotPassword />}></Route>
+          <Route path="/reset-password/:token" element={<ResetPassword />} />
+          <Route
+            path="/chat"
+            element={
+              <ProtectedRoute>
+                <PublicChat />
+              </ProtectedRoute>
+            }
+          />
         </Routes>
-        <Footer/>
+
+        <Footer />
       </BrowserRouter>
     </div>
   );

@@ -10,6 +10,7 @@ const API_URL = import.meta.env.VITE_API_URL;
 import { CiSun } from "react-icons/ci";
 import { FaMoon } from "react-icons/fa6";
 import { RxHamburgerMenu } from "react-icons/rx";
+import { IoChatboxOutline } from "react-icons/io5";
 
 // console.log(location.pathname);
 
@@ -79,6 +80,13 @@ export default function Header() {
       </NavLink>
 
       <div className="flex  items-center relative gap-2 md:gap-3">
+        <NavLink to="/chat">
+          <div className="flex gap-1 items-center cursor-pointer font-medium ">
+            {" "}
+            <IoChatboxOutline /> ChatRoom
+          </div>
+        </NavLink>
+
         <span
           onClick={modeClickhandler}
           className="flex ml-1  items-center gap-2"

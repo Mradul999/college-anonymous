@@ -3,7 +3,7 @@ import react, { useState } from "react";
 import { ThreeDots } from "react-loader-spinner";
 import { NavLink, useNavigate } from "react-router-dom";
 
-export const Forgotpassword = () => {
+export const ForgotPassword = () => {
   const [email, setEmail] = useState("");
   //   console.log(email)
   const [error, setError] = useState("");
@@ -108,3 +108,5 @@ export const Forgotpassword = () => {
     </div>
   );
 };
+
+export default ForgotPassword;

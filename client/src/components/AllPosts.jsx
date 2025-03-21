@@ -53,11 +53,11 @@ export const AllPosts = () => {
   };
 
   return (
-    <div className="w-full h-screen flex flex-col  p-2 ">
+    <div className="w-full h-screen flex flex-col p-4  ">
       {/* Create Post Button */}
       <button
         onClick={clickHandler}
-        className="w-full bg-white dark:bg-cardBg-dark border border-gray-200 dark:border-gray-700 rounded-lg p-4 flex items-center gap-3 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors mb-4"
+        className="w-full bg-white border dark:bg-cardBg-dark border-gray-200 dark:border-gray-700 rounded-lg p-4 flex items-center gap-3  transition-colors mb-4"
       >
         <MdAddCircleOutline className="text-3xl text-indigo-600" />
         <span className="text-lg font-semibold text-gray-900 dark:text-gray-100">
@@ -66,7 +66,7 @@ export const AllPosts = () => {
       </button>
 
       {/* Latest Posts Section */}
-      <div className="w-full  overflow-y-auto scrollbar-hide">
+      <div className="w-full h-[calc(100vh-3rem)] overflow-y-auto scrollbar-hide ">
         <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4">
           Latest Posts
         </h1>
