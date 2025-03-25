@@ -55,7 +55,7 @@ export default function App() {
             path="/chat"
             element={
               <ProtectedRoute>
-                <ComingSoon />
+                <PublicChat />
               </ProtectedRoute>
             }
           />
