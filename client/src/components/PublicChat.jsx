@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { io } from "socket.io-client";
 import { useSelector } from "react-redux";
 
-const socket = io(import.meta.env.VITE_API_URL);
-console.log(import.meta.env.VITE_API_URL);
+const socket = io(import.meta.env.VITE_BACKEND_URL);
+// console.log(import.meta.env.VITE_API_URL);
 
 const PublicChat = () => {
   const [roomName, setRoomName] = useState("");
