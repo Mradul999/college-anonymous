@@ -41,6 +41,8 @@ export const createPost = async (req, res) => {
     }
     //for title
 
+    const titleModerationResult = await analyzeText(title);
+
     if (titleModerationResult === null) {
       return res.status(500).json({ message: "Failed to analyze text" });
     }
