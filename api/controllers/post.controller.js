@@ -30,15 +30,14 @@ export const createPost = async (req, res) => {
 
     if (image) {
       const moderationResult = await moderateImage(image);
+      console.log(moderationResult);
+      if (!moderationResult.allowed) {
+        return res.status(400).json({
+          message: "Image moderation failed",
+        });
+      }
     }
 
-    console.log(moderationResult);
-
-    if (!moderationResult.allowed) {
-      return res.status(400).json({
-        message: "Image moderation failed",
-      });
-    }
     //for title
 
     const titleModerationResult = await analyzeText(title);
