@@ -28,7 +28,9 @@ export const createPost = async (req, res) => {
       .toLowerCase()
       .replace(/[^a-zA-Z0-9-]/g, "");
 
-    const moderationResult = await moderateImage(image);
+    if (image) {
+      const moderationResult = await moderateImage(image);
+    }
 
     console.log(moderationResult);
 
@@ -38,8 +40,6 @@ export const createPost = async (req, res) => {
       });
     }
     //for title
-
-    const titleModerationResult = await analyzeText(title);
 
     if (titleModerationResult === null) {
       return res.status(500).json({ message: "Failed to analyze text" });
