@@ -81,9 +81,9 @@ export default function Header() {
 
       <div className="flex  items-center relative gap-2 md:gap-3">
         <NavLink to="/chat">
-          <div className="flex gap-1 items-center cursor-pointer font-medium ">
-            {" "}
-            <IoChatboxOutline /> ChatRoom
+          <div className="flex gap-1 items-center cursor-pointer font-medium">
+            <IoChatboxOutline className="text-xl" />
+            <span className="hidden sm:block">ChatRoom</span>
           </div>
         </NavLink>
 
@@ -171,8 +171,7 @@ export default function Header() {
           </p>
 
           <div className="h-[0.7px] w-[95%] bg-gray-300 rounded-full mx-auto"></div>
-          <div className="flex hover: cursor-pointer  items-center"></div>
-          <div className="h-[0.7px] w-[95%] bg-gray-300 rounded-full mx-auto"></div>
+
           <button
             onClick={signoutHandler}
             className="px-2 py-2 bg-indigo-600 text-sm rounded-md font-medium text-gray-200 hover:bg-indigo-700 transition-all hover:scale-95"
