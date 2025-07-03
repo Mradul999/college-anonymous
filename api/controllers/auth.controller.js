@@ -62,6 +62,7 @@ export const generateOTP = async (req, res) => {
       lowerCaseAlphabets: false,
       specialChars: false,
     });
+    // console.log("otp",otp);
     const newOtp = new OTP({
       email,
       otp,
@@ -70,6 +71,7 @@ export const generateOTP = async (req, res) => {
 
     const mailResponse = await sendMail(email, "otp", otp);
     if (mailResponse.success) {
+      console.log("otp sent successfully ")
       res.status(200).json({
         message: "OTP sent successfully",
       });
@@ -113,7 +115,9 @@ export const verifyOTP = async (req, res) => {
 
 export const signin = async (req, res) => {
   try {
+    console.log("signin controller called");
     const { email, password } = req.body;
+
     const user = await User.findOne({ email });
     if (!user) {
       return res.status(404).json({
