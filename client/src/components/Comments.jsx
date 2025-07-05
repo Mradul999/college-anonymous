@@ -1,5 +1,5 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
+import axios from "axios";
 import { useSelector } from "react-redux";
 import SingleComment from "./SingleComment";
 import { ThreeDots } from "react-loader-spinner";
@@ -8,6 +8,7 @@ const API_URL = import.meta.env.VITE_API_URL;
 
 export default function Comments({ post }) {
   const { currentUser } = useSelector((state) => state.user);
+  const { theme } = useSelector((state) => state.theme);
   const [comments, setcomments] = useState([]);
   const [comment, setComment] = useState("");
   const [loading, setLoading] = useState(null);
@@ -68,55 +69,59 @@ export default function Comments({ post }) {
   };
 
   return (
-    <div className="w-full flex flex-col mb-20   mt-6">
+    <div className={`w-full flex flex-col mb-20 mt-6 ${theme === "dark" ? "text-gray-200" : "text-gray-800"}`}>
       {!currentUser && (
-        <p className="text-center font-medium text-indigo-700 border-b border-gray-600  pb-4">
-          {" "}
-          <NavLink to="/sign-in">Signin</NavLink>{" "}
-          <span className="text-gray-300"> to comment</span>{" "}
-        </p>
+        <div className={`mb-4 p-4 rounded-lg ${theme === "dark" ? "bg-gray-800 text-gray-300" : "bg-gray-50 text-gray-600"}`}>
+          <p className="text-center font-medium">
+            <NavLink to="/sign-in" className="text-[#1877F2] hover:underline">Sign in</NavLink>{" "}
+            <span> to comment</span>{" "}
+          </p>
+        </div>
       )}
       <form
         onSubmit={submitHandler}
         className={`w-full flex flex-col ${!currentUser && "hidden"} `}
       >
-        <div className="flex md:flex-row flex-col  gap-2 md:gap-3 items-center">
-          <span className="dark:text-gray-300 text-textColor self-start font-semibold text-sm">
-            {currentUser?.username}
-          </span>
-          <textarea
-            value={comment}
-            onChange={(e) => setComment(e.target.value)}
-            rows={1}
-            type="text"
-            placeholder="Add Comment"
-            className="w-full focus:outline-none placeholder:text-sm bg-transparent border-b border-gray-500 placeholder:dark:text-gray-300 placeholder:text-textColor  dark:focus:border-b-white focus:border-b-gray-600  focus:border-b-2  dark:text-gray-300 text-textColor text-sm"
-          />
-        </div>
+       <div className="flex md:flex-row flex-col gap-2 md:gap-3 items-start md:items-center w-full">
+  <span className={`font-semibold text-sm ${theme === "dark" ? "text-gray-300" : "text-gray-700"}`}>
+    {currentUser?.username}
+  </span>
+  <textarea
+    value={comment}
+    onChange={(e) => setComment(e.target.value)}
+    rows={1}
+    placeholder="Write a comment..."
+    className={`w-full resize-none bg-transparent focus:outline-none border-b focus:border-b-2 focus:border-[#1877F2] 
+      ${theme === "dark" ? "text-gray-200 border-gray-600" : "text-gray-800 border-gray-400"}`}
+  />
+</div>
         <button
-          className={`   text-white py-1 px-2 rounded-full text-xs ${
+          className={`text-white py-2 px-4 rounded-lg text-sm transition-colors duration-200 self-end mt-2 font-medium ${
             !comment
-              ? "pointer-events-none dark:text-gray-300 text-textColor bg-gray-400"
-              : " pointer-events-auto bg-indigo-700"
-          } hover:bg-indigo-500 transition-all self-end mt-2 font-medium `}
+              ? "pointer-events-none bg-gray-400"
+              : "pointer-events-auto bg-[#1877F2] hover:bg-[#166FE5]"
+          }`}
         >
           Comment
         </button>
       </form>
       {loading ? (
-        <div className="flex justify-center items-center">
+        <div className="flex justify-center items-center py-4">
           <ThreeDots
-            height="40"
-            width="60"
-            wrapperClass
-            color="white"
+            height="30"
+            width="30"
+            radius="9"
+            color={theme === "dark" ? "#ffffff" : "#1877F2"}
             ariaLabel="loading"
+            visible={true}
           />
         </div>
       ) : (
-        <div className="flex flex-col mt-2 gap-2">
+        <div className="flex flex-col mt-4 ">
           {comments.length === 0 && (
-            <p className="text-center">No comments yet</p>
+            <div className={`text-center py-6 rounded-lg ${theme === "dark" ? "bg-gray-800 text-gray-300" : "bg-gray-50 text-gray-500"}`}>
+              <p className="font-medium">No comments yet. Be the first to comment!</p>
+            </div>
           )}
           {comments?.map((comment) => (
             <SingleComment
@@ -124,6 +129,7 @@ export default function Comments({ post }) {
               onEdit={onEdit}
               filterComments={filterComments}
               key={comment._id}
+              currentUser={currentUser}
             />
           ))}
         </div>

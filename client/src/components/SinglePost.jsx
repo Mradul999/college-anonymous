@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import moment from "moment";
-
 import { FaRegCommentAlt } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -13,12 +12,13 @@ import SigninModal from "./SigninModal";
 export default function SinglePost({ post, onDelete }) {
   const navigate = useNavigate();
   const { currentUser } = useSelector((state) => state.user);
+  const { theme } = useSelector((state) => state.theme);
   const [likesCount, setLikesCount] = useState(post.likes.length);
   const [commentCount, setCommentsCount] = useState(0);
   const [modal, setModal] = useState(false);
   const [signinModal, setSigninModal] = useState(false);
-
   const [liked, setLiked] = useState(false);
+  
   const postClickHandler = () => {
     navigate(`/post/${post?.slug}`);
   };
@@ -61,6 +61,7 @@ export default function SinglePost({ post, onDelete }) {
       }
     } catch (error) {}
   };
+  
   const deleteHandler = async () => {
     try {
       const response = await axios.delete(
@@ -70,10 +71,9 @@ export default function SinglePost({ post, onDelete }) {
         setModal(false);
         onDelete(response.data._id);
       }
-    } catch (error) {
-      // console.log(error);
-    }
+    } catch (error) {}
   };
+  
   const showModal = (e) => {
     e.stopPropagation();
     setModal(true);
@@ -83,62 +83,73 @@ export default function SinglePost({ post, onDelete }) {
     setSigninModal(false);
     setModal(false);
   };
+  
   return (
     <div
       onClick={postClickHandler}
-      className="p-2   dark:bg-cardBg-dark  bg-white dark:text-gray-200 text-textColor cursor-pointer border border-gray-300 dark:border-gray-700      rounded-lg"
+      className={`p-4 cursor-pointer rounded-lg shadow-sm ${theme === "dark" ? "bg-cardBg-dark border-gray-700 text-gray-200" : "bg-white border-gray-200 text-gray-800"} border mb-4`}
     >
       {signinModal && <SigninModal onClose={closeModal}></SigninModal>}
       {modal && <Modal onClose={closeModal} deleteHandler={deleteHandler} />}
-      <div className="flex items-center gap-10  md:gap-4  ">
-        <p className="md:text-base text-sm font-medium">@{post.author}</p>
-        <p className=" text-sm w-full">{moment(post.createdAt).fromNow()}</p>
+      
+      <div className="flex items-center justify-between mb-2">
+        <div className="flex items-center gap-2">
+          <div className={`w-8 h-8 rounded-full flex items-center justify-center ${theme === "dark" ? "bg-gray-700" : "bg-gray-100"}`}>
+            <span className={`text-sm font-bold ${theme === "dark" ? "text-white" : "text-[#1877F2]"}`}>
+              {post.author.charAt(0).toUpperCase()}
+            </span>
+          </div>
+          <div>
+            <p className={`font-medium ${theme === "dark" ? "text-white" : "text-gray-900"}`}>@{post.author}</p>
+            <p className={`text-xs ${theme === "dark" ? "text-gray-400" : "text-gray-500"}`}>{moment(post.createdAt).fromNow()}</p>
+          </div>
+        </div>
       </div>
 
-      <h1 className="font-semibold mb-3 tracking-normal dark:text-gray-300 text-textColor  text-lg">
+      <h1 className={`font-bold mb-2 text-lg ${theme === "dark" ? "text-white" : "text-gray-900"}`}>
         {post.title}
       </h1>
+      
       {post.image && (
         <img
           src={post?.image}
-          className=" mb-3 rounded-md w-[200px] md:w-[300px] border dark:border-gray-600  "
-          alt=""
+          className="mb-3 rounded-lg w-full max-h-[300px] object-cover border"
+          alt="Post image"
         />
       )}
-      <div className="flex mb-3">
-        <p className="text-sm dark:text-gray-300 text-textColor line-clamp-1 ">
+      
+      <div className="mb-4">
+        <p className={`${theme === "dark" ? "text-gray-300" : "text-gray-700"} line-clamp-2`}>
           {post.content}
         </p>
       </div>
 
-      <div className="flex   justify-between  items-center  ">
-        <div className="flex items-center ">
-          <div
+      <div className={`flex justify-between items-center pt-2 border-t ${theme === "dark" ? "border-gray-700" : "border-gray-200"}`}>
+        <div className="flex items-center gap-4">
+          <button
             onClick={likeHandler}
-            className="flex items-center justify-center px-2 gap-1 py-1 md:dark:hover:bg-gray-600 md:hover:bg-gray-400 transition-all rounded-full"
+            className={`flex items-center gap-1 py-1 px-2 rounded-md transition-colors ${liked ? (theme === "dark" ? "text-[#4080FF]" : "text-[#1877F2]") : (theme === "dark" ? "text-gray-400 hover:bg-gray-700" : "text-gray-600 hover:bg-gray-100")}`}
           >
             {liked ? (
-              <FaThumbsUp
-                className={`
-               text-md transition-all`}
-              />
+              <FaThumbsUp className="text-lg" />
             ) : (
-              <FaRegThumbsUp className={` text-md transition-all  `} />
+              <FaRegThumbsUp className="text-lg" />
             )}
+            <span className="text-sm font-medium">{likesCount}</span>
+          </button>
 
-            <span className="text-xs pt-[1.3px]">{likesCount}</span>
-          </div>
-
-          <div className="flex items-center justify-center md:dark:hover:bg-gray-600 md:hover:bg-gray-400 transition-all   px-2 py-1 gap-1  rounded-full">
-            <FaRegCommentAlt className=" text-md  " />
-            <span className="text-xs">{commentCount}</span>
-          </div>
+          <button 
+            className={`flex items-center gap-1 py-1 px-2 rounded-md ${theme === "dark" ? "text-gray-400 hover:bg-gray-700" : "text-gray-600 hover:bg-gray-100"} transition-colors`}
+          >
+            <FaRegCommentAlt className="text-lg" />
+            <span className="text-sm font-medium">{commentCount}</span>
+          </button>
         </div>
 
         {currentUser?._id === post.userId && (
           <button
             onClick={showModal}
-            className="bg-indigo-700 rounded-md px-2 py-1 text-sm text-white font-semibold hover:bg-indigo-800 transition-all  "
+            className="bg-red-500 hover:bg-red-600 rounded-md px-3 py-1.5 text-sm text-white font-medium transition-colors"
           >
             Delete
           </button>

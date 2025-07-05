@@ -1,13 +1,10 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import { useParams } from "react-router-dom";
+import axios from "axios";
 import moment from "moment";
-
-import { FaThumbsUp } from "react-icons/fa6";
-import { FaRegThumbsUp } from "react-icons/fa6";
-
-import Comments from "../components/Comments";
 import { useSelector } from "react-redux";
+import Comments from "../components/Comments";
+import { ThreeDots } from "react-loader-spinner";
 import SigninModal from "../components/SigninModal";
 
 export default function PostPage() {
@@ -17,6 +14,7 @@ export default function PostPage() {
   const [likesCount, setLikesCount] = useState(0);
   const [liked, setLiked] = useState(false);
   const { currentUser } = useSelector((state) => state.user);
+  const { theme } = useSelector((state) => state.theme);
   const [signinModal, setSigninModal] = useState(false);
 
   useEffect(() => {
@@ -34,12 +32,16 @@ export default function PostPage() {
           setPost(foundPost);
           setLikesCount(foundPost.likes.length);
 
-          setLiked(foundPost.likes.includes(currentUser._id));
+          if (currentUser) {
+            setLiked(foundPost.likes.includes(currentUser._id));
+          }
         }
-      } catch (error) {}
+      } catch (error) {
+        setLoading(false);
+      }
     };
     fetchPosts();
-  }, [postSlug]);
+  }, [postSlug, currentUser]);
 
   const likeHandler = async (e) => {
     try {
@@ -55,7 +57,6 @@ export default function PostPage() {
         }`
       );
       if (response.status === 200) {
-        // console.log(response);
         if (response.data.likes.includes(currentUser._id)) {
           setLiked(true);
           setLikesCount(likesCount + 1);
@@ -64,65 +65,106 @@ export default function PostPage() {
           setLikesCount(likesCount - 1);
         }
       }
-    } catch (error) {}
+    } catch (error) {
+      console.error("Error liking post:", error);
+    }
   };
 
   const closeModal = () => {
     setSigninModal(false);
   };
 
+  if (loading)
+    return (
+      <div className={`w-full min-h-screen pt-20 pb-20 flex justify-center items-center ${theme === "dark" ? "bg-background-dark" : "bg-[#F0F2F5]"}`}>
+        <ThreeDots
+          height="80"
+          width="80"
+          radius="9"
+          color={theme === "dark" ? "#ffffff" : "#1877F2"}
+          ariaLabel="three-dots-loading"
+          visible={true}
+        />
+      </div>
+    );
+
+  if (!post)
+    return (
+      <div className={`w-full min-h-screen pt-20 pb-20 flex justify-center items-center ${theme === "dark" ? "bg-background-dark" : "bg-[#F0F2F5]"}`}>
+        <p className={`text-xl font-medium ${theme === "dark" ? "text-gray-300" : "text-gray-600"}`}>Post not found</p>
+      </div>
+    );
+
   return (
-    <div className="w-full min-h-screen  pt-[5rem] pb-2   flex justify-center  dark:text-gray-300 text-textColor ">
+    <div className={`w-full min-h-screen pt-20 pb-20 flex justify-center ${theme === "dark" ? "bg-background-dark" : "bg-[#F0F2F5]"}`}>
       {signinModal && <SigninModal onClose={closeModal} />}
-      {loading ? (
-        <div className="flex justify-center items-center">
-          <span class="loader"></span>
-        </div>
-      ) : (
-        <div className="w-full flex flex-col  rounded-lg py-2 px-2 mb-10   max-w-[900px] ">
-          <div className=" dark:bg-cardBg-dark  bg-gray-200 p-2 rounded-md">
-            <div className="flex gap-3 mb-2 items-center">
-              <span>{post?.author}</span>
-              <span className="text-sm">
-                {moment(post?.createdAt).fromNow()}
+      <div className="max-w-[800px] px-4 mt-2 mb-10 items-center w-full flex gap-6 flex-col">
+        <div className={`w-full ${theme === "dark" ? "bg-cardBg-dark" : "bg-white"} rounded-lg shadow-md p-6`}>
+          <div className="flex items-center mb-4">
+            <div className={`${theme === "dark" ? "bg-gray-700 text-white" : "bg-[#E7F3FF] text-[#1877F2]"} rounded-full px-3 p-2 mr-3`}>
+              <span className="font-bold ">
+                {post.author.charAt(0).toUpperCase()}
               </span>
             </div>
-
-            <h1 className="font-semibold dark:text-gray-300 text-textColor text-2xl mb-5">{post?.title}</h1>
-            {post?.image && (
-              <img
-                src={post?.image}
-                className="mb-2 w-full md:w-[600px] rounded-md "
-              ></img>
-            )}
-            <p className="mb-2 dark:text-gray-300 text-textColor md:text-base text-sm">{post?.content}</p>
-            <div className="h-[1px] bg-indigo-700 my-2 w-full"></div>
-            <div className="flex  gap-3 items-center mb-1   ">
-              <div
-                onClick={likeHandler}
-                className="flex items-center justify-center cursor-pointer  dark:hover:bg-gray-600 hover:bg-gray-400 transition-all px-2 gap-1 py-1 rounded-full"
-              >
-                {liked ? (
-                  <FaThumbsUp
-                    className={`
-               text-md transition-all`}
-                  />
-                ) : (
-                  <FaRegThumbsUp className={` text-md transition-all  `} />
-                )}
-                <span className="text-xs">{likesCount}</span>
-              </div>
-
-              {/* <div className="flex items-center justify-center cursor-pointer hover:bg-gray-700 px-2 py-1 gap-1  rounded-full">
-                <FaRegCommentAlt className=" text-sm " />
-                <span className="text-xs">20</span>
-              </div> */}
+            <div>
+              <h3 className={`font-semibold ${theme === "dark" ? "text-white" : "text-gray-900"}`}>
+                {post.author}
+              </h3>
+              <p className={`text-xs ${theme === "dark" ? "text-gray-400" : "text-gray-500"}`}>
+                {moment(post.createdAt).fromNow()}
+              </p>
             </div>
           </div>
 
-          <Comments post={post} />
+          <h1 className={`text-2xl font-bold mb-4 ${theme === "dark" ? "text-white" : "text-gray-900"}`}>
+            {post.title}
+          </h1>
+
+          {post.image && (
+            <img
+              src={post.image}
+              alt={post.title}
+              className="w-full h-auto rounded-lg mb-4 object-cover max-h-[400px]"
+            />
+          )}
+
+          <div className="prose max-w-none mb-6">
+            <p className={`whitespace-pre-wrap ${theme === "dark" ? "text-gray-300" : "text-gray-700"}`}>
+              {post.content}
+            </p>
+          </div>
+
+          <div className={`flex items-center justify-between border-t ${theme === "dark" ? "border-gray-700" : "border-gray-200"} pt-4`}>
+            <div className="flex items-center space-x-2">
+              <button
+                onClick={likeHandler}
+                className={`flex items-center space-x-1 ${!currentUser && "cursor-not-allowed opacity-50"}`}
+                disabled={!currentUser}
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className={`h-6 w-6 ${liked ? "text-[#1877F2]" : theme === "dark" ? "text-gray-400" : "text-gray-500"}`}
+                  fill={liked ? "currentColor" : "none"}
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={1.5}
+                    d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                  />
+                </svg>
+                <span className={`${theme === "dark" ? "text-gray-300" : "text-gray-600"}`}>{likesCount}</span>
+              </button>
+            </div>
+          </div>
         </div>
-      )}
+
+        <hr className={`w-full border-t-2 ${theme === "dark" ? "border-gray-700" : "border-[#1877F2] border-opacity-20"} my-4`} />
+
+        <Comments post={post} />
+      </div>
     </div>
   );
 }

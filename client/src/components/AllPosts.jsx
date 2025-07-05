@@ -9,12 +9,13 @@ import { ThreeDots } from "react-loader-spinner";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
-export const AllPosts = () => {
+export default function AllPosts() {
   const [allPosts, setAllPosts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [modal, setModal] = useState(false);
   const navigate = useNavigate();
   const { currentUser } = useSelector((state) => state.user);
+  const { theme } = useSelector((state) => state.theme);
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -53,21 +54,21 @@ export const AllPosts = () => {
   };
 
   return (
-    <div className="w-full h-screen flex flex-col p-4  ">
+    <div className="w-full h-screen flex flex-col ">
       {/* Create Post Button */}
       <button
         onClick={clickHandler}
-        className="w-full bg-white border dark:bg-cardBg-dark border-gray-200 dark:border-gray-700 rounded-lg p-4 flex items-center gap-3  transition-colors mb-4"
+        className={`w-full ${theme === "dark" ? "bg-cardBg-dark border-gray-700" : "bg-white border-gray-200"} border rounded-lg p-4 flex items-center gap-3 transition-colors mb-4 hover:bg-gray-50 dark:hover:bg-gray-800 shadow-sm`}
       >
-        <MdAddCircleOutline className="text-3xl text-indigo-600" />
-        <span className="text-lg font-semibold text-gray-900 dark:text-gray-100">
+        <MdAddCircleOutline className="text-3xl text-[#1877F2]" />
+        <span className={`text-lg font-semibold ${theme === "dark" ? "text-white" : "text-gray-700"}`}>
           Create post...
         </span>
       </button>
 
       {/* Latest Posts Section */}
-      <div className="w-full h-[calc(100vh-3rem)] overflow-y-auto scrollbar-hide ">
-        <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-4">
+      <div className="w-full h-[calc(100vh-3rem)] overflow-y-auto scrollbar-hide">
+        <h1 className={`text-2xl font-bold mb-4 ${theme === "dark" ? "text-white" : "text-gray-900"}`}>
           Latest Posts
         </h1>
 
@@ -77,7 +78,7 @@ export const AllPosts = () => {
               height="30"
               width="30"
               radius="9"
-              color="#4fa94d"
+              color={theme === "dark" ? "#ffffff" : "#1877F2"}
               ariaLabel="three-dots-loading"
               visible={true}
             />
@@ -85,7 +86,7 @@ export const AllPosts = () => {
         ) : (
           <div className="space-y-4">
             {allPosts.length === 0 ? (
-              <p className="text-center text-gray-500 dark:text-gray-400 py-4">
+              <p className={`text-center py-4 ${theme === "dark" ? "text-gray-400" : "text-gray-500"}`}>
                 No posts available
               </p>
             ) : (

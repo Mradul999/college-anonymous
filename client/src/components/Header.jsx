@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { signoutSuccess } from "../redux/user.slice";
-import { useDispatch } from "react-redux";
 import { setTheme } from "../redux/theme.slice";
 import axios from "axios";
 const API_URL = import.meta.env.VITE_API_URL;
@@ -12,14 +11,14 @@ import { FaMoon } from "react-icons/fa6";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { IoChatboxOutline } from "react-icons/io5";
 
-// console.log(location.pathname);
-
 export default function Header() {
   const { currentUser } = useSelector((state) => state.user);
   const { theme } = useSelector((state) => state.theme);
   const [dropdown, setDropdown] = useState(false);
   const [activeTab, setActiveTab] = useState("");
-  console.log(activeTab);
+  const location = useLocation();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (theme === "dark") {
@@ -34,9 +33,6 @@ export default function Header() {
     setDropdown(false);
   };
 
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-
   const profileClickHandler = () => {
     setDropdown(!dropdown);
   };
@@ -45,7 +41,6 @@ export default function Header() {
     setActiveTab("");
     try {
       const signoutResponse = await axios.post(`${API_URL}/api/auth/signout`);
-
       if (signoutResponse.status === 200) {
         dispatch(signoutSuccess());
         setDropdown(false);
@@ -53,6 +48,7 @@ export default function Header() {
       }
     } catch (error) {}
   };
+
   const myPostHandler = () => {
     navigate("/posts/userposts");
     setDropdown(false);
@@ -63,118 +59,159 @@ export default function Header() {
     <div
       className={`w-screen ${
         location.pathname.startsWith("/reset-password") && "hidden"
-      } flex justify-between items-center py-4  fixed z-10 sm:px-7 px-2 dark:bg-background-dark bg-gray-200    bg shadow-sm shadow-indigo-700 dark:text-gray-200 text-textColor
-  `}
+      } flex justify-between items-center py-3 fixed z-10 sm:px-7 px-4 ${
+        theme === "dark"
+          ? "bg-cardBg-dark text-white"
+          : "bg-white text-gray-900"
+      } shadow-md`}
     >
+      {/* Logo */}
       <NavLink to="/">
         <h1
           onClick={() => setActiveTab("")}
-          className="text-xl font-semibold flex items-center gap-1 "
+          className="text-xl font-bold flex items-center gap-1"
         >
-          {" "}
-          <span className="text-2xl bg-indigo-800  dark:text-gray-300 text-gray-200 rounded-full px-[0.5rem]">
+          <span className="text-2xl bg-[#1877F2] text-white rounded-full px-[0.5rem]">
             Λ
           </span>
           nonymous
         </h1>
       </NavLink>
 
-      <div className="flex  items-center relative gap-2 md:gap-3">
+      {/* Navbar Right */}
+      <div className="flex items-center relative gap-3 md:gap-4">
+        {/* ChatRoom */}
         <NavLink to="/chat">
-          <div className="flex gap-1 items-center cursor-pointer font-medium">
+          <div className="flex gap-1 items-center cursor-pointer font-medium hover:text-[#1877F2] transition-colors">
             <IoChatboxOutline className="text-xl" />
             <span className="hidden sm:block">ChatRoom</span>
           </div>
         </NavLink>
 
+        {/* Dark Mode */}
         <span
           onClick={modeClickhandler}
-          className="flex ml-1  items-center gap-2"
+          className="flex items-center cursor-pointer hover:text-[#1877F2] transition-colors"
         >
-          {" "}
           {theme === "dark" ? (
-            <CiSun className="text-xl " />
+            <CiSun className="text-xl" />
           ) : (
             <FaMoon className="text-xl" />
           )}
         </span>
-        <NavLink to="/about">
+
+        {/* About (desktop only) */}
+        <NavLink to="/about" className="hidden sm:flex">
           <button
             onClick={() => {
               setDropdown(false);
               setActiveTab("about");
             }}
-            className={`${
+            className={`font-medium transition-colors text-sm ${
               activeTab === "about"
-                ? "text-indigo-700"
-                : " dark:text-gray-200 text-textColor"
-            }  font-medium  dark:hover:text-indigo-700 hover:text-indigo-700 transition-all text-xs sm:text-sm`}
+                ? "text-[#1877F2]"
+                : theme === "dark"
+                ? "text-white"
+                : "text-gray-700"
+            } hover:text-[#1877F2]`}
           >
             About
           </button>
         </NavLink>
-        <NavLink to="/contact">
+
+        {/* Feedback (desktop only) */}
+        <NavLink to="/contact" className="hidden sm:flex">
           <button
             onClick={() => {
               setDropdown(false);
               setActiveTab("feedback");
             }}
-            className={` ${
+            className={`font-medium transition-colors text-sm ${
               activeTab === "feedback"
-                ? "text-indigo-700"
-                : " dark:text-gray-200 text-textColor"
-            } dark:hover:text-indigo-700 hover:text-indigo-500 font-medium text-xs sm:text-sm`}
+                ? "text-[#1877F2]"
+                : theme === "dark"
+                ? "text-white"
+                : "text-gray-700"
+            } hover:text-[#1877F2]`}
           >
             Feedback
           </button>
         </NavLink>
 
+        {/* Profile or Login */}
         {currentUser ? (
-          // <img
-          //   onClick={profileClickHandler}
-          //   src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS2K1RhGUfKPoqfQRBcOKh85yJyf-5XILTo3Q&s"
-          //   className="rounded-full size-8 cursor-pointer"
-          //   alt="profile"
-          // ></img>
-          <h2
+          <div
             onClick={profileClickHandler}
-            className={`text-2xl bg-indigo-800  dark:text-gray-300 text-gray-200  px-[0.5rem] rounded-full cursor-pointer ${
-              dropdown && " rotate-180 "
-            } transition-all  font-semibold`}
+            className={`text-2xl bg-[#1877F2] text-white px-[0.5rem] rounded-full cursor-pointer ${
+              dropdown && "rotate-180"
+            } transition-all font-semibold`}
           >
             Λ
-          </h2>
+          </div>
         ) : (
           <NavLink to="/sign-in">
             <button
               onClick={() => setActiveTab("")}
-              className="md:px-2 md:py-2 py-1 px-1 bg-indigo-600 text-sm rounded-md font-medium hover:bg-indigo-700 transition-all text-gray-200 hover:scale-95"
+              className="px-4 py-2 bg-[#1877F2] text-sm rounded-md font-medium hover:bg-[#166FE5] transition-all text-white focus:outline-none focus:ring-2 focus:ring-[#1877F2] focus:ring-opacity-50"
             >
               Login
             </button>
           </NavLink>
         )}
 
+        {/* Dropdown */}
         <div
-          className={`absolute top-14 border border-gray-300  dark:border-gray-600 right-0 flex bg-gray-200 dark:bg-indigo-900 rounded-md p-2   gap-2 transition-all duration-100 origin-top   ${
-            dropdown ? "scale-y-100" : "scale-y-0"
-          }  flex-col`}
+          className={`absolute top-12 right-0 flex ${
+            theme === "dark" ? "bg-gray-800 border-gray-700" : "bg-white border-gray-200"
+          } border rounded-lg p-3 gap-2 transition-all duration-200 origin-top shadow-lg ${
+            dropdown ? "scale-100 opacity-100" : "scale-0 opacity-0 pointer-events-none"
+          } flex-col w-48`}
         >
-          <h1 className="text-sm  ">@{currentUser?.username}</h1>
-          <div className="h-[0.7px] w-[95%] bg-gray-300 rounded-full mx-auto"></div>
+          {/* Mobile-only About & Feedback */}
+          
+
+          {/* <div className="h-[1px] w-full bg-gray-300 dark:bg-gray-600 sm:hidden"></div> */}
+
+          <h1 className="text-sm font-medium">@{currentUser?.username}</h1>
+          <div className="h-[1px] w-full bg-gray-300 dark:bg-gray-600"></div>
 
           <p
             onClick={myPostHandler}
-            className="text-sm font-medium hover:scale-95 pl-1 transition-all cursor-pointer"
+            className="text-sm font-medium hover:text-[#1877F2] transition-colors cursor-pointer"
           >
             My Posts
           </p>
 
-          <div className="h-[0.7px] w-[95%] bg-gray-300 rounded-full mx-auto"></div>
+     <div className="h-[1px] w-full bg-gray-300 dark:bg-gray-600 sm:hidden"></div>  
+          <NavLink to="/about" className="block sm:hidden">
+            <p
+              onClick={() => {
+                setDropdown(false);
+                setActiveTab("about");
+              }}
+              className="text-sm font-medium hover:text-[#1877F2] transition-colors cursor-pointer"
+            >
+              About
+            </p>
+          </NavLink>
+           <div className="h-[1px] w-full bg-gray-300 dark:bg-gray-600 sm:hidden"></div>
+
+          <NavLink to="/contact" className="block sm:hidden">
+            <p
+              onClick={() => {
+                setDropdown(false);
+                setActiveTab("feedback");
+              }}
+              className="text-sm font-medium hover:text-[#1877F2] transition-colors cursor-pointer"
+            >
+              Feedback
+            </p>
+          </NavLink>
+           <div className="h-[1px] w-full bg-gray-300 dark:bg-gray-600 sm:hidden"></div>
 
           <button
             onClick={signoutHandler}
-            className="px-2 py-2 bg-indigo-600 text-sm rounded-md font-medium text-gray-200 hover:bg-indigo-700 transition-all hover:scale-95"
+            className="px-4 py-2 bg-[#1877F2] text-sm rounded-md font-medium text-white hover:bg-[#166FE5] transition-all focus:outline-none focus:ring-2 focus:ring-[#1877F2] focus:ring-opacity-50"
           >
             Sign out
           </button>

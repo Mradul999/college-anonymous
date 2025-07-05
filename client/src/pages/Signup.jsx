@@ -5,13 +5,15 @@ import { useNavigate } from "react-router-dom";
 import { ThreeDots } from "react-loader-spinner";
 import { IoEyeOutline } from "react-icons/io5";
 import { FaRegEyeSlash } from "react-icons/fa";
+import { useSelector } from "react-redux";
+
 export default function Signup() {
   const [formData, setFormData] = useState(null);
-
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
+  const { theme } = useSelector((state) => state.theme);
 
   const toggleShowPassword = () => {
     setShowPassword(!showPassword);
@@ -60,26 +62,26 @@ export default function Signup() {
     }
   };
   return (
-    <div className="w-screen min-h-screen flex flex-col items-center justify-center   px-2  ">
-      <div
-        className={`max-w-[500px] rounded-md flex flex-col gap-10 py-6 px-2 sm:px-6 w-full bg-opacity-20 dark:bg-opacity-30  bg-indigo-300 dark:bg-gray-700`}
-      >
-        <h1 className="text-center dark:text-gray-300 text-textColor text-2xl sm:text-3xl font-semibold">
-          Sign up
-        </h1>
-        <form onSubmit={submitHandler} className="flex flex-col  gap-4  ">
+    <div className={`w-screen min-h-screen flex flex-col items-center justify-center px-4 ${theme === "dark" ? "bg-background-dark" : "bg-[#F0F2F5]"}`}>
+      <div className={`max-w-[450px] rounded-lg shadow-md flex flex-col gap-8 py-8 px-6 w-full ${theme === "dark" ? "bg-cardBg-dark border-gray-700" : "bg-white border-gray-200"} border`}>
+        <div className="text-center">
+          <h1 className="text-3xl font-bold text-[#1877F2] mb-2">Anonymous</h1>
+          <p className={`${theme === "dark" ? "text-gray-300" : "text-gray-600"}`}>Create a new account</p>
+        </div>
+        
+        <form onSubmit={submitHandler} className="flex flex-col gap-4">
           <input
             onChange={changeHandler}
             id="name"
             type="text"
-            className="rounded-md bg-transparent dark:placeholder:text-gray-300 placeholder:text-gray-600 py-2 px-2 dark:text-gray-300 text-textColor border-2 border-gray-600 focus:outline-none focus:border-indigo-700"
+            className={`w-full rounded-md py-3 px-4 border focus:outline-none focus:ring-2 focus:ring-[#1877F2] focus:border-transparent transition-all ${theme === "dark" ? "bg-gray-800 text-white border-gray-700" : "bg-white text-gray-700 border-gray-300"}`}
             placeholder="Enter Full Name"
           />
           <input
             onChange={changeHandler}
             id="email"
             type="text"
-            className="rounded-md  dark:placeholder:text-gray-300 placeholder:text-gray-600 bg-transparent py-2 px-2 dark:text-gray-300 text-textColor  border-2 border-gray-600 focus:outline-none focus:border-indigo-700"
+            className={`w-full rounded-md py-3 px-4 border focus:outline-none focus:ring-2 focus:ring-[#1877F2] focus:border-transparent transition-all ${theme === "dark" ? "bg-gray-800 text-white border-gray-700" : "bg-white text-gray-700 border-gray-300"}`}
             placeholder="Enter GLA mail ID"
           />
           <div className="relative">
@@ -87,29 +89,25 @@ export default function Signup() {
               onChange={changeHandler}
               id="password"
               type={`${showPassword ? "text" : "password"}`}
-              className="rounded-md w-full dark:placeholder:text-gray-300 placeholder:text-gray-600 bg-transparent py-2 px-2 dark:text-gray-300 text-textColor  border-2 border-gray-600 focus:outline-none focus:border-indigo-700"
+              className={`w-full rounded-md py-3 px-4 border focus:outline-none focus:ring-2 focus:ring-[#1877F2] focus:border-transparent transition-all ${theme === "dark" ? "bg-gray-800 text-white border-gray-700" : "bg-white text-gray-700 border-gray-300"}`}
               placeholder="Enter Password"
             />
-            {showPassword ? (
-              <IoEyeOutline
-                onClick={toggleShowPassword}
-                className="absolute top-3 text-lg right-2  text-gray-500 "
-              />
-            ) : (
-              <FaRegEyeSlash
-                onClick={toggleShowPassword}
-                className="absolute top-3 text-lg right-2 text-gray-500 "
-              />
-            )}
+            <div className={`absolute right-3 top-3.5 cursor-pointer ${theme === "dark" ? "text-gray-400" : "text-gray-500"}`}>
+              {showPassword ? (
+                <IoEyeOutline onClick={toggleShowPassword} className="text-lg" />
+              ) : (
+                <FaRegEyeSlash onClick={toggleShowPassword} className="text-lg" />
+              )}
+            </div>
           </div>
 
-          {error && <span className=" text-red-600 text-sm">*{error}</span>}
-          <button className=" bg-indigo-600 rounded-md  text-gray-200 py-2 hover:scale-95 transition-all hover:bg-indigo-700 flex justify-center    font-medium">
+          {error && <span className="text-red-500 text-sm font-medium">*{error}</span>}
+          
+          <button className="bg-[#1877F2] hover:bg-[#166FE5] flex justify-center rounded-md text-white py-3 font-medium transition-all transform hover:shadow-md focus:outline-none focus:ring-2 focus:ring-[#1877F2] focus:ring-opacity-50">
             {loading ? (
               <ThreeDots
-                height="30"
+                height="24"
                 width="60"
-                wrapperClass
                 color="white"
                 ariaLabel="loading"
               />
@@ -117,13 +115,15 @@ export default function Signup() {
               "Sign up"
             )}
           </button>
-          <p className="dark:text-gray-300 text-textColor">
-            Already have an account?{" "}
-            <NavLink to="/sign-in">
-              {" "}
-              <span className=" font-semibold cursor-pointer">Sign in</span>
-            </NavLink>{" "}
-          </p>
+          
+          <div className="text-center mt-2">
+            <p className={`${theme === "dark" ? "text-gray-300" : "text-gray-600"}`}>
+              Already have an account?{" "}
+              <NavLink to="/sign-in" className="text-[#1877F2] font-semibold hover:underline transition-all">
+                Sign in
+              </NavLink>
+            </p>
+          </div>
         </form>
       </div>
     </div>

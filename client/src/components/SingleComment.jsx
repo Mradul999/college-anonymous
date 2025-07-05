@@ -16,13 +16,12 @@ export default function SingleComment({ comment, filterComments, onEdit }) {
   const [loading, setLoading] = useState(false);
   const [likesCount, setLikesCount] = useState(comment.likes.length);
   const { currentUser } = useSelector((state) => state.user);
+  const { theme } = useSelector((state) => state.theme);
   const [editArea, showEditArea] = useState(false);
   const navigate=useNavigate();
   const [editedComment, setEditedComment] = useState(comment.content);
 
   const [signinModal, setSigninModal] = useState(false);
-
-  // console.log("editedcomment", editedComment);
 
   useEffect(() => {
     const getUser = async () => {
@@ -41,13 +40,10 @@ export default function SingleComment({ comment, filterComments, onEdit }) {
   }, [comment.likes]);
 
   const likeHandler = async () => {
-    // console.log("comment._id,currentUser._id", comment._id, currentUser._id);
     try {
       if (!currentUser) {
         setSigninModal(true);
         return;
-        
-        
       }
       const response = await axios.put(
         `${import.meta.env.VITE_API_URL}/api/comment/likecomment/${comment._id}/${currentUser._id}`
@@ -61,9 +57,7 @@ export default function SingleComment({ comment, filterComments, onEdit }) {
           setLikesCount(likesCount - 1);
         }
       }
-    } catch (error) {
-      // console.log(error);
-    }
+    } catch (error) {}
   };
 
   const deleteHandler = async () => {
@@ -95,7 +89,6 @@ export default function SingleComment({ comment, filterComments, onEdit }) {
       }
     } catch (error) {
       setLoading(false);
-      // console.log(error);
     }
   };
 
@@ -103,89 +96,81 @@ export default function SingleComment({ comment, filterComments, onEdit }) {
     setSigninModal(false);
     setModal(false);
   };
+  
   return (
     <div>
       {signinModal && <SigninModal onClose={closeModal}/>}
       {loading ? (
         <div className="flex justify-center items-center mt-6">
-          <span class="loader"></span>
+          <span className="loader"></span>
         </div>
       ) : (
-        <div className="w-full rounded-md mb-4 flex flex-col  ">
+        <div className={`w-full rounded-lg mb-4 flex flex-col p-4 ${theme === "dark" ? "bg-gray-800 border border-gray-700" : "bg-gray-50 border border-gray-200"}`}>
           {modal && <Modal onClose={closeModal} deleteHandler={deleteHandler} />}
-          <div className="flex gap-2 items-center">
-            <h1 className="dark:text-gray-300 text-textColor font-medium">@{user?.username}</h1>
-            <span className="text-sm dark:text-gray-300 text-textColor">
+          <div className="flex flex-col sm:flex-row  gap-2 items-start sm:items-center">
+            <h1 className={`font-medium ${theme === "dark" ? "text-gray-200" : "text-gray-900"}`}>@{user?.username}</h1>
+            <span className={`text-xs ${theme === "dark" ? "text-gray-400" : "text-gray-500"}`}>
               {moment(comment?.createdAt).fromNow()}
             </span>
           </div>
           {editArea ? (
             <textarea
               onChange={(e) => setEditedComment(e.target.value)}
-              rows={1}
+              rows={3}
               value={editedComment}
-              className="w-full   mt-2 focus:outline-none placeholder:text-sm bg-transparent border-b border-gray-500 placeholder:dark:text-gray-300 placeholder:text-textColor  dark:focus:border-b-white focus:border-b-gray-600  focus:border-b-2  dark:text-gray-300 text-textColor text-sm"
+              className={`w-full p-3 mt-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1877F2] ${theme === "dark" ? "bg-gray-700 text-gray-200 border-gray-600" : "bg-white text-gray-800 border-gray-300"} border`}
             ></textarea>
           ) : (
-            <p className="text-sm mt-1 dark:text-gray-300 text-textColor ">{editedComment}</p>
+            <p className={`mt-2 ${theme === "dark" ? "text-gray-300" : "text-gray-800"}`}>{editedComment}</p>
           )}
           {editArea && (
-            <div className="flex gap-2 items-center self-end">
+            <div className="flex gap-2 items-center self-end mt-2">
               <button
                 onClick={() => showEditArea(false)}
-                className={`   dark:text-gray-300 text-textColor py-1 px-2 rounded-full text-xs  hover:bg-indigo-600 transition-all self-end mt-2 font-medium `}
+                className={`px-3 py-1.5 text-sm rounded-md font-medium ${theme === "dark" ? "bg-gray-700 text-gray-200 hover:bg-gray-600" : "bg-gray-200 text-gray-800 hover:bg-gray-300"} transition-colors`}
               >
-                cancel
+                Cancel
               </button>
               <button
                 onClick={saveHandler}
-                className={`   dark:text-gray-300 text-white py-1 px-2 rounded-full text-xs ${
-                  !comment
-                    ? "pointer-events-none text-gray-700 bg-gray-400"
-                    : " pointer-events-auto bg-indigo-700"
-                } hover:bg-indigo-500 transition-all self-end mt-2 font-medium `}
+                className="px-3 py-1.5 text-sm bg-[#1877F2] text-white rounded-md font-medium hover:bg-[#166FE5] transition-colors"
               >
                 Save
               </button>
             </div>
           )}
 
-          <div className={`flex gap-2 items-center ${editArea && "hidden"}   `}>
-            <div
+          <div className={`flex gap-2 items-center mt-3 ${editArea && "hidden"}`}>
+            <button
               onClick={likeHandler}
-              className="flex items-center justify-center cursor-pointer  dark:hover:bg-gray-600 hover:bg-gray-400 transition-all px-2 gap-1 py-1 rounded-full"
+              className={`flex items-center justify-center cursor-pointer transition-opacity hover:opacity-80 px-2 gap-1 py-1 rounded-full ${liked ? (theme === "dark" ? "text-[#4080FF]" : "text-[#1877F2]") : (theme === "dark" ? "text-gray-400" : "text-gray-600")}`}
             >
               {liked ? (
-                <FaThumbsUp
-                  className={`
-               text-md transition-all`}
-                />
+                <FaThumbsUp className="h-5 w-5" />
               ) : (
-                <FaRegThumbsUp className={` text-md transition-all  `} />
+                <FaRegThumbsUp className="h-5 w-5" />
               )}
-              <span className="text-xs">{likesCount}</span>
-            </div>
+              {likesCount > 0 && <span className="font-medium">{likesCount}</span>}
+            </button>
 
             {currentUser?._id === comment.userId && (
-              <div className="flex  items-center text-sm pl-2">
+              <div className="flex items-center text-sm pl-2">
                 <button
                   onClick={() => showEditArea(true)}
-                  className="dark:hover:bg-gray-600 hover:bg-gray-400 px-2 py-1 font-medium rounded-full transition-all"
+                  className={`px-2 py-1 font-medium rounded-full transition-colors hover:underline ${theme === "dark" ? "text-blue-400 hover:text-blue-300" : "text-[#1877F2] hover:text-[#166FE5]"}`}
                 >
                   Edit
                 </button>
                 <button
                   onClick={showModal}
-                  className="dark:hover:bg-gray-600 hover:bg-gray-400 px-2 py-1 font-medium rounded-full transition-all"
+                  className="px-2 py-1 font-medium rounded-full transition-colors text-red-600 hover:text-red-700 hover:underline"
                 >
                   Delete
                 </button>
               </div>
             )}
           </div>
-          
         </div>
-        
       )}
     </div>
   );

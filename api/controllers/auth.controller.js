@@ -71,7 +71,7 @@ export const generateOTP = async (req, res) => {
 
     const mailResponse = await sendMail(email, "otp", otp);
     if (mailResponse.success) {
-      console.log("otp sent successfully ")
+      // console.log("otp sent successfully ")
       res.status(200).json({
         message: "OTP sent successfully",
       });
