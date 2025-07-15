@@ -68,51 +68,94 @@ export default function Signin() {
     }
   };
   return (
-    <div className={`w-screen min-h-screen flex flex-col items-center justify-center px-4 ${theme === "dark" ? "bg-background-dark" : "bg-[#F0F2F5]"}`}>
-      <div className={`max-w-[450px] rounded-lg shadow-md flex flex-col gap-8 py-8 px-6 w-full ${theme === "dark" ? "bg-cardBg-dark border-gray-700 text-white" : "bg-white border-gray-200"} border`}>
+    <div
+      className={`w-screen min-h-screen flex flex-col items-center justify-center px-4 ${
+        theme === "dark" ? "bg-background-dark" : "bg-[#F0F2F5]"
+      }`}
+    >
+      <div
+        className={`max-w-[450px] rounded-lg shadow-md flex flex-col gap-8 py-8 px-6 w-full ${
+          theme === "dark"
+            ? "bg-cardBg-dark border-gray-700 text-white"
+            : "bg-white border-gray-200"
+        } border`}
+      >
         <div className="text-center">
           <h1 className="text-3xl font-bold text-[#1877F2] mb-2">Anonymous</h1>
-          <p className={`${theme === "dark" ? "text-gray-300" : "text-gray-600"}`}>Sign in to continue to Anonymous</p>
+          <p
+            className={`${
+              theme === "dark" ? "text-gray-300" : "text-gray-600"
+            }`}
+          >
+            Sign in to continue to Anonymous
+          </p>
         </div>
-        
+
         <form onSubmit={submitHandler} className="flex flex-col gap-4">
           <div className="relative">
-            <div className={`absolute left-3 top-3.5 ${theme === "dark" ? "text-gray-400" : "text-gray-500"}`}>
+            <div
+              className={`absolute left-3 top-3.5 ${
+                theme === "dark" ? "text-gray-400" : "text-gray-500"
+              }`}
+            >
               <FaUserAlt />
             </div>
             <input
               onChange={changeHandler}
               id="email"
               type="text"
-              className={`w-full rounded-md py-3 px-10 border focus:outline-none focus:ring-2 focus:ring-[#1877F2] focus:border-transparent transition-all ${theme === "dark" ? "bg-gray-800 text-white border-gray-700" : "bg-white text-gray-700 border-gray-300"}`}
+              className={`w-full rounded-md py-3 px-10 border focus:outline-none focus:ring-2 focus:ring-[#1877F2] focus:border-transparent transition-all ${
+                theme === "dark"
+                  ? "bg-gray-800 text-white border-gray-700"
+                  : "bg-white text-gray-700 border-gray-300"
+              }`}
               placeholder="Enter GLA mail ID"
             />
           </div>
-          
+
           <div className="relative">
-            <div className={`absolute left-3 top-3.5 ${theme === "dark" ? "text-gray-400" : "text-gray-500"}`}>
+            <div
+              className={`absolute left-3 top-3.5 ${
+                theme === "dark" ? "text-gray-400" : "text-gray-500"
+              }`}
+            >
               <RiLockPasswordLine />
             </div>
             <input
               onChange={changeHandler}
               id="password"
-              type={`${showPassword?"text":"password"}`}
-              className={`w-full rounded-md py-3 px-10 border focus:outline-none focus:ring-2 focus:ring-[#1877F2] focus:border-transparent transition-all ${theme === "dark" ? "bg-gray-800 text-white border-gray-700" : "bg-white text-gray-700 border-gray-300"}`}
+              type={`${showPassword ? "text" : "password"}`}
+              className={`w-full rounded-md py-3 px-10 border focus:outline-none focus:ring-2 focus:ring-[#1877F2] focus:border-transparent transition-all ${
+                theme === "dark"
+                  ? "bg-gray-800 text-white border-gray-700"
+                  : "bg-white text-gray-700 border-gray-300"
+              }`}
               placeholder="Enter Password"
             />
-            <div className={`absolute right-3 top-3.5 cursor-pointer ${theme === "dark" ? "text-gray-400" : "text-gray-500"}`}>
+            <div
+              className={`absolute right-3 top-3.5 cursor-pointer ${
+                theme === "dark" ? "text-gray-400" : "text-gray-500"
+              }`}
+            >
               {showPassword ? (
-                <IoEyeOutline onClick={toggleShowPassword} className="text-lg" />
+                <IoEyeOutline
+                  onClick={toggleShowPassword}
+                  className="text-lg"
+                />
               ) : (
-                <FaRegEyeSlash onClick={toggleShowPassword} className="text-lg" />
+                <FaRegEyeSlash
+                  onClick={toggleShowPassword}
+                  className="text-lg"
+                />
               )}
             </div>
           </div>
 
-          {error && <span className="text-red-500 text-sm font-medium">*{error}</span>}
-          
-          <button className="bg-[#1877F2] hover:bg-[#166FE5] flex justify-center rounded-md text-white py-3 font-medium transition-all transform hover:shadow-md focus:outline-none focus:ring-2 focus:ring-[#1877F2] focus:ring-opacity-50">
+          {error && (
+            <span className="text-red-500 text-sm font-medium">*{error}</span>
+          )}
 
+          <button className="bg-[#1877F2] hover:bg-[#166FE5] flex justify-center rounded-md text-white py-3 font-medium transition-all transform hover:shadow-md focus:outline-none focus:ring-2 focus:ring-[#1877F2] focus:ring-opacity-50">
             {loading ? (
               <ThreeDots
                 height="24"
@@ -124,15 +167,25 @@ export default function Signin() {
               "Sign in"
             )}
           </button>
-          
+
           <div className="flex flex-col sm:flex-row sm:justify-between gap-3 text-center sm:text-left mt-2">
-            <p className={`${theme === "dark" ? "text-gray-300" : "text-gray-600"}`}>
+            <p
+              className={`text-sm ${
+                theme === "dark" ? "text-gray-300" : "text-gray-600"
+              }`}
+            >
               Don't have an account?{" "}
-              <NavLink to="/sign-up" className="text-[#1877F2] font-semibold hover:underline transition-all">
+              <NavLink
+                to="/sign-up"
+                className="text-[#1877F2] font-semibold  hover:underline transition-all"
+              >
                 Sign up
               </NavLink>
             </p>
-            <NavLink to="/forgot-password" className="text-[#1877F2] font-semibold hover:underline transition-all">
+            <NavLink
+              to="/forgot-password"
+              className="text-[#1877F2] font-semibold text-sm hover:underline transition-all"
+            >
               Forgot password?
             </NavLink>
           </div>
